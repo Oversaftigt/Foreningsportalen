@@ -22,7 +22,7 @@ namespace _3.semesterProjekt.Domain.Entities
 
         //Fk
         public required List<BookingUnit> BookingUnits { get; set; }
-        public AddressInformation AddressInformation { get; set; }
+        public Address AddressInformation { get; set; }
         public User User { get; set; }
     }
 }
