@@ -6,30 +6,30 @@ namespace _3.semesterProjekt.Api.Controllers
     public class BookingController
     {
         [HttpGet]
-        public ActionResult<Booking> GetBooking()
+        public async ActionResult<Booking> GetBooking()
         {
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Booking>> GetAllBookings()
+        public async ActionResult<IEnumerable<Booking>> GetAllBookings()
         {
 
         }
 
         [HttpPut]
-        public IActionResult UpdateBooking()
+        public async IActionResult UpdateBooking()
         {
 
         }
 
         [HttpPost]
-        public IActionResult PostBooking()
+        public async IActionResult PostBooking()
         {
 
         }
 
         [HttpDelete]
-        public IActionResult DeleteBooking()
+        public async IActionResult DeleteBooking()
         {
 
         }
