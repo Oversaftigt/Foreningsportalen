@@ -11,13 +11,6 @@ namespace _3.semesterProjekt.Api.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<UserDto>> Get(int unionId)
-        {
-            var result = IUserQuery.GetUsersByUnion(unionId);
-            return result;
-        }
-
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserEditRequestDto request)
         {
