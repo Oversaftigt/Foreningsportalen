@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace _3.semesterProjekt.Domain.Entities
 {
-    public class AddressInformation
+    public class Address
     {
         public int Id { get; }
-        public Address Address { get; set; }
+        public string StreetName { get; set; }
+        public int StreetNumber { get; set; }
+        public string City { get; set; }
+        public int ZioCode { get; set; }
         public List<User> allResidents { get; set; }
     }
 }
