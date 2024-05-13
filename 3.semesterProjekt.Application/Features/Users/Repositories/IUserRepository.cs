@@ -11,7 +11,7 @@ namespace _3.semesterProjekt.Application.Features.Users.Repositories
     {
             void AddUser(User user);
             void DeleteUser(User booking, byte[] rowVersion);
-            Booking GetUser(Guid id);
+            User GetUser(Guid id);
             void UpdateUser(User user, byte[] rowVersion);
         
     }
