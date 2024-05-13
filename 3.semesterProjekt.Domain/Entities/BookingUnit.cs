@@ -15,5 +15,6 @@ namespace _3.semesterProjekt.Domain.Entities
         public double Price { get; set; }
         public int MaxBookingDuration { get; set; }
         public Category Category { get; set; }
+        public List<Booking> Bookings { get; set; }
     }
 }
