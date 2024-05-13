@@ -6,32 +6,33 @@ namespace _3.semesterProjekt.Api.Controllers
     public class BookingController
     {
         [HttpGet]
-        public async ActionResult<Booking> GetBooking()
+        public async Task<ActionResult<Booking>> GetBooking()
         {
+            throw new NotImplementedException();
         }
 
         [HttpGet]
-        public async ActionResult<IEnumerable<Booking>> GetAllBookings()
+        public async Task<ActionResult<IAsyncEnumerable<Booking>>> GetAllBookings()
         {
-
+            throw new NotImplementedException();
         }
 
         [HttpPut]
-        public async IActionResult UpdateBooking()
+        public async Task<IActionResult> UpdateBooking()
         {
-
+            throw new NotImplementedException();
         }
 
         [HttpPost]
-        public async IActionResult PostBooking()
+        public async Task< IActionResult> PostBooking()
         {
-
+            throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public async IActionResult DeleteBooking()
+        public async Task<IActionResult> DeleteBooking()
         {
-
+            throw new NotImplementedException();
         }
         
     }
