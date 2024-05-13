@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Bookings\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
 
