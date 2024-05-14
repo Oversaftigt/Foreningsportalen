@@ -9,7 +9,7 @@ namespace _3.semesterProjekt.Application.Features.Addresses.Queries.DTOs
 {
     public class AddressQueriesDto
     {
-        public int Id { get; }
+        public Guid Id { get; set}
         public string StreetName { get; set; }
         public int StreetNumber { get; set; }
         public string City { get; set; }

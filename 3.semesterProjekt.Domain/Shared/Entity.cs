@@ -2,7 +2,7 @@
 
 namespace _3.semesterProjekt.Domain.Shared;
 
-public class Entity(Guid id)
+public abstract class Entity(Guid id)
 {
     [Timestamp]
     public Byte[] RowVersion { get; private set; } = [];
