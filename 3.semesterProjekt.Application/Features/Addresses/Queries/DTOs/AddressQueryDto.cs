@@ -1,18 +1,14 @@
-﻿using System;
+﻿using _3.semesterProjekt.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3.semesterProjekt.Domain.Entities
+namespace _3.semesterProjekt.Application.Features.Addresses.Queries.DTOs
 {
-    public class Address
+    public class AddressQueryDto
     {
-        internal Address()
-        {
-            
-        }
-
         public int Id { get; }
         public string StreetName { get; set; }
         public int StreetNumber { get; set; }

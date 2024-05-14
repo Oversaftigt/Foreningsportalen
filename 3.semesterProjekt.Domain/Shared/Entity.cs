@@ -1,6 +1,10 @@
-﻿namespace _3.semesterProjekt.Domain.Shared;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Entity
+namespace _3.semesterProjekt.Domain.Shared;
+
+public class Entity(Guid id)
 {
-
+    [Timestamp]
+    public Byte[] RowVersion { get; private set; } = [];
+    public Guid Id { get; init; } = id;
 }
