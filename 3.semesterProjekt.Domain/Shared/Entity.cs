@@ -2,9 +2,9 @@
 
 namespace _3.semesterProjekt.Domain.Shared;
 
-public class Entity
+public class Entity(Guid id)
 {
     [Timestamp]
-    public DateTime RowVersion { get; set; }
-    public Guid Id { get; set; }
+    public Byte[] RowVersion { get; private set; } = [];
+    public Guid Id { get; init; } = id;
 }
