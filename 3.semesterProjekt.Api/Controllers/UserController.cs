@@ -1,8 +1,8 @@
 ﻿using _3.semesterProjekt.Application.Features.Users.Commands;
 using _3.semesterProjekt.Application.Features.Users.Queries;
-using _3.semesterProjekt.Domain.Entities;
+using _3.semesterProjekt.Application.Features.Users.Queries.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+
 
 namespace _3.semesterProjekt.Api.Controllers
 {

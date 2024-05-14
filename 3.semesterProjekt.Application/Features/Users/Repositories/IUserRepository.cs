@@ -13,6 +13,5 @@ namespace _3.semesterProjekt.Application.Features.Users.Repositories
             void DeleteUser(User booking, byte[] rowVersion);
             User GetUser(Guid id);
             void UpdateUser(User user, byte[] rowVersion);
-        
     }
 }
