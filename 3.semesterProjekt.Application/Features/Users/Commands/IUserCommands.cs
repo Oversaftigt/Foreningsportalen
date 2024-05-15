@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3.semesterProjekt.Application.Features.Users.Commands.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace _3.semesterProjekt.Application.Features.Users.Commands
 {
     public interface IUserCommands
     {
-        Task CreateUser(UserCreateRequestDto userCreateDto);
-        Task UpdateUser(UserEditRequestDto userEditDto);
-        Task DeleteUser(Guid userId);
+        void CreateUser(UserCreateRequestDto userCreateDto);
+        void UpdateUser(UserUpdateRequestDto userEditDto);
+        void DeleteUser(Guid userId);
     }
 }

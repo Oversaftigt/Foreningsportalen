@@ -1,14 +1,8 @@
 ﻿using _3.semesterProjekt.Domain.Entities;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _3.semesterProjekt.Application.Features.Users.Queries.DTOs
 {
-    public class UserDto
+    public class UserQueryResultDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

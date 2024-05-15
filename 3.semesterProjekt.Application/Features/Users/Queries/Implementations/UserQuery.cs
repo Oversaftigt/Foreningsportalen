@@ -8,13 +8,27 @@ using System.Threading.Tasks;
 namespace _3.semesterProjekt.Application.Features.Users.Queries.Implementations
 {
     internal class UserQuery : IUserQuery
-    { 
-        public Task<UserDto> GetUserById(Guid userId)
+    {
+        private readonly IUserQueries _UserQueries;
+
+        public UserQuery(IUserQueries userQueries)
         {
-            throw new NotImplementedException();
+            _UserQueries = userQueries;
+        }
+        UserQueryResultDto IUserQuery.GetUserById(Guid userId)
+        {
+            var user = _UserQueries.GetUserById(userId);
+
+            if (user is not null)
+            {
+                return user;
+            }
+
+            var ex = new Exception("No user exists with that Id");
+            throw ex;
         }
 
-        public Task<IEnumerable<UserDto>> GetUsersByUnionId(Guid unionId)
+        IEnumerable<UserQueryResultDto> IUserQuery.GetUsersByUnionId(Guid unionId)
         {
             throw new NotImplementedException();
         }
