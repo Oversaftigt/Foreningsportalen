@@ -1,8 +1,8 @@
 ﻿using _3.semesterProjekt.Domain.Entities;
 
-namespace _3.semesterProjekt.Application.Features.Union.Commands.DTOs
+namespace _3.semesterProjekt.Application.Features.Unions.Commands.DTOs
 {
-    public class UnionCommandCreateDto
+    public class UnionCommandUpdateDto
     {
         public int id { get; }
         public string name { get; set; }
