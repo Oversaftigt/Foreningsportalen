@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _3.semesterProjekt.Application.Features.Users.Queries.Implementations
 {
-    internal class UserQuery : IUserQuery
+    public class UserQuery : IUserQuery
     {
         private readonly IUserQueries _UserQueries;
 

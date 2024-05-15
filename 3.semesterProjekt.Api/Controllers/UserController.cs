@@ -10,8 +10,8 @@ using System.Net.Mime;
 namespace _3.semesterProjekt.Api.Controllers
 {
 
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserQuery _UserQuery;
@@ -23,14 +23,14 @@ namespace _3.semesterProjekt.Api.Controllers
             _UserCommands = userCommands;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{userId}")]
         public ActionResult<UserQueryResultDto> GetUser(Guid userId)
         {
             var result = _UserQuery.GetUserById(userId);
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("ByUnion/{unionId}")]
         public ActionResult<IEnumerable<UserQueryResultDto>> GetAllUsers(Guid unionId)
         {
             var result = _UserQuery.GetUsersByUnionId(unionId);
@@ -51,8 +51,7 @@ namespace _3.semesterProjekt.Api.Controllers
             }
         }
 
-
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult Put([FromBody] UserUpdateRequestDto request)
         {
             try
