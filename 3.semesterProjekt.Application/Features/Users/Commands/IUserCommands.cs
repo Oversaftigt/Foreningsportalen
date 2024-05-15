@@ -11,6 +11,6 @@ namespace _3.semesterProjekt.Application.Features.Users.Commands
     {
         void CreateUser(UserCreateRequestDto userCreateDto);
         void UpdateUser(UserUpdateRequestDto userEditDto);
-        void DeleteUser(Guid userId);
+        void DeleteUser(UserDeleteRequestDto userDeleteDto);
     }
 }

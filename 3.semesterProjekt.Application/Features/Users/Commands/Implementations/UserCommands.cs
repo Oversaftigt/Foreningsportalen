@@ -16,21 +16,27 @@ namespace _3.semesterProjekt.Application.Features.Users.Commands.Implementations
         {
             _UserRepository = userRepository;
         }
-        void IUserCommands.CreateUser(UserCreateRequestDto userCreateDto)
+        void IUserCommands.CreateUser(UserCreateRequestDto userCreateRequest)
         {
 
-            var newUser = Domain.Entities.User.Create(userCreateDto.Email, userCreateDto.PhoneNumber);
+            var newUser = Domain.Entities.User.Create(userCreateRequest.Email, userCreateRequest.PhoneNumber);
             _UserRepository.AddUser(newUser);
         }
 
-        void IUserCommands.DeleteUser(Guid userId)
+        void IUserCommands.DeleteUser(UserDeleteRequestDto userDeleteRequest)
         {
-            throw new NotImplementedException();
+            var userToDelete = _UserRepository.GetUser(userDeleteRequest.Id);
+
+            if (userToDelete is null)
+            {
+                throw new Exception("The requested user for deletion does not exist");
+            }
+            _UserRepository.DeleteUser(userToDelete, userDeleteRequest.RowVersion);
         }
 
-        void IUserCommands.UpdateUser(UserUpdateRequestDto userEditDto)
+        void IUserCommands.UpdateUser(UserUpdateRequestDto userEditRequest)
         {
-            throw new NotImplementedException();
+            
         }
 
     }
