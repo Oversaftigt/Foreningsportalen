@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _3.semesterProjekt.Application.Features.Union.Commands.DTOs;
 
-namespace _3.semesterProjekt.Application.Features.Union.Commands
+namespace _3.semesterProjekt.Application.Features.Unions.Commands
 {
     public interface IUnionCommands
     {
