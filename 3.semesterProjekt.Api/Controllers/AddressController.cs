@@ -1,11 +1,21 @@
 ﻿using _3.semesterProjekt.Application.Features.Addresses.Commands.DTOs;
 using _3.semesterProjekt.Application.Features.Addresses.Queries.DTOs;
+using _3.semesterProjekt.Application.Features.Addresses.Queries.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _3.semesterProjekt.Api.Controllers
 {
-    public class AddressController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AddressController : ControllerBase
     {
+        private readonly IAddressQuery _addressQuery;
+
+        public AddressController(IAddressQuery addressQuery)
+        {
+            _addressQuery = addressQuery;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<AddressQueryDto>> GetAddressesByUnionId(Guid unionId)
         {

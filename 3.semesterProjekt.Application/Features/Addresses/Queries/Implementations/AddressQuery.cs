@@ -10,6 +10,13 @@ namespace _3.semesterProjekt.Application.Features.Addresses.Queries.Implementati
 {
     public class AddressQuery : IAddressQuery
     {
+        private readonly AddressQueries _addresQueries;
+
+        public AddressQuery(AddressQueries addresQueries)
+        {
+            _addresQueries = addresQueries;
+        }
+
         Task<IEnumerable<AddressQueryDto>> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
         {
             throw new NotImplementedException();
