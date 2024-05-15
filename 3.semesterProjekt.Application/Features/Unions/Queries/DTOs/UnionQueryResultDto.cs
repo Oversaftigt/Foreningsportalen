@@ -1,6 +1,6 @@
 ﻿using _3.semesterProjekt.Domain.Entities;
 
-namespace _3.semesterProjekt.Application.Features.Union.Queries.DTOs
+namespace _3.semesterProjekt.Application.Features.Unions.Queries.DTOs
 {
     public class UnionQueryResultDto
     {
