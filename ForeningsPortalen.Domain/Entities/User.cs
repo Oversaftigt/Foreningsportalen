@@ -12,18 +12,24 @@ namespace ForeningsPortalen.Domain.Entities
     {
         public User() : base(Guid.NewGuid())
         {
-
         }
 
-        public User(Guid id, string email, string phoneNumber) : base(id)
+        internal User(Guid id, string email, string phoneNumber) : base(id)
         {
-            Id = id;
+            this.Id = id;
             Email = email;
             PhoneNumber = phoneNumber;
         }
 
+        public static User Create(string email, string phoneNumber)
+        {
+            var user = new User(Guid.NewGuid(), email, phoneNumber);
+            return user;
+        }
+
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public Guid UnionId { get; set; }
 
     }
 }
