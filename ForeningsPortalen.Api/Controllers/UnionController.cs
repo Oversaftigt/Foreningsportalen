@@ -11,9 +11,11 @@ namespace ForeningsPortalen.Api.Controllers
     public class UnionController : ControllerBase
     {
         private readonly IUnionQuery _Query;
+        private readonly IUnionCommands _Commands;
         public UnionController(IUnionQuery query, IUnionCommands commands)
         {
             _Query = query;
+            _Commands = commands;
         }
         [HttpGet]
         public ActionResult<Union> GetUnion(Guid id)
@@ -44,6 +46,7 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpPost]
         public ActionResult CreateUnion(UnionCommandCreateDto unionCommandCreateDto)
         {
+            //var result = _Commands.CreateUnion(unionCommandCreateDto);
             throw new NotImplementedException();
         }
 
