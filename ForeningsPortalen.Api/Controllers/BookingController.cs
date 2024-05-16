@@ -6,31 +6,31 @@ namespace ForeningsPortalen.Api.Controllers
     public class BookingController
     {
         [HttpGet]
-        public async Task<ActionResult<Booking>> GetBooking()
+        public ActionResult<Booking> GetBooking()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Booking>>> GetAllBookings()
+        public ActionResult<IAsyncEnumerable<Booking>> GetAllBookings()
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBooking()
+        public ActionResult UpdateBooking()
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostBooking()
+        public ActionResult PostBooking()
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteBooking()
+        public ActionResult DeleteBooking()
         {
             throw new NotImplementedException();
         }
