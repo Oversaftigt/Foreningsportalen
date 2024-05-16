@@ -13,7 +13,6 @@
 		<Folder Include="Interfaces\" />
 		<Folder Include="Features\Addresses\" />
 		<Folder Include="Features\Helpers\" />
-		<Folder Include="Features\Unions\" />
 	</ItemGroup>
 
 
