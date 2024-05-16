@@ -40,14 +40,30 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpPut]
         public ActionResult UpdateUnion(UnionCommandUpdateDto unionCommandUpdateDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _Commands.UpdateUnion(unionCommandUpdateDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public ActionResult CreateUnion(UnionCommandCreateDto unionCommandCreateDto)
         {
-            //var result = _Commands.CreateUnion(unionCommandCreateDto);
-            throw new NotImplementedException();
+            try
+            {
+                _Commands.CreateUnion(unionCommandCreateDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
         [HttpDelete]
