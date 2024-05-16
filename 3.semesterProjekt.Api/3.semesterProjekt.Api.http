@@ -1,6 +1,0 @@
-@_3.semesterProjekt.Api_HostAddress = http://localhost:5256
-
-GET {{_3.semesterProjekt.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
