@@ -19,7 +19,6 @@
 		<Folder Include="Interfaces\" />
 		<Folder Include="Features\Helpers\" />
 		<Folder Include="Features\Unions\" />
-		<Folder Include="Features\Users\" />
 	</ItemGroup>
 
 

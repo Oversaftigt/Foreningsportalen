@@ -15,6 +15,5 @@ namespace ForeningsPortalen.Domain.Entities
         public Union Union { get; set; }
         public Address Address { get; set; }
         public List<Booking> Bookings { get; set; }
-
     }
 }

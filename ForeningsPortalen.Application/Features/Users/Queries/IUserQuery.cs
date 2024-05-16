@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForeningsPortalen.Application.Features.Users.Queries.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,8 @@ namespace ForeningsPortalen.Application.Features.Users.Queries
 {
     public interface IUserQuery
     {
-        Task<IEnumerable<UserDto>> GetUserByUnionId(Guid unionId);
-        Task<UserDto> GetUserById(Guid userId);
+        IEnumerable<UserQueryResultDto> GetUsersByUnionId(Guid unionId);
+        UserQueryResultDto GetUserById(Guid userId);
 
-    }
-
-    public class UserDto
-    {
     }
 }
