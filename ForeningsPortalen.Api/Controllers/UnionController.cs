@@ -1,87 +1,38 @@
-﻿using ForeningsPortalen.Application.Features.Unions.Commands;
-using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Queries;
-using ForeningsPortalen.Domain.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace ForeningsPortalen.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UnionController : ControllerBase
+    public class UnionController
     {
-        private readonly IUnionQuery _Query;
-        private readonly IUnionCommands _Commands;
-        public UnionController(IUnionQuery query, IUnionCommands commands)
+        [HttpGet]
+        public ActionResult<Union> GetUnion()
         {
-            _Query = query;
-            _Commands = commands;
-        }
-        [HttpGet("{id}")]
-        public ActionResult<Union> GetUnion(Guid id)
-        {
-            var result = _Query.GetUnionWithId(id);
-            if(result == null)
-                return NotFound(result);
-           
-            else return Ok(result);
+            throw new NotImplementedException();
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Union>> GetAllUnions()
         {
-            var result = _Query.GetAllUnions().ToList();
-            if(!result.Any())
-                return NotFound(result);
-
-           else return Ok(result);
+            throw new NotImplementedException();
         }
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateUnion([FromBody]UnionCommandUpdateDto unionCommandUpdateDto)
+        [HttpPut]
+        public ActionResult UpdateUnion()
         {
-            try
-            {
-                _Commands.UpdateUnion(unionCommandUpdateDto);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
         [HttpPost]
-        public ActionResult CreateUnion(UnionCommandCreateDto unionCommandCreateDto)
+        public ActionResult PostUnion()
         {
-            try
-            {
-                _Commands.CreateUnion(unionCommandCreateDto);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-           
+            throw new NotImplementedException();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult DeleteUnion(Guid id)
+        [HttpDelete]
+        public ActionResult DeleteUnion()
         {
-            try
-            {
-            _Commands.DeleteUnion(id);
-            return Ok();
-
-            }
-
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
     }
