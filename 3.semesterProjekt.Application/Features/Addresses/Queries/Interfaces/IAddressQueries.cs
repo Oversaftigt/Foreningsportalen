@@ -10,7 +10,7 @@ namespace _3.semesterProjekt.Application.Features.Addresses.Queries.Interfaces
     //For infrastucture
     public interface IAddressQueries
     {
-        Task<IEnumerable<AddressQueriesDto>> GetAddressesByUnionAsync(Guid unionId);
-        Task<AddressQueriesDto> GetAddressByIdAsync(Guid addressId);
+        IEnumerable<AddressQueriesDto> GetAddressesByUnionAsync(Guid unionId);
+        AddressQueriesDto GetAddressByIdAsync(Guid addressId);
     }
 }

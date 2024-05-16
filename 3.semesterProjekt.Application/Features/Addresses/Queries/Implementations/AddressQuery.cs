@@ -17,12 +17,12 @@ namespace _3.semesterProjekt.Application.Features.Addresses.Queries.Implementati
             _addresQueries = addresQueries;
         }
 
-        Task<IEnumerable<AddressQueryDto>> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
+        IEnumerable<AddressQueryDto> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
         {
             throw new NotImplementedException();
         }
 
-        Task<AddressQueryDto> IAddressQuery.GetAddressByIdAsync(Guid addressId)
+        AddressQueryDto IAddressQuery.GetAddressByIdAsync(Guid addressId)
         {
             throw new NotImplementedException();
         }

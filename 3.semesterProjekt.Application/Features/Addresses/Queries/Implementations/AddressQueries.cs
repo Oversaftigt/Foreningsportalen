@@ -10,12 +10,12 @@ namespace _3.semesterProjekt.Application.Features.Addresses.Queries.Implementati
 {
     public class AddressQueries : IAddressQueries
     {
-        Task<IEnumerable<AddressQueriesDto>> IAddressQueries.GetAddressesByUnionAsync(Guid unionId)
+        IEnumerable<AddressQueriesDto> IAddressQueries.GetAddressesByUnionAsync(Guid unionId)
         {
             throw new NotImplementedException();
         }
 
-        Task<AddressQueriesDto> IAddressQueries.GetAddressByIdAsync(Guid addressId)
+        AddressQueriesDto IAddressQueries.GetAddressByIdAsync(Guid addressId)
         {
             throw new NotImplementedException();
         }
