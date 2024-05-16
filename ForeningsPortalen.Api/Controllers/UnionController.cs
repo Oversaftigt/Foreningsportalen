@@ -8,6 +8,8 @@ using System.Linq;
 
 namespace ForeningsPortalen.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UnionController : ControllerBase
     {
         private readonly IUnionQuery _Query;
@@ -38,7 +40,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateUnion(UnionCommandUpdateDto unionCommandUpdateDto)
+        public ActionResult UpdateUnion([FromBody]UnionCommandUpdateDto unionCommandUpdateDto)
         {
             try
             {
@@ -69,7 +71,17 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpDelete]
         public ActionResult DeleteUnion(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+            _Commands.DeleteUnion(id);
+            return Ok();
+
+            }
+
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
