@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using ForeningsPortalen.Infrastructure.Queries;
 using ForeningsPortalen.Application.Features.Addresses.Repositories;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Repositories;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -34,11 +36,16 @@ namespace ForeningsPortalen.Infrastructure
             //        x =>
             //            x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
 
-
+            //Queries
             services.AddScoped<IUserQueries, UserQueries>();
+            services.AddScoped<IAddressQueries, AddressQueries>();
+            services.AddScoped<IUnionMemberQueries, UnionMemberQueries>();
+
+            //Repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<IAddressQueries, AddressQueries>();
+            services.AddScoped<IUnionMemberRepository, UnionMemberRepository>();
+           
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
 
 

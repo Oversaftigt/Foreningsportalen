@@ -12,6 +12,8 @@ using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.Implementations;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Implementations;
 
 namespace ForeningsPortalen.Application
 {
@@ -23,6 +25,7 @@ namespace ForeningsPortalen.Application
             services.AddScoped<IAddressCommand, AddressCommand>();
             services.AddScoped<IAddressQuery, AddressQuery>();
 
+            services.AddScoped<IUnionMemberCommands, UnionMemberCommands>();
             return services;
         }
     }
