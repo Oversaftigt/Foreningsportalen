@@ -11,7 +11,6 @@ using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Unions.Commands;
 using ForeningsPortalen.Application.Features.Unions.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Unions.Queries;
-using ForeningsPortalen.Application.Features.Unions.Queries.Implementations;
 
 namespace ForeningsPortalen.Application
 {
@@ -21,10 +20,8 @@ namespace ForeningsPortalen.Application
         {
             services.AddScoped<IUserQuery, UserQuery>();
             services.AddScoped<IUserCommands, UserCommands>();
-         
-            
             services.AddScoped<IUnionCommands, UnionCommand>();
-            services.AddScoped<IUnionQuery, UnionQuery>();
+            services.AddScoped<IUnionQuery, IUnionQuery>();
             return services;
         }
     }
