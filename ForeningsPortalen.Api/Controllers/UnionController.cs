@@ -3,37 +3,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
 {
-    public class BookingController
+    public class UnionController
     {
         [HttpGet]
-        public ActionResult<Booking> GetBooking()
+        public ActionResult<Union> GetUnion()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public ActionResult<IAsyncEnumerable<Booking>> GetAllBookings()
+        public ActionResult<IEnumerable<Union>> GetAllUnions()
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
-        public ActionResult UpdateBooking()
+        public ActionResult UpdateUnion()
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public ActionResult PostBooking()
+        public ActionResult PostUnion()
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public ActionResult DeleteBooking()
+        public ActionResult DeleteUnion()
         {
             throw new NotImplementedException();
         }
 
     }
 }
+
