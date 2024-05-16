@@ -13,11 +13,11 @@ namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
     public class UnionCommand : IUnionCommands
     {
         private readonly IUnionRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
-        public UnionCommand(IUnionRepository repository, IUnitOfWork unitOfWork)
+        //private readonly IUnitOfWork _unitOfWork;
+        public UnionCommand(IUnionRepository repository/*, IUnitOfWork unitOfWork*/)
         {
             _repository = repository;
-            _unitOfWork = unitOfWork;
+            //_unitOfWork = unitOfWork;
         }
 
         void IUnionCommands.CreateUnion(UnionCommandCreateDto unionCreateDto)
