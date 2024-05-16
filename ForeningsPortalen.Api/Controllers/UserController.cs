@@ -1,25 +1,64 @@
-﻿using ForeningsPortalen.Application.Features.Users.Queries;
+﻿using ForeningsPortalen.Application.Features.Users.Commands;
+using ForeningsPortalen.Application.Features.Users.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ForeningsPortalen.Api.Controllers
 {
-    public class UserController
-    {
-        [HttpGet]
-        public async Task<UserDto> Get()
+        [Route("api/[controller]")]
+        [ApiController]
+        public class UserController : ControllerBase
         {
-            var user = new UserDto();
-            return user;
+            private readonly IUserQuery _UserQuery;
+            private readonly IUserCommands _UserCommands;
+
+            public UserController(IUserQuery userQuery, IUserCommands userCommands)
+            {
+                _UserQuery = userQuery;
+                _UserCommands = userCommands;
+            }
+
+            [HttpGet("{userId}")]
+            public ActionResult<UserQueryResultDto> GetUser(Guid userId)
+            {
+                var result = _UserQuery.GetUserById(userId);
+                return Ok(result);
+            }
+
+            [HttpGet("ByUnion/{unionId}")]
+            public ActionResult<IEnumerable<UserQueryResultDto>> GetAllUsers(Guid unionId)
+            {
+                var result = _UserQuery.GetUsersByUnionId(unionId);
+                return Ok(result);
+            }
+
+            [HttpPost]
+            public ActionResult Post([FromBody] UserCreateRequestDto request)
+            {
+                try
+                {
+                    _UserCommands.CreateUser(request);
+                    return Created();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+
+            [HttpPut("{id}")]
+            public ActionResult Put([FromBody] UserUpdateRequestDto request)
+            {
+                try
+                {
+                    _UserCommands.UpdateUser(request);
+                    return NoContent();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+
         }
-
-        [HttpPost]
-        public void Post([FromBody] Application.Features.Users.Commands.UserEditRequestDto request)
-        {
-           
-        }
-
-
- 
-    }
 }
