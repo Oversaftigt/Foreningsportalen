@@ -1,57 +1,36 @@
-﻿using ForeningsPortalen.Application.Features.Unions.Commands;
-using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Queries;
-using ForeningsPortalen.Domain.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace ForeningsPortalen.Api.Controllers
 {
-    public class UnionController : ControllerBase
+    public class UnionController
     {
-        private readonly IUnionQuery _Query;
-        private readonly IUnionCommands _Commands;
-        public UnionController(IUnionQuery query, IUnionCommands commands)
-        {
-            _Query = query;
-            _Commands = commands;
-        }
         [HttpGet]
-        public ActionResult<Union> GetUnion(Guid id)
+        public ActionResult<Union> GetUnion()
         {
-            var result = _Query.GetUnionWithId(id);
-            if(result == null)
-                return NotFound(result);
-           
-            else return Ok(result);
+            throw new NotImplementedException();
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Union>> GetAllUnions()
         {
-            var result = _Query.GetAllUnions().ToList();
-            if(!result.Any())
-                return NotFound(result);
-
-           else return Ok(result);
+            throw new NotImplementedException();
         }
 
         [HttpPut]
-        public ActionResult UpdateUnion(UnionCommandUpdateDto unionCommandUpdateDto)
+        public ActionResult UpdateUnion()
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public ActionResult CreateUnion(UnionCommandCreateDto unionCommandCreateDto)
+        public ActionResult PostUnion()
         {
-            //var result = _Commands.CreateUnion(unionCommandCreateDto);
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public ActionResult DeleteUnion(Guid id)
+        public ActionResult DeleteUnion()
         {
             throw new NotImplementedException();
         }
