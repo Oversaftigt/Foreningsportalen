@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\ForeningsPortalen.Domain\ForeningsPortalen.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Features\Bookings\" />
+		<Folder Include="Interfaces\" />
+		<Folder Include="Features\Addresses\" />
+		<Folder Include="Features\Helpers\" />
+		<Folder Include="Features\Unions\" />
+		<Folder Include="Features\Users\" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Compile Update="AssemblyInfo1.cs">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Compile>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>ForeningsPortalen.Application</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+</Project>
