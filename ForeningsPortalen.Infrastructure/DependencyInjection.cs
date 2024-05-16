@@ -1,16 +1,10 @@
-﻿using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Users.Commands;
-using ForeningsPortalen.Application.Features.Users.Repositories;
-using ForeningsPortalen.Infrastructure.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ForeningsPortalen.Application.Features.Users.Queries;
-using Microsoft.Extensions.Configuration;
+﻿
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Repositories;
 using ForeningsPortalen.Infrastructure.Queries;
+using ForeningsPortalen.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -34,7 +28,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUserQueries, UserQueries>();
             services.AddScoped<IUserRepository, UserRepository>();
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
-            
+
 
             return services;
         }

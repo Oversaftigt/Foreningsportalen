@@ -10,7 +10,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class User : Entity
     {
-        public User() : base(Guid.NewGuid())
+        internal User() : base(Guid.NewGuid())
         {
         }
 
@@ -19,6 +19,10 @@ namespace ForeningsPortalen.Domain.Entities
             this.Id = id;
             Email = email;
             PhoneNumber = phoneNumber;
+        }
+
+        public User(Guid id) : base(id)
+        {
         }
 
         public static User Create(string email, string phoneNumber)

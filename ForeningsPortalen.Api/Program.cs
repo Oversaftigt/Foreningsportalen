@@ -1,8 +1,5 @@
 using ForeningsPortalen.Infrastructure;
 using ForeningsPortalen.Application;
-using ForeningsPortalen.Application.Features.Users.Commands;
-using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Users.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 

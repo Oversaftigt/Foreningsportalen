@@ -1,8 +1,9 @@
 ﻿using Azure.Core;
-using ForeningsPortalen.Application.Features.Users.Commands;
-using ForeningsPortalen.Application.Features.Users.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Users.Queries;
-using ForeningsPortalen.Application.Features.Users.Queries.DTOs;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries.DTOs;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,5 +82,18 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromBody] UserDeleteRequestDto deleteRequestDto)
+        {
+            try
+            {
+                _UserCommands.DeleteUser(deleteRequestDto);
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

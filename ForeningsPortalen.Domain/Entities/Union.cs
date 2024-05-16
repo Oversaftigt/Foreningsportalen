@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Union : Entity
     {
-        public Union(Guid id) : base(Guid.NewGuid())
+        public Union() : base(Guid.NewGuid())
         {
         }
 
