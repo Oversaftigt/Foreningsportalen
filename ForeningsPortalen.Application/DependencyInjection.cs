@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Users.Queries.Implementations;
-using ForeningsPortalen.Application.Features.Users.Queries;
+﻿using ForeningsPortalen.Application.Features.Users.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,6 @@ namespace ForeningsPortalen.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserQuery, UserQuery>();
             services.AddScoped<IUserCommands, UserCommands>();
             services.AddScoped<IAddressCommand, AddressCommand>();
             services.AddScoped<IAddressQuery, AddressQuery>();

@@ -1,7 +1,9 @@
-﻿using ForeningsPortalen.Application.Features.Users.Commands;
+﻿using Azure.Core;
+using ForeningsPortalen.Application.Features.Users.Commands;
 using ForeningsPortalen.Application.Features.Users.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Users.Queries;
 using ForeningsPortalen.Application.Features.Users.Queries.DTOs;
+using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -11,36 +13,44 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserQuery _UserQuery;
+        private readonly IUserQueries _UserQueries;
         private readonly IUserCommands _UserCommands;
 
         private List<UserQueryResultDto> _QueryResult = new List<UserQueryResultDto>();
 
-        public UserController( IUserQuery userQuery,IUserCommands userCommands)
+        public UserController(IUserQueries userQuery, IUserCommands userCommands)
         {
-            _UserQuery = userQuery;
+            _UserQueries = userQuery;
             _UserCommands = userCommands;
         }
 
         [HttpGet("{userId}")]
         public ActionResult<UserQueryResultDto> GetUser(Guid userId)
         {
-
-            var result = _UserQuery.GetUserById(userId);
-            return Ok(result);
+            try
+            {
+                var result = _UserQueries.GetUserById(userId);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("ByUnion/{unionId}")]
         public ActionResult<IEnumerable<UserQueryResultDto>> GetAllUsers(Guid unionId)
         {
-            var userQuery = new UserQueryResultDto();
-            userQuery.PhoneNumber = "23232323";
+            try
+            {
+                var result = _UserQueries.GetUserByUnionId(unionId);
+                return Ok(result);
+            }
+            catch
+            {
+                return NotFound();
+            }
 
-            _QueryResult.Add(userQuery);
-            var userList = _QueryResult.ToList();
-
-            //var result = _UserQuery.GetUsersByUnionId(unionId);
-            return Ok(userList);
         }
 
         [HttpPost]
