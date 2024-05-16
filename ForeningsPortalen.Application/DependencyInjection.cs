@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ForeningsPortalen.Application.Features.Users.Commands;
 using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
+using ForeningsPortalen.Application.Features.Unions.Commands;
+using ForeningsPortalen.Application.Features.Unions.Commands.Implementations;
+using ForeningsPortalen.Application.Features.Unions.Queries;
 
 namespace ForeningsPortalen.Application
 {
@@ -17,6 +20,8 @@ namespace ForeningsPortalen.Application
         {
             services.AddScoped<IUserQuery, UserQuery>();
             services.AddScoped<IUserCommands, UserCommands>();
+            services.AddScoped<IUnionCommands, UnionCommand>();
+            services.AddScoped<IUnionQuery, IUnionQuery>();
             return services;
         }
     }
