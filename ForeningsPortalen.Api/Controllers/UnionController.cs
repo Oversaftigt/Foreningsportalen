@@ -19,7 +19,7 @@ namespace ForeningsPortalen.Api.Controllers
             _Query = query;
             _Commands = commands;
         }
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<Union> GetUnion(Guid id)
         {
             var result = _Query.GetUnionWithId(id);
@@ -39,7 +39,7 @@ namespace ForeningsPortalen.Api.Controllers
            else return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult UpdateUnion([FromBody]UnionCommandUpdateDto unionCommandUpdateDto)
         {
             try
@@ -68,7 +68,7 @@ namespace ForeningsPortalen.Api.Controllers
            
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteUnion(Guid id)
         {
             try
