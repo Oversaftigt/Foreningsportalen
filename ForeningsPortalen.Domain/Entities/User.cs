@@ -16,7 +16,6 @@ namespace ForeningsPortalen.Domain.Entities
 
         internal User(Guid id, string email, string phoneNumber) : base(id)
         {
-            this.Id = id;
             Email = email;
             PhoneNumber = phoneNumber;
         }

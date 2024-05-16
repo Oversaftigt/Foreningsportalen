@@ -2,7 +2,7 @@
 
 namespace ForeningsPortalen.Domain.Shared;
 
-public class Entity(Guid id)
+public abstract class Entity(Guid id)
 {
     [Timestamp]
     public byte[] RowVersion { get; private set; } = [];

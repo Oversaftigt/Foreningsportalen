@@ -1,23 +1,32 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+using ForeningsPortalen.Application.Features.Addresses.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForeningsPortalen.Application.Features.Addresses.Queries.Implementations
+namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class AddressQueries : IAddressQueries
     {
-        Task<IEnumerable<AddressQueriesDto>> IAddressQueries.GetAddressesByUnionAsync(Guid unionId)
+        private readonly IAddressRepository _repo;
+
+        public AddressQueries(IAddressRepository repo)
+        {
+            _repo = repo;
+        }
+
+        IEnumerable<AddressQueryResultDto> IAddressQueries.GetAddressesByUnionAsync(Guid unionId)
         {
             throw new NotImplementedException();
         }
 
-        Task<AddressQueriesDto> IAddressQueries.GetAddressByIdAsync(Guid addressId)
+        AddressQueryResultDto IAddressQueries.GetAddressByIdAsync(Guid addressId)
         {
             throw new NotImplementedException();
         }
     }
+
 }

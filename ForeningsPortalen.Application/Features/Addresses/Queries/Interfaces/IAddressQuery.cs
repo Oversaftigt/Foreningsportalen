@@ -10,7 +10,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces
     public interface IAddressQuery
     {
         //For api
-        Task<IEnumerable<AddressQueryDto>> GetAddressesByUnionAsync(Guid unionId);
-        Task<AddressQueryDto> GetAddressByIdAsync(Guid addressId);
+        IEnumerable<AddressQueryResultDto> GetAddressesByUnionAsync(Guid unionId);
+        AddressQueryResultDto GetAddressByIdAsync(Guid addressId);
     }
 }
