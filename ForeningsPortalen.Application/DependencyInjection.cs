@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ForeningsPortalen.Application.Features.Users.Commands;
 using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
+using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
+using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
+using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
 
 namespace ForeningsPortalen.Application
 {
@@ -17,6 +21,9 @@ namespace ForeningsPortalen.Application
         {
             services.AddScoped<IUserQuery, UserQuery>();
             services.AddScoped<IUserCommands, UserCommands>();
+            services.AddScoped<IAddressCommand, AddressCommand>();
+            services.AddScoped<IAddressQuery, AddressQuery>();
+
             return services;
         }
     }

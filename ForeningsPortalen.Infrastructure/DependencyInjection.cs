@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using ForeningsPortalen.Application.Features.Users.Queries;
 using Microsoft.Extensions.Configuration;
 using ForeningsPortalen.Infrastructure.Queries;
+using ForeningsPortalen.Application.Features.Addresses.Repositories;
+using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -33,6 +35,8 @@ namespace ForeningsPortalen.Infrastructure
 
             services.AddScoped<IUserQueries, UserQueries>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAddressQueries, AddressQueries>();
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
             
 

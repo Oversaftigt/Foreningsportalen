@@ -30,5 +30,12 @@ namespace ForeningsPortalen.Domain.Entities
         public string City { get; set; }
         public int ZipCode { get; set; }
         public List<User> allResidents { get; set; }
+
+        public static Address Create(string streetName, int streetNumber, string city, int zipCode, List<User> allResidents)
+        {
+            Address address = new Address(Guid.NewGuid(), streetName, streetNumber, city, zipCode, allResidents);
+            return address;
+        }
+
     }
 }
