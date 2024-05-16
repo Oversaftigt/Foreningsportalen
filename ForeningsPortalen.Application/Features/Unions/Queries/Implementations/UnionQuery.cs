@@ -15,7 +15,7 @@ namespace ForeningsPortalen.Application.Features.Unions.Queries.Implementations
             _Queries = queries;
         }
 
-        UnionQueryResultDto IUnionQuery.GetAllUnions()
+       List< UnionQueryResultDto> IUnionQuery.GetAllUnions()
         {
             throw new NotImplementedException();
         }

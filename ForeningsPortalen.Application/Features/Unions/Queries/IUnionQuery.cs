@@ -10,6 +10,6 @@ namespace ForeningsPortalen.Application.Features.Unions.Queries
     public interface IUnionQuery
     {
         UnionQueryResultDto GetUnionWithId(Guid id);
-        UnionQueryResultDto GetAllUnions();
+       List< UnionQueryResultDto> GetAllUnions();
     }
 }
