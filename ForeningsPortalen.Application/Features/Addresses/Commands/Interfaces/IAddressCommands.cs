@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces
 {
-    public interface IAddressCommand
+    public interface IAddressCommands
     {
         void CreateAddress(AddressCreateRequestDto addressCreateRequestDto);
         void UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto);

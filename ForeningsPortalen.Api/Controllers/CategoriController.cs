@@ -10,10 +10,10 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class CategoriController : ControllerBase
     {
-        private readonly ICategoryCommand _command;
+        private readonly ICategoryCommands _command;
         private readonly ICategoryQueries _queries;
 
-        public CategoriController(ICategoryCommand command, ICategoryQueries queries)
+        public CategoriController(ICategoryCommands command, ICategoryQueries queries)
         {
             _command = command;
             _queries = queries;

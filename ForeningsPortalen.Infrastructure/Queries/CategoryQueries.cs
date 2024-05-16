@@ -6,12 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForeningsPortalen.Application.Features.Categories.Queries.Implementations
+namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class CategoryQueries : ICategoryQueries
     {
-
-        IEnumerable<CategoryQueryResultDto> ICategoryQueries.GetCategories()
+        public IEnumerable<CategoryQueryResultDto> GetCategories()
         {
             throw new NotImplementedException();
         }

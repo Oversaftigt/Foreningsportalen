@@ -10,7 +10,6 @@ using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
 
 namespace ForeningsPortalen.Application
 {
@@ -19,8 +18,8 @@ namespace ForeningsPortalen.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IUserCommands, UserCommands>();
-            services.AddScoped<IAddressCommand, AddressCommand>();
-            services.AddScoped<IAddressQuery, AddressQuery>();
+            services.AddScoped<IAddressCommands, AddressCommands>();
+
 
             return services;
         }
