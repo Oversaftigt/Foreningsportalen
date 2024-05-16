@@ -16,7 +16,6 @@ namespace ForeningsPortalen.Domain.Entities
 
         public Address(Guid id,string streetName, int streetNumber, string city, int zipCode, List<User> allResidents) : base(id)
         {
-            this.Id = id; 
             StreetName = streetName;
             StreetNumber = streetNumber;
             City = city;

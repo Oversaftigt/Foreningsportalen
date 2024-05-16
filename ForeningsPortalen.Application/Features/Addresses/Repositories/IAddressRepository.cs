@@ -11,8 +11,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Repositories
     public interface IAddressRepository
     {
         void AddAddress(Address address);
-        AddressQueryResultDto GetAddressById(Guid addressId);
-        List<AddressQueryResultDto> GetAddressesByUnion(Guid unionId);
+        Address GetAddress(Guid id);
         void UpdateAddress(Address address, byte[] rowVersion);
         void DeleteAddress(Address address, byte[] rowVersion);
     }

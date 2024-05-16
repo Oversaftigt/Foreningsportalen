@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
 using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace ForeningsPortalen.Api.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IAddressQuery _addressQuery;
+        private readonly IAddressCommand addressCommand;
 
-        public AddressController(IAddressQuery addressQuery)
+        public AddressController(IAddressQuery addressQuery, IAddressCommand addressCommand)
         {
             _addressQuery = addressQuery;
+            this.addressCommand = addressCommand;
         }
 
         [HttpGet("{unionId}")]

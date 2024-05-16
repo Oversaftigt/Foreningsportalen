@@ -11,26 +11,12 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 {
     public class AddressRepository : IAddressRepository
     {
-
-
-
-
         void IAddressRepository.AddAddress(Address address)
         {
             throw new NotImplementedException();
         }
 
-        void IAddressRepository.DeleteAddress(Address address, byte[] rowVersion)
-        {
-            throw new NotImplementedException();
-        }
-
-        AddressQueryResultDto IAddressRepository.GetAddressById(Guid addressId)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<AddressQueryResultDto> IAddressRepository.GetAddressesByUnion(Guid unionId)
+        Address IAddressRepository.GetAddress(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -39,5 +25,10 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+        void IAddressRepository.DeleteAddress(Address address, byte[] rowVersion)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
