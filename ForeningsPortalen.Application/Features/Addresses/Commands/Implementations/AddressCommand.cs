@@ -1,5 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
+using ForeningsPortalen.Application.Features.Addresses.Repositories;
+using ForeningsPortalen.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +12,24 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
 {
     public class AddressCommand : IAddressCommand
     {
-        Task IAddressCommand.CreateAddress(AddressCreateRequestDto addressCreateRequestDto)
+        private readonly IAddressRepository _repo;
+
+        public AddressCommand(IAddressRepository repo)
+        {
+            _repo = repo;
+        }
+
+        void IAddressCommand.CreateAddress(AddressCreateRequestDto addressCreateRequestDto)
+        {
+            Address address = new Address()
+        }
+
+        void IAddressCommand.UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }
 
-        Task IAddressCommand.UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IAddressCommand.DeleteAddress(Guid addressId)
+        void IAddressCommand.DeleteAddress(Guid addressId)
         {
             throw new NotImplementedException();
         }

@@ -17,13 +17,17 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpGet("{unionId}")]
-        public IEnumerable<AddressQueryDto> GetAddressesByUnionId(Guid unionId)
+        public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
-            throw new NotImplementedException();
+            AddressQueryResultDto h = new();
+            h.City = "vejle";
+            List<AddressQueryResultDto> de = new();
+            de.Add(h);
+            return Ok(de);
         }
 
         [HttpGet]
-        public AddressQueryDto GetByUserId(Guid userId)
+        public AddressQueryResultDto GetByUserId(Guid userId)
         {
             throw new NotImplementedException();
         }

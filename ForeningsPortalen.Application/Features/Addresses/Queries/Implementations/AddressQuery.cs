@@ -10,21 +10,21 @@ namespace ForeningsPortalen.Application.Features.Addresses.Queries.Implementatio
 {
     public class AddressQuery : IAddressQuery
     {
-        private readonly AddressQueries _addresQueries;
+        private readonly IAddressQueries _addresQueries;
 
-        public AddressQuery(AddressQueries addresQueries)
+        public AddressQuery(IAddressQueries addresQueries)
         {
             _addresQueries = addresQueries;
         }
 
-        IEnumerable<AddressQueryDto> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
+        IEnumerable<AddressQueryResultDto> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
         {
-            throw new NotImplementedException();
+            return _addresQueries.GetAddressesByUnionAsync(unionId);
         }
 
-        AddressQueryDto IAddressQuery.GetAddressByIdAsync(Guid addressId)
+        AddressQueryResultDto IAddressQuery.GetAddressByIdAsync(Guid addressId)
         {
-            throw new NotImplementedException();
+            return _addresQueries.GetAddressByIdAsync(addressId);
         }
     }
 }
