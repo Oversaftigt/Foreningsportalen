@@ -12,7 +12,6 @@ using ForeningsPortalen.Application.Features.Users.Queries;
 using Microsoft.Extensions.Configuration;
 using ForeningsPortalen.Infrastructure.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries;
-using ForeningsPortalen.Application.Features.Unions.Repositories;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -36,10 +35,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUserQueries, UserQueries>();
             services.AddScoped<IUserRepository, UserRepository>();
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
-        
-            
-            services.AddScoped<IUnionQueries, UnionQueries>();
-            services.AddScoped<IUnionRepository, UnionRepository>();
+          //  services.AddScoped<IUnionQueries, UnionQueries>();
             
 
             return services;
