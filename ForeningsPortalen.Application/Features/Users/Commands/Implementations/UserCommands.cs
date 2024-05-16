@@ -1,4 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Users.Commands;
+using ForeningsPortalen.Application.Features.Users.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Users.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +11,33 @@ namespace ForeningsPortalen.Application.Features.Users.Commands.Implementations
 {
     public class UserCommands : IUserCommands
     {
-        public Task CreateUser(UserCreateRequestDto userCreateDto)
+        private readonly IUserRepository _UserRepository;
+
+        public UserCommands(IUserRepository userRepository)
         {
-            //UnitOfWork
-            //Entities
-            throw new NotImplementedException();
+            _UserRepository = userRepository;
+        }
+        void IUserCommands.CreateUser(UserCreateRequestDto userCreateRequest)
+        {
+
+            var newUser = Domain.Entities.User.Create(userCreateRequest.Email, userCreateRequest.PhoneNumber);
+            _UserRepository.AddUser(newUser);
         }
 
-        public Task DeleteUser(Guid userId)
+        void IUserCommands.DeleteUser(UserDeleteRequestDto userDeleteRequest)
         {
-            //UnitOfWork
-            //Entities
-            throw new NotImplementedException();
+            var userToDelete = _UserRepository.GetUser(userDeleteRequest.Id);
+
+            if (userToDelete is null)
+            {
+                throw new Exception("The requested user for deletion does not exist");
+            }
+            _UserRepository.DeleteUser(userToDelete, userDeleteRequest.RowVersion);
         }
 
-        public Task UpdateUser(UserEditRequestDto userEditDto)
+        void IUserCommands.UpdateUser(UserUpdateRequestDto userEditRequest)
         {
-            //UnitOfWork
-            //Entities
-            throw new NotImplementedException();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForeningsPortalen.Application.Features.Users.Commands.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,9 @@ namespace ForeningsPortalen.Application.Features.Users.Commands
 {
     public interface IUserCommands
     {
-        Task CreateUser(UserCreateRequestDto userCreateDto);
-        Task UpdateUser(UserEditRequestDto userEditDto);
-        Task DeleteUser(Guid userId);
+        void CreateUser(UserCreateRequestDto userCreateDto);
+        void UpdateUser(UserUpdateRequestDto userEditDto);
+        void DeleteUser(UserDeleteRequestDto userDeleteDto);
     }
 
-    public class UserEditRequestDto
-    {
-    }
-
-    public class UserCreateRequestDto
-    {
-    }
 }
