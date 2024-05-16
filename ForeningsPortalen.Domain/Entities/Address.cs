@@ -1,4 +1,4 @@
-﻿using _3.semesterProjekt.Domain.Shared;
+﻿using ForeningsPortalen.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

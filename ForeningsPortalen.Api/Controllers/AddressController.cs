@@ -1,9 +1,9 @@
-﻿using _3.semesterProjekt.Application.Features.Addresses.Commands.DTOs;
-using _3.semesterProjekt.Application.Features.Addresses.Queries.DTOs;
-using _3.semesterProjekt.Application.Features.Addresses.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
+using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace _3.semesterProjekt.Api.Controllers
+namespace ForeningsPortalen.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,32 +16,32 @@ namespace _3.semesterProjekt.Api.Controllers
             _addressQuery = addressQuery;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<AddressQueryDto>> GetAddressesByUnionId(Guid unionId)
+        [HttpGet("{unionId}")]
+        public IEnumerable<AddressQueryDto> GetAddressesByUnionId(Guid unionId)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public async Task<AddressQueryDto> GetByUserId(Guid userId)
+        public AddressQueryDto GetByUserId(Guid userId)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public async Task PostAddress(AddressCreateRequestDto addressCreateRequestDto)
+        public void PostAddress([FromBody] AddressCreateRequestDto addressCreateRequestDto)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
-        public async Task UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto)
+        public void UpdateAddress([FromBody]AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public async Task DeleteAddress(Guid addressId)
+        public void DeleteAddress(Guid addressId)
         {
             throw new NotImplementedException();
         }
