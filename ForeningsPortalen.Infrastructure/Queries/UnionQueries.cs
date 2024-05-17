@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class UnionQueries : IUnionQueries
     {
-        // private readonly DbContext _dbContext;
-        public UnionQueries(/*DbContext dbContext*/)
+        private readonly ForeningsPortalenContext _dbContext;
+        public UnionQueries(ForeningsPortalenContext dbContext)
         {
-            //_dbContext = dbContext;
+            _dbContext = dbContext;
         }
         UnionQueryResultDto IUnionQueries.GelAllUnions()
         {
