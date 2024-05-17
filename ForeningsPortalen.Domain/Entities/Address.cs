@@ -9,13 +9,13 @@ namespace ForeningsPortalen.Domain.Entities
 
         }
 
-        public Address(Guid id, string streetName, int streetNumber, string city, int zipCode, List<Member> allResidents) : base(id)
+        public Address(Guid id, string streetName, int streetNumber, string city, int zipCode) : base(id)
         {
             StreetName = streetName;
             StreetNumber = streetNumber;
             City = city;
             ZipCode = zipCode;
-            this.allResidents = allResidents;
+
         }
 
 
@@ -25,9 +25,9 @@ namespace ForeningsPortalen.Domain.Entities
         public int ZipCode { get; set; }
         public List<Member> allResidents { get; set; }
 
-        public static Address Create(string streetName, int streetNumber, string city, int zipCode, List<Member> allResidents)
+        public static Address Create(string streetName, int streetNumber, string city, int zipCode)
         {
-            Address address = new Address(Guid.NewGuid(), streetName, streetNumber, city, zipCode, allResidents);
+            Address address = new Address(Guid.NewGuid(), streetName, streetNumber, city, zipCode);
             return address;
         }
 
