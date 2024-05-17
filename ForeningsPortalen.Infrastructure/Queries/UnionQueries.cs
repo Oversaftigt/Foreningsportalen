@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
