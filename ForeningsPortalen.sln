@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{ADF7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{83F54123-F0E1-4958-AECC-C9A91099C8A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeningsPortalen.WebApp", "ForeningsPortalen.WebApp\ForeningsPortalen.WebApp.csproj", "{DB83E3BE-F741-4BEC-A3E2-74CC869F72AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForeningsPortalen.WebApp", "ForeningsPortalen.WebApp\ForeningsPortalen.WebApp.csproj", "{DB83E3BE-F741-4BEC-A3E2-74CC869F72AA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{48D13A63-DF4B-4CA8-B66F-EB2DF0B34EB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{DB83E3BE-F741-4BEC-A3E2-74CC869F72AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB83E3BE-F741-4BEC-A3E2-74CC869F72AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB83E3BE-F741-4BEC-A3E2-74CC869F72AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D13A63-DF4B-4CA8-B66F-EB2DF0B34EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D13A63-DF4B-4CA8-B66F-EB2DF0B34EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D13A63-DF4B-4CA8-B66F-EB2DF0B34EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D13A63-DF4B-4CA8-B66F-EB2DF0B34EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

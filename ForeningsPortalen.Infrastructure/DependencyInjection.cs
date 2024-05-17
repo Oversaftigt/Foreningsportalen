@@ -1,13 +1,14 @@
-﻿
-using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 using ForeningsPortalen.Infrastructure.Queries;
 using ForeningsPortalen.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -22,10 +23,10 @@ namespace ForeningsPortalen.Infrastructure
             // Add-Migration InitialMigration -Context BookMyHomeContext -Project BookMyHome.DatabaseMigration
             // Update-Database -Context BookMyHomeContext -Project BookMyHome.DatabaseMigration
 
-            //services.AddDbContext<Forenings>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("BookMyHomeDbConnection"),
-            //        x =>
-            //            x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
+            services.AddDbContext<ForeningsPortalenContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalenDbConnection"),
+                    x =>
+                        x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
 
             //Queries
             services.AddScoped<IUserQueries, UserQueries>();
@@ -38,9 +39,6 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IMemberRepository, MemberRepository>();
 
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
-
-
-
 
             services.AddScoped<IUnionQueries, UnionQueries>();
             services.AddScoped<IUnionRepository, UnionRepository>();
