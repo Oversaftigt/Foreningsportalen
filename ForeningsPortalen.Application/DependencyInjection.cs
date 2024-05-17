@@ -1,15 +1,9 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Unions.Commands;
-using ForeningsPortalen.Application.Features.Unions.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Unions.Queries;
-using ForeningsPortalen.Application.Features.Unions.Queries.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 

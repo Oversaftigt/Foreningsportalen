@@ -1,6 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
-using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
