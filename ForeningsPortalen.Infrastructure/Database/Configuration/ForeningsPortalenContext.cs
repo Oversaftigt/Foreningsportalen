@@ -5,6 +5,9 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
 {
     public class ForeningsPortalenContext : DbContext
     {
+        public ForeningsPortalenContext(DbContextOptions<ForeningsPortalenContext> options) : base(options)
+        {
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Union> Unions { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -15,6 +18,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
         //public DbSet<User> Users { get; set; }
         //public DbSet<User> Users { get; set; }
 
+        
 
     }
 }
