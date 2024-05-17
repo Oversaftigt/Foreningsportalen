@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Helpers;
-using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
+﻿using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
