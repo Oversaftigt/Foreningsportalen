@@ -6,12 +6,6 @@ namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class AddressQueries : IAddressQueries
     {
-        private readonly IAddressRepository _repo;
-
-        public AddressQueries(IAddressRepository repo)
-        {
-            _repo = repo;
-        }
 
         IEnumerable<AddressQueryResultDto> IAddressQueries.GetAddressesByUnionAsync(Guid unionId)
         {

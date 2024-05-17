@@ -9,7 +9,6 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
         public int StreetNumber { get; set; }
         public string City { get; set; }
         public int ZipCode { get; set; }
-        public List<User> allResidents { get; set; }
         public byte[] RowVersion { get; set; }
     }
 }

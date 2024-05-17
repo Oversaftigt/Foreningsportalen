@@ -4,26 +4,26 @@ using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
 {
-    public class CategoryCommand : ICategoryCommand
+    public class CategoryCommands : ICategoryCommands
     {
         private readonly ICategoryRepository _repo;
 
-        public CategoryCommand(ICategoryRepository repo)
+        public CategoryCommands(ICategoryRepository repo)
         {
             _repo = repo;
         }
 
-        void ICategoryCommand.CreateCategory(AddressCreateRequestDto addressCreateRequestDto)
+        void ICategoryCommands.CreateCategory(AddressCreateRequestDto addressCreateRequestDto)
         {
             throw new NotImplementedException();
         }
 
-        void ICategoryCommand.UpdateCategory(AddressUpdateRequestDto addressUpdateRequestDto)
+        void ICategoryCommands.UpdateCategory(AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }
 
-        void ICategoryCommand.DeleteCategory(Guid id)
+        void ICategoryCommands.DeleteCategory(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -1,12 +1,11 @@
 ﻿using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
 
-namespace ForeningsPortalen.Application.Features.Categories.Queries.Implementations
+namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class CategoryQueries : ICategoryQueries
     {
-
-        IEnumerable<CategoryQueryResultDto> ICategoryQueries.GetCategories()
+        public IEnumerable<CategoryQueryResultDto> GetCategories()
         {
             throw new NotImplementedException();
         }
