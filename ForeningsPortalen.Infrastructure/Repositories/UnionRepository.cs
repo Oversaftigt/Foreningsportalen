@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Unions.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
