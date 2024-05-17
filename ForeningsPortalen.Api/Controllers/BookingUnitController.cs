@@ -6,6 +6,6 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class BookingUnitController : ControllerBase
     {
-        
+
     }
 }

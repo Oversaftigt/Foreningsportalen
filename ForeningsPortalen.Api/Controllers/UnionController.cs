@@ -38,7 +38,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateUnion([FromBody]UnionCommandUpdateDto unionCommandUpdateDto)
+        public ActionResult UpdateUnion([FromBody] UnionCommandUpdateDto unionCommandUpdateDto)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-           
+
         }
 
         [HttpDelete("{id}")]
@@ -71,12 +71,12 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-            _Commands.DeleteUnion(id);
-            return Ok();
+                _Commands.DeleteUnion(id);
+                return Ok();
 
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

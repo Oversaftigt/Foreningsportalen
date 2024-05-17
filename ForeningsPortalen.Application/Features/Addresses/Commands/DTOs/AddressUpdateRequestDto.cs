@@ -1,6 +1,4 @@
-﻿using ForeningsPortalen.Domain.Entities;
-
-namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
+﻿namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
 {
     public class AddressUpdateRequestDto
     {

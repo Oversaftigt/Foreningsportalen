@@ -1,6 +1,4 @@
-﻿using ForeningsPortalen.Domain.Entities;
-
-namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
+﻿namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
 {
     public class AddressCreateRequestDto
     {
@@ -8,6 +6,6 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.DTOs
         public int StreetNumber { get; set; }
         public string City { get; set; }
         public int ZipCode { get; set; }
-        
+
     }
 }
