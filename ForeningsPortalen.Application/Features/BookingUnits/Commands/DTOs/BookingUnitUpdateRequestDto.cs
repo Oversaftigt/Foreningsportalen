@@ -15,8 +15,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs
         public double Deposit { get; set; }
         public double Price { get; set; }
         public int MaxBookingDuration { get; set; }
-        public Category Category { get; set; }
-        public List<Booking> Bookings { get; set; }
+        public Guid CategoryId { get; set; }
         public byte[] RowVersion { get; set; }
     }
 }
