@@ -1,13 +1,8 @@
 ﻿using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs
 {
-    public class UnionMemberQueryResultDto
+    public class MemberQueryResultDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

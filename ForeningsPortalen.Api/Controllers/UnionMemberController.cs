@@ -2,7 +2,6 @@
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
-using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,17 +12,17 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class UnionMemberController : ControllerBase
     {
-        private readonly IUnionMemberCommands _UnionMemberCommands;
-        private readonly IUnionMemberQueries _UnionMemberQueries;
+        private readonly IMemberCommands _UnionMemberCommands;
+        private readonly IMemberQueries _UnionMemberQueries;
 
-        public UnionMemberController(IUnionMemberCommands unionMemberCommands, IUnionMemberQueries unionMemberQueries)
+        public UnionMemberController(IMemberCommands unionMemberCommands, IMemberQueries unionMemberQueries)
         {
             _UnionMemberCommands = unionMemberCommands;
             _UnionMemberQueries = unionMemberQueries;
         }
         // GET: api/<UnionMemberController>
         [HttpGet("{unionMemberId}")]
-        public ActionResult<UnionMemberQueryResultDto> GetUNionMemberById(Guid unionMemberId)
+        public ActionResult<MemberQueryResultDto> GetUNionMemberById(Guid unionMemberId)
         {
             try
             {
@@ -43,7 +42,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // GET api/<UnionMemberController>/5
         [HttpGet("/ByUnion/{unionId}")]
-        public ActionResult<IEnumerable<UnionMemberQueryResultDto>> GetUnionMembersByUnionId(Guid unionId)
+        public ActionResult<IEnumerable<MemberQueryResultDto>> GetUnionMembersByUnionId(Guid unionId)
         {
             var unionMembers = _UnionMemberQueries.GetUnionMembersByUnion(unionId).ToList();
 
@@ -56,7 +55,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // POST api/<UnionMemberController>
         [HttpPost]
-        public ActionResult Post([FromBody] UnionMemberCreateRequestDto createRequestDto)
+        public ActionResult Post([FromBody] MemberCreateRequestDto createRequestDto)
         {
             try
             {
@@ -71,7 +70,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // PUT api/<UnionMemberController>/5
         [HttpPut("{id}")]
-        public ActionResult Put([FromBody] UnionMemberUpdateRequestDto UpdateRequestDto)
+        public ActionResult Put([FromBody] MemberUpdateRequestDto UpdateRequestDto)
         {
             try
             {
@@ -86,7 +85,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // DELETE api/<UnionMemberController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete([FromBody] UnionMemberDeleteRequestDto deleteRequestDto)
+        public ActionResult Delete([FromBody] MemberDeleteRequestDto deleteRequestDto)
         {
             try
             {

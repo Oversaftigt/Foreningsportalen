@@ -2,9 +2,7 @@
 using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Domain.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace ForeningsPortalen.Api.Controllers
 {
@@ -21,9 +19,9 @@ namespace ForeningsPortalen.Api.Controllers
         public ActionResult<Union> GetUnion(Guid id)
         {
             var result = _Query.GetUnionWithId(id);
-            if(result == null)
+            if (result == null)
                 return NotFound(result);
-           
+
             else return Ok(result);
         }
 
@@ -31,10 +29,10 @@ namespace ForeningsPortalen.Api.Controllers
         public ActionResult<IEnumerable<Union>> GetAllUnions()
         {
             var result = _Query.GetAllUnions().ToList();
-            if(!result.Any())
+            if (!result.Any())
                 return NotFound(result);
 
-           else return Ok(result);
+            else return Ok(result);
         }
 
         [HttpPut]

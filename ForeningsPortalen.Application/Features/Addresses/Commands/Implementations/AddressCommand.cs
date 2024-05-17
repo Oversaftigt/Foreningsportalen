@@ -1,12 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.Addresses.Repositories;
+using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementations
 {
@@ -21,8 +16,8 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
 
         void IAddressCommand.CreateAddress(AddressCreateRequestDto addressCreateRequestDto)
         {
-            Address address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber, 
-                                            addressCreateRequestDto.City, addressCreateRequestDto.ZipCode, 
+            Address address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber,
+                                            addressCreateRequestDto.City, addressCreateRequestDto.ZipCode,
                                             addressCreateRequestDto.allResidents);
             _repo.AddAddress(address);
         }

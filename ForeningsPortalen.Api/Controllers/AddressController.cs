@@ -42,7 +42,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPut]
-        public void UpdateAddress([FromBody]AddressUpdateRequestDto addressUpdateRequestDto)
+        public void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

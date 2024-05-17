@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForeningsPortalen.Domain.Entities
+﻿namespace ForeningsPortalen.Domain.Entities
 {
-    public class UnionMember : User
+    public class Member : User
     {
-        internal UnionMember() : base(Guid.NewGuid()) 
 
-        {
-        
-        }
-
-        internal UnionMember(Guid id, string firstName, 
-                             string lastName, 
+        internal Member(Guid id, string firstName,
+                             string lastName,
                              DateOnly moveInDate,
-                             Union union, 
-                             Address address) : base(id)
+                             Union union,
+                             Address address, string email, string phoneNumber) : base(id, email, phoneNumber)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -35,14 +24,16 @@ namespace ForeningsPortalen.Domain.Entities
         public Address Address { get; set; }
         public List<Booking>? Bookings { get; set; }
 
-        public static UnionMember Create(string firstName,
+        public static Member Create(string firstName,
                                          string lastName,
                                          DateOnly moveInDate,
                                          Union union,
-                                         Address address
+                                         Address address,
+                                         string email,
+                                         string phoneNumber
                                          )
         {
-            var newUnionMember = new UnionMember(Guid.NewGuid(),firstName, lastName, moveInDate, union, address);
+            var newUnionMember = new Member(Guid.NewGuid(), firstName, lastName, moveInDate, union, address, email, phoneNumber);
             return newUnionMember;
         }
     }

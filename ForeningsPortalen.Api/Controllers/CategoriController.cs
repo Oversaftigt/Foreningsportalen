@@ -26,13 +26,13 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostCategory([FromBody]CategoryCreateRequestDto categoryCreateRequestDto)
+        public ActionResult PostCategory([FromBody] CategoryCreateRequestDto categoryCreateRequestDto)
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
-        public ActionResult PutCategory([FromBody]CategoryUpdateRequestDto categoryUpdateRequestDto)
+        public ActionResult PutCategory([FromBody] CategoryUpdateRequestDto categoryUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

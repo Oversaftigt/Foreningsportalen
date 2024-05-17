@@ -1,5 +1,5 @@
-using ForeningsPortalen.Infrastructure;
 using ForeningsPortalen.Application;
+using ForeningsPortalen.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
