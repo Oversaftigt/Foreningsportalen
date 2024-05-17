@@ -10,10 +10,6 @@
 
 	<ItemGroup>
 		<Folder Include="Features\Bookings\" />
-		<Folder Include="Features\BookingUnits\Commands\" />
-		<Folder Include="Features\BookingUnits\Queries\Interfaces\" />
-		<Folder Include="Features\BookingUnits\Queries\Implementations\" />
-		<Folder Include="Features\BookingUnits\Repositories\" />
 		<Folder Include="Interfaces\" />
 		<Folder Include="Features\Helpers\" />
 	</ItemGroup>
