@@ -18,7 +18,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
         {
             Address address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber,
                                             addressCreateRequestDto.City, addressCreateRequestDto.ZipCode,
-                                            addressCreateRequestDto.allResidents);
+                                            addressCreateRequestDto.Members);
             _repo.AddAddress(address);
         }
 
