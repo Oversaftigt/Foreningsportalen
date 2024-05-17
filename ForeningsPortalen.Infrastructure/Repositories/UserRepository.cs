@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Users.Repositories;
+﻿using ForeningsPortalen.Application.Features.Users.BaseUsers.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,9 @@
-﻿using ForeningsPortalen.Application.Features.Users.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Users.Commands;
-using ForeningsPortalen.Application.Features.Users.Repositories;
+﻿
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Repositories;
+using ForeningsPortalen.Infrastructure.Queries;
 using ForeningsPortalen.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,10 @@ using System.Threading.Tasks;
 using ForeningsPortalen.Application.Features.Users.Queries;
 using Microsoft.Extensions.Configuration;
 using ForeningsPortalen.Infrastructure.Queries;
+using ForeningsPortalen.Application.Features.Addresses.Repositories;
+using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
+using ForeningsPortalen.Application.Features.Users.UnionMembers.Repositories;
 using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Unions.Repositories;
 
@@ -32,10 +38,19 @@ namespace ForeningsPortalen.Infrastructure
             //        x =>
             //            x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
 
-
+            //Queries
             services.AddScoped<IUserQueries, UserQueries>();
+            services.AddScoped<IAddressQueries, AddressQueries>();
+            services.AddScoped<IUnionMemberQueries, UnionMemberQueries>();
+
+            //Repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IUnionMemberRepository, UnionMemberRepository>();
+           
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
+
+
         
             
             services.AddScoped<IUnionQueries, UnionQueries>();

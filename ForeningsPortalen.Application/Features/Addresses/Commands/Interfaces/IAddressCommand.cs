@@ -9,8 +9,8 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces
 {
     public interface IAddressCommand
     {
-        Task CreateAddress(AddressCreateRequestDto addressCreateRequestDto);
-        Task UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto);
-        Task DeleteAddress(Guid addressId);
+        void CreateAddress(AddressCreateRequestDto addressCreateRequestDto);
+        void UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto);
+        void DeleteAddress(Guid addressId);
     }
 }

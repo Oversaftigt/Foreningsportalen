@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForeningsPortalen.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,28 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Domain.Entities
 {
-    public class Category
+    public class Category : Entity
     {
-        public int Id { get; }
+
+        internal Category() : base(Guid.NewGuid())
+        {
+
+        }
+
+        public Category(Guid id,string name, BookingDurationType durationType, int maxBookingsOfThisCategory) : base(id)
+        {
+            Name = name;
+            DurationType = durationType;
+            MaxBookingsOfThisCategory = maxBookingsOfThisCategory;
+        }
+
         public string Name { get; set; }
         public BookingDurationType DurationType { get; set; }
+        public int MaxBookingsOfThisCategory { get; set; }
 
+        public bool DoesCategoryAlreadyExist()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

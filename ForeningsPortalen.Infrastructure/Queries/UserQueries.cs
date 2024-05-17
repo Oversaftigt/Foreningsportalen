@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Users.Queries;
-using ForeningsPortalen.Application.Features.Users.Queries.DTOs;
+﻿using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
+using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
