@@ -1,9 +1,4 @@
 ﻿using ForeningsPortalen.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Domain.Entities
 {
@@ -15,7 +10,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         }
 
-        public Category(Guid id,string name, BookingDurationType durationType, int maxBookingsOfThisCategory) : base(id)
+        public Category(Guid id, string name, BookingDurationType durationType, int maxBookingsOfThisCategory) : base(id)
         {
             Name = name;
             DurationType = durationType;

@@ -3,26 +3,26 @@ using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
-    public class AddressRepository : IAddressRepository
+    public class MemberRepository : IMemberRepository
     {
-        void IAddressRepository.AddAddress(Address address)
+        void IMemberRepository.CreateUnionMember(Member unionMember)
         {
             throw new NotImplementedException();
         }
 
-        Address IAddressRepository.GetAddress(Guid id)
+        void IMemberRepository.DeleteUnionMember(Member unionMember, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        void IAddressRepository.UpdateAddress(Address address, byte[] rowVersion)
-        {
-            throw new NotImplementedException();
-        }
-        void IAddressRepository.DeleteAddress(Address address, byte[] rowVersion)
+        Member IMemberRepository.GetUnionMember(Guid unionMemberId)
         {
             throw new NotImplementedException();
         }
 
+        void IMemberRepository.UpdateUnionMember(Member unionMember, byte[] rowVersion)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

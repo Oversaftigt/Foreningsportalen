@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForeningsPortalen.Domain.Entities
+﻿namespace ForeningsPortalen.Domain.Entities
 {
     public class Booking
     {
@@ -23,6 +17,6 @@ namespace ForeningsPortalen.Domain.Entities
         //Fk
         public required List<BookingUnit> BookingUnits { get; set; }
         public Address AddressInformation { get; set; }
-        public User User { get; set; }
+        public Member User { get; set; }
     }
 }
