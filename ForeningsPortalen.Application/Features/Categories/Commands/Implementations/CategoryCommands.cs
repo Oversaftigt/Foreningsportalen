@@ -1,11 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.Categories.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
 {

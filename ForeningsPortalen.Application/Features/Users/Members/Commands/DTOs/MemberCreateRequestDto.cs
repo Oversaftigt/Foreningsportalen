@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs
+﻿namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs
 {
-    public class UnionMemberCreateRequestDto
+    public class MemberCreateRequestDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

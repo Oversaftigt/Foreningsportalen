@@ -1,21 +1,16 @@
 ﻿using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
-    public class UnionMemberQueries : IUnionMemberQueries
+    public class MemberQueries : IMemberQueries
     {
-        UnionMemberQueryResultDto IUnionMemberQueries.GetUnionMemberByUserId(Guid id)
+        MemberQueryResultDto IMemberQueries.GetUnionMemberByUserId(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        List<UnionMemberQueryResultDto> IUnionMemberQueries.GetUnionMembersByUnion(Guid unionId)
+        List<MemberQueryResultDto> IMemberQueries.GetUnionMembersByUnion(Guid unionId)
         {
             throw new NotImplementedException();
         }

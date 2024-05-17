@@ -1,11 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Addresses.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {

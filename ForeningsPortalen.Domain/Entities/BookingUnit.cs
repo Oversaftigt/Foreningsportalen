@@ -1,9 +1,4 @@
 ﻿using ForeningsPortalen.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Domain.Entities
 {
@@ -11,9 +6,9 @@ namespace ForeningsPortalen.Domain.Entities
     {
         internal BookingUnit() : base(Guid.NewGuid())
         {
-            
+
         }
-        public BookingUnit(Guid id,string name, bool isActive, double deposit, double price, 
+        public BookingUnit(Guid id, string name, bool isActive, double deposit, double price,
                         int maxBookingDuration, Category category, List<Booking> bookings) : base(id)
         {
             Name = name;
@@ -24,8 +19,6 @@ namespace ForeningsPortalen.Domain.Entities
             Category = category;
             Bookings = bookings;
         }
-
-
 
         public string Name { get; set; }
         public bool IsActive { get; set; }
