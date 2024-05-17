@@ -1,9 +1,4 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Unions.Queries.Implementations
 {
@@ -15,7 +10,7 @@ namespace ForeningsPortalen.Application.Features.Unions.Queries.Implementations
             _Queries = queries;
         }
 
-       List< UnionQueryResultDto> IUnionQuery.GetAllUnions()
+        List<UnionQueryResultDto> IUnionQuery.GetAllUnions()
         {
             throw new NotImplementedException();
         }

@@ -10,12 +10,12 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly IAddressQuery _addressQuery;
-        private readonly IAddressCommand addressCommand;
+        private readonly IAddressQueries _addressQueries;
+        private readonly IAddressCommands addressCommand;
 
-        public AddressController(IAddressQuery addressQuery, IAddressCommand addressCommand)
+        public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand)
         {
-            _addressQuery = addressQuery;
+            _addressQueries = addressQueries;
             this.addressCommand = addressCommand;
         }
 
@@ -42,7 +42,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPut]
-        public void UpdateAddress([FromBody]AddressUpdateRequestDto addressUpdateRequestDto)
+        public void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

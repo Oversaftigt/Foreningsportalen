@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
+	  <Compile Remove="Interfaces\**" />
+	  <EmbeddedResource Remove="Interfaces\**" />
+	  <None Remove="Interfaces\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\ForeningsPortalen.Domain\ForeningsPortalen.Domain.csproj" />
 	</ItemGroup>
 
@@ -10,11 +16,6 @@
 
 	<ItemGroup>
 		<Folder Include="Features\Bookings\" />
-		<Folder Include="Features\BookingUnits\Commands\" />
-		<Folder Include="Features\BookingUnits\Queries\Interfaces\" />
-		<Folder Include="Features\BookingUnits\Queries\Implementations\" />
-		<Folder Include="Features\BookingUnits\Repositories\" />
-		<Folder Include="Interfaces\" />
 		<Folder Include="Features\Helpers\" />
 	</ItemGroup>
 
