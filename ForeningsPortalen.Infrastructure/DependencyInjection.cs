@@ -39,6 +39,12 @@ namespace ForeningsPortalen.Infrastructure
             //services.AddScoped<IUnitOfWork, IUnitOfWork>();
 
 
+        
+            
+            services.AddScoped<IUnionQueries, UnionQueries>();
+            services.AddScoped<IUnionRepository, UnionRepository>();
+            
+
             return services;
         }
     }

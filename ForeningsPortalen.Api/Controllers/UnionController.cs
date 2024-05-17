@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UnionController : ControllerBase
     {
         private readonly IUnionQuery _Query;
@@ -15,7 +17,7 @@ namespace ForeningsPortalen.Api.Controllers
             _Query = query;
             _Commands = commands;
         }
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<Union> GetUnion(Guid id)
         {
             var result = _Query.GetUnionWithId(id);
@@ -35,23 +37,49 @@ namespace ForeningsPortalen.Api.Controllers
             else return Ok(result);
         }
 
-        [HttpPut]
-        public ActionResult UpdateUnion(UnionCommandUpdateDto unionCommandUpdateDto)
+        [HttpPut("{id}")]
+        public ActionResult UpdateUnion([FromBody]UnionCommandUpdateDto unionCommandUpdateDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _Commands.UpdateUnion(unionCommandUpdateDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public ActionResult CreateUnion(UnionCommandCreateDto unionCommandCreateDto)
         {
-            //var result = _Commands.CreateUnion(unionCommandCreateDto);
-            throw new NotImplementedException();
+            try
+            {
+                _Commands.CreateUnion(unionCommandCreateDto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteUnion(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+            _Commands.DeleteUnion(id);
+            return Ok();
+
+            }
+
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

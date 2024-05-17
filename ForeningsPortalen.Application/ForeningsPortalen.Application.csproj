@@ -16,7 +16,6 @@
 		<Folder Include="Features\BookingUnits\Repositories\" />
 		<Folder Include="Interfaces\" />
 		<Folder Include="Features\Helpers\" />
-		<Folder Include="Features\Unions\" />
 	</ItemGroup>
 
 
