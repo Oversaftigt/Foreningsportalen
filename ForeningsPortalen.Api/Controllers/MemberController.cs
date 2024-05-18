@@ -10,19 +10,19 @@ namespace ForeningsPortalen.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UnionMemberController : ControllerBase
+    public class MemberController : ControllerBase
     {
         private readonly IMemberCommands _UnionMemberCommands;
         private readonly IMemberQueries _UnionMemberQueries;
 
-        public UnionMemberController(IMemberCommands unionMemberCommands, IMemberQueries unionMemberQueries)
+        public MemberController(IMemberCommands unionMemberCommands, IMemberQueries unionMemberQueries)
         {
             _UnionMemberCommands = unionMemberCommands;
             _UnionMemberQueries = unionMemberQueries;
         }
         // GET: api/<UnionMemberController>
         [HttpGet("{unionMemberId}")]
-        public ActionResult<MemberQueryResultDto> GetUNionMemberById(Guid unionMemberId)
+        public ActionResult<MemberQueryResultDto> GetMemberById(Guid unionMemberId)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // GET api/<UnionMemberController>/5
         [HttpGet("/ByUnion/{unionId}")]
-        public ActionResult<IEnumerable<MemberQueryResultDto>> GetUnionMembersByUnionId(Guid unionId)
+        public ActionResult<IEnumerable<MemberQueryResultDto>> GetMembersByUnionId(Guid unionId)
         {
             var unionMembers = _UnionMemberQueries.GetUnionMembersByUnion(unionId).ToList();
 

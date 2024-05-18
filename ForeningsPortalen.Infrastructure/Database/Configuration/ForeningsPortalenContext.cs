@@ -13,12 +13,17 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Member> Members { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder
+                .ApplyConfiguration(new BmiTypeConfiguration());
+        }
 
         //public DbSet<> Users { get; set; }
         //public DbSet<User> Users { get; set; }
         //public DbSet<User> Users { get; set; }
 
-        
+
 
     }
 }

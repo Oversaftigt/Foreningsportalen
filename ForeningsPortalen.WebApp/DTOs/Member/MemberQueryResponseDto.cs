@@ -1,8 +1,6 @@
-﻿using ForeningsPortalen.Domain.Entities;
-
-namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs
+﻿namespace ForeningsPortalen.WebApp.DTOs.Member
 {
-    public class MemberQueryResultDto
+    public class MemberQueryResponseDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs
+﻿namespace ForeningsPortalen.WebApp.DTOs.Member
 {
     public class MemberUpdateRequestDto
     {
