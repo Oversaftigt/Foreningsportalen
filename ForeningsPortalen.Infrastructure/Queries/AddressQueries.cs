@@ -21,22 +21,27 @@ namespace ForeningsPortalen.Infrastructure.Queries
         IEnumerable<AddressQueryResultDto> IAddressQueries.GetAddressesByUnion(Guid unionId)
         {
 
-            var adresses = _db.Addresses.AsNoTracking()
+            var addresses = _db.Addresses.AsNoTracking()
                            .Select(a => new AddressQueryResultDto()
                            {
-                               Id = a.Id,
+                               Id = a.AddressId,
                                Street = a.StreetName,
                                StreetNumber = a.StreetNumber,
                                City = a.City,
                                ZipCode = a.ZipCode,
-                               UnionId = a.Union.Id,
-                               Members = a.Members.Select(m => m.Id).ToList(),
+                               UnionId = a.Union.UnionId,
+                               Members = a.Members.Select(m => m.UserId).ToList(),
                                CurrentMember = a.Members.FirstOrDefault(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
                                RowVersion = a.RowVersion,
                            })
                            .Where(a => a.UnionId == unionId).ToList();
 
-            return adresses;
+            if (!addresses.Any())
+            {
+                throw new Exception("No Addresses were not found");
+            }
+
+            return addresses;
         }
 
         AddressQueryResultDto IAddressQueries.GetAddressById(Guid addressId)
@@ -44,12 +49,12 @@ namespace ForeningsPortalen.Infrastructure.Queries
             var address = _db.Addresses.AsNoTracking()
                          .Select(a => new AddressQueryResultDto()
                          {
-                             Id = a.Id,
+                             Id = a.AddressId,
                              Street = a.StreetName,
                              StreetNumber = a.StreetNumber,
                              City = a.City,
                              ZipCode = a.ZipCode,
-                             Members = a.Members.Select(m => m.Id).ToList(),
+                             Members = a.Members.Select(m => m.UserId).ToList(),
                              CurrentMember = a.Members.FirstOrDefault(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
                              RowVersion = a.RowVersion,
                          })
@@ -62,5 +67,4 @@ namespace ForeningsPortalen.Infrastructure.Queries
             return address;
         }
     }
-
 }

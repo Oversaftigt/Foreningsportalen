@@ -22,8 +22,8 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet("{unionId}")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
-            _addressQueries.GetAddressesByUnion(unionId);
-            return Ok();
+            var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
+            return Ok(addressesInUnion);
         }
 
         [HttpGet]

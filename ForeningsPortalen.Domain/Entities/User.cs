@@ -4,11 +4,11 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class User : Entity
     {
-        internal User() : base(Guid.NewGuid())
+        internal User()
         {
         }
 
-        internal User(Guid id, string email, string phoneNumber) : base(id)
+        internal User(string email, string phoneNumber)
         {
             Email = email;
             PhoneNumber = phoneNumber;
@@ -20,10 +20,11 @@ namespace ForeningsPortalen.Domain.Entities
 
         public static User Create(string email, string phoneNumber)
         {
-            var user = new User(Guid.NewGuid(), email, phoneNumber);
+            var user = new User(email, phoneNumber);
             return user;
         }
 
+        public Guid UserId { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public ICollection<UserRoleHistory> RoleHistories { get; set; } = new List<UserRoleHistory>();

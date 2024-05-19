@@ -13,7 +13,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
     {
         void IEntityTypeConfiguration<Address>.Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.AddressId);
             builder.Property(x => x.StreetName).IsRequired();
             builder.Property(x => x.StreetNumber).IsRequired();
             builder.Property(x => x.Floor);
@@ -27,11 +27,11 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
 
             builder.HasOne(x => x.Union)
                    .WithMany(u => u.Addresses)  
-                   .HasForeignKey(a => a.Id).IsRequired();
+                   .HasForeignKey(a => a.AddressId).IsRequired();
 
             builder.HasMany(x => x.Members)
                    .WithOne(x => x.Address)
-                   .HasForeignKey(x => x.Id);
+                   .HasForeignKey(x => x.UserId);
         }
     }
 }

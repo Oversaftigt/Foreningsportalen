@@ -4,13 +4,13 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Role : Entity
     {
-        public Role() : base(Guid.NewGuid()) { }
+        public Role() { }
 
-        public Role(Guid id, string roleName) : base(id)
+        internal Role(string roleName)
         {
             RoleName = roleName;
         }
-
+        public Guid RoleId { get; set; }
         public string RoleName { get; set; }
         public ICollection<UserRoleHistory> UserHistories { get; set; } = new List<UserRoleHistory>();
     }

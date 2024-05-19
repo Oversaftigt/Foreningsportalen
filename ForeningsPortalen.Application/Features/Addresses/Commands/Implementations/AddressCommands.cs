@@ -28,12 +28,13 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 var union = _unionRepository.GetUnion(addressCreateRequestDto.UnionId);
                 if (union is null) throw new Exception("Union not found");
 
-                Address address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber, 
+                var address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber, 
                                                  addressCreateRequestDto.Floor, addressCreateRequestDto.Door,
                                                  addressCreateRequestDto.City, addressCreateRequestDto.ZipCode, 
                                                  union);
 
                 _addressRepository.AddAddress(address);
+                _unitOfWork.Commit();
             }
             catch
             {

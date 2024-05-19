@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForeningsPortalen.DatabaseMigration.Migrations
 {
     [DbContext(typeof(ForeningsPortalenContext))]
-    [Migration("20240518235025_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240519184131_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
@@ -36,11 +35,9 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Door")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Floor")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("RowVersion")
@@ -56,22 +53,17 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UnionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnionId");
+                    b.HasKey("AddressId");
 
                     b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -85,14 +77,14 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.HasKey("Id");
+                    b.HasKey("RoleId");
 
                     b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Union", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UnionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -106,14 +98,14 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UnionId");
 
                     b.ToTable("Unions");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Discriminator")
@@ -137,7 +129,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
 
@@ -156,6 +148,12 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
@@ -185,11 +183,6 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<DateOnly?>("MoveOutDate")
                         .HasColumnType("date");
 
-                    b.Property<Guid>("UnionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("UnionId");
-
                     b.HasDiscriminator().HasValue("Member");
                 });
 
@@ -197,7 +190,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Union", "Union")
                         .WithMany("Addresses")
-                        .HasForeignKey("UnionId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -227,19 +220,11 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Address", "Address")
                         .WithMany("Members")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ForeningsPortalen.Domain.Entities.Union", "Union")
-                        .WithMany()
-                        .HasForeignKey("UnionId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
-
-                    b.Navigation("Union");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>

@@ -4,12 +4,12 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class BookingUnit : Entity
     {
-        internal BookingUnit() : base(Guid.NewGuid())
+        internal BookingUnit()
         {
 
         }
-        public BookingUnit(Guid id, string name, bool isActive, double deposit, double price,
-                        int maxBookingDuration, Category category, List<Booking> bookings) : base(id)
+        public BookingUnit(string name, bool isActive, double deposit, double price,
+                        int maxBookingDuration, Category category, List<Booking> bookings)
         {
             Name = name;
             IsActive = isActive;
@@ -20,6 +20,7 @@ namespace ForeningsPortalen.Domain.Entities
             Bookings = bookings;
         }
 
+        public Guid BookingUnitId { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public double Deposit { get; set; }

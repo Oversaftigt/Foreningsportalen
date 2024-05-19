@@ -24,7 +24,9 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         Union IUnionRepository.GetUnion(Guid id)
         {
-            throw new NotImplementedException();
+            var union = _db.Unions.Find(id);
+            if (union is null) throw new Exception("Address not found");
+            return union;
         }
 
         void IUnionRepository.UpdateUnion()

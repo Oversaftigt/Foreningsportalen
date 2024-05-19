@@ -15,7 +15,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
         {
             builder.Property(x => x.FirstName)
                    .IsRequired();
-            
+
             builder.Property(x => x.LastName)
                    .IsRequired();
             
@@ -26,7 +26,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
 
             builder.HasOne(x => x.Address)
                    .WithMany(x => x.Members)
-                   .HasForeignKey(x => x.Id);
+                   .HasForeignKey(x => x.UserId);
 
             //Insert booking logik
         }

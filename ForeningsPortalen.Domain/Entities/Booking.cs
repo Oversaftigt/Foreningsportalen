@@ -4,10 +4,10 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Booking : Entity
     {
-        public Booking(Guid id) : base(id)
+        public Booking()
         {
         }
-
+        public Guid BookingId { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime BookingStart { get; set; }
         public DateTime BookingEnd { get; set; }
