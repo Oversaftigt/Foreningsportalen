@@ -25,13 +25,9 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
                    .IsRowVersion()
                    .IsRequired();
 
-            builder.HasOne(x => x.Union)
-                   .WithMany(u => u.Addresses)  
-                   .HasForeignKey(a => a.AddressId).IsRequired();
-
             builder.HasMany(x => x.Members)
                    .WithOne(x => x.Address)
-                   .HasForeignKey(x => x.UserId);
+                   .HasForeignKey("AddressId");
         }
     }
 }

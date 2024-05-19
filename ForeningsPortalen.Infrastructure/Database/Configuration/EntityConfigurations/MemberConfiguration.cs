@@ -24,10 +24,6 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
             
             builder.Property(x => x.MoveOutDate);
 
-            builder.HasOne(x => x.Address)
-                   .WithMany(x => x.Members)
-                   .HasForeignKey(x => x.UserId);
-
             //Insert booking logik
         }
     }

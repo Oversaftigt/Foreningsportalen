@@ -25,6 +25,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>
                 {
                     b.Property<Guid>("AddressId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
@@ -50,12 +51,46 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UnionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
 
+                    b.HasIndex("UnionId");
+
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Document", b =>
+                {
+                    b.Property<Guid>("DocumentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UploadedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DocumentId");
+
+                    b.HasIndex("UploadedByUserId");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Role", b =>
@@ -103,6 +138,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Discriminator")
@@ -166,6 +202,9 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     b.HasBaseType("ForeningsPortalen.Domain.Entities.User");
 
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -180,6 +219,8 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<DateOnly?>("MoveOutDate")
                         .HasColumnType("date");
 
+                    b.HasIndex("AddressId");
+
                     b.HasDiscriminator().HasValue("Member");
                 });
 
@@ -187,11 +228,22 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Union", "Union")
                         .WithMany("Addresses")
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("UnionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Union");
+                });
+
+            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Document", b =>
+                {
+                    b.HasOne("ForeningsPortalen.Domain.Entities.Member", "UploadedBy")
+                        .WithMany()
+                        .HasForeignKey("UploadedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UploadedBy");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.UserRoleHistory", b =>
@@ -217,7 +269,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Address", "Address")
                         .WithMany("Members")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

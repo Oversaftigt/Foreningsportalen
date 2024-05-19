@@ -48,14 +48,15 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     Door = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ZipCode = table.Column<int>(type: "int", nullable: false),
+                    UnionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Addresses", x => x.AddressId);
                     table.ForeignKey(
-                        name: "FK_Addresses_Unions_AddressId",
-                        column: x => x.AddressId,
+                        name: "FK_Addresses_Unions_UnionId",
+                        column: x => x.UnionId,
                         principalTable: "Unions",
                         principalColumn: "UnionId",
                         onDelete: ReferentialAction.Cascade);
@@ -73,16 +74,38 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MoveInDate = table.Column<DateOnly>(type: "date", nullable: true),
                     MoveOutDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Users_Addresses_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Users_Addresses_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    DocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UploadedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.DocumentId);
+                    table.ForeignKey(
+                        name: "FK_Documents_Users_UploadedByUserId",
+                        column: x => x.UploadedByUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -114,14 +137,32 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_UnionId",
+                table: "Addresses",
+                column: "UnionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_UploadedByUserId",
+                table: "Documents",
+                column: "UploadedByUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRolesHistory_RoleId",
                 table: "UserRolesHistory",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_AddressId",
+                table: "Users",
+                column: "AddressId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Documents");
+
             migrationBuilder.DropTable(
                 name: "UserRolesHistory");
 
