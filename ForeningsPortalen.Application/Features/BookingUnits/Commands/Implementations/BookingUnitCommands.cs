@@ -7,11 +7,11 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
 {
     public class BookingUnitCommands : IBookingUnitCommands
     {
-        private readonly IBookingUnitRepository _repository;
+        //private readonly IBookingUnitRepository _repository;
 
-        public BookingUnitCommands(IBookingUnitRepository repository)
+        public BookingUnitCommands(/*IBookingUnitRepository repository*/)
         {
-            _repository = repository;
+            //_repository = repository;
         }
 
         void IBookingUnitCommands.AddBookingUnit(BookingUnitCreateRequestDto dto)

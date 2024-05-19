@@ -64,6 +64,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            
 
 
 

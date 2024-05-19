@@ -7,11 +7,11 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
 {
     public class CategoryCommands : ICategoryCommands
     {
-        private readonly ICategoryRepository _repo;
+        //private readonly ICategoryRepository _repo;
 
-        public CategoryCommands(ICategoryRepository repo)
+        public CategoryCommands(/*ICategoryRepository repo*/)
         {
-            _repo = repo;
+        //    _repo = repo;
         }
 
         void ICategoryCommands.CreateCategory(AddressCreateRequestDto addressCreateRequestDto)
