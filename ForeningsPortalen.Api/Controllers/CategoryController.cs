@@ -8,12 +8,12 @@ namespace ForeningsPortalen.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         private readonly ICategoryCommands _command;
         private readonly ICategoryQueries _queries;
 
-        public CategoriController(ICategoryCommands command, ICategoryQueries queries)
+        public CategoryController(ICategoryCommands command, ICategoryQueries queries)
         {
             _command = command;
             _queries = queries;

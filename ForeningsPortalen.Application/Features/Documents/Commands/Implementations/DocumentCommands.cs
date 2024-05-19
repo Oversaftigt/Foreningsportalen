@@ -1,4 +1,6 @@
-﻿using ForeningsPortalen.Application.Repositories;
+﻿using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
+using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,22 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
         public DocumentCommands(IDocumentRepository documentRepository)
         {
             _documentRepository = documentRepository;
+        }
+
+        void IDocumentCommands.CreateDocument(DocumentCreateRequestDto documentCreateRequestDto)
+        {
+            //Denne
+            throw new NotImplementedException();
+        }
+
+        void IDocumentCommands.DeleteDocument(SharedEntityDeleteDto deleteDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IDocumentCommands.UpdateDocument(DocumentUpdateRequestDto documentUpdateRequestDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

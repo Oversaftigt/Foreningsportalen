@@ -13,6 +13,6 @@ namespace ForeningsPortalen.Application.Features.Documents.Queries.DTOs
         public required string Title { get; set; }
         public Member UploadedBy { get; set; }
         public DateOnly Date { get; set; }
-        public byte[] Rowversion { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

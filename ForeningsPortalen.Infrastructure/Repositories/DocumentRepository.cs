@@ -19,7 +19,8 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IDocumentRepository.AddDocument(Document doocument)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(doocument);
+            _dbContext.SaveChanges();
         }
 
         void IDocumentRepository.DeleteDocument(Document document, byte[] rowversion)
