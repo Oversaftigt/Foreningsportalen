@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Infrastructure
             //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalenDbConnection"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
@@ -90,7 +90,7 @@ namespace ForeningsPortalen.Infrastructure
 
 
 
-            //services.AddScoped<IUnitOfWork, IUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUnionQueries, UnionQueries>();
             services.AddScoped<IUnionRepository, UnionRepository>();

@@ -1,7 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Shared.DTOs;
 
-namespace ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces
+namespace ForeningsPortalen.Application.Features.Addresses.Commands
 {
     public interface IAddressCommands
     {

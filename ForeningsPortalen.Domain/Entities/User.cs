@@ -14,9 +14,9 @@ namespace ForeningsPortalen.Domain.Entities
             PhoneNumber = phoneNumber;
         }
 
-        public User(Guid id) : base(id)
-        {
-        }
+        //public User(Guid id) : base(id)
+        //{
+        //}
 
         public static User Create(string email, string phoneNumber)
         {

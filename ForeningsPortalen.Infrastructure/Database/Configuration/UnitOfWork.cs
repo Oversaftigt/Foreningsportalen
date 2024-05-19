@@ -12,10 +12,10 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _db;
+        private readonly ForeningsPortalenContext _db;
         private IDbContextTransaction? _transaction;
 
-        public UnitOfWork(DbContext db)
+        public UnitOfWork(ForeningsPortalenContext db)
         {
             _db = db;
         }

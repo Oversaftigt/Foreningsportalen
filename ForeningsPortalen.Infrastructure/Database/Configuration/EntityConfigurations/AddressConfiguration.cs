@@ -27,7 +27,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
 
             builder.HasOne(x => x.Union)
                    .WithMany(u => u.Addresses)  
-                   .HasForeignKey(a => a.UnionId).IsRequired();
+                   .HasForeignKey(a => a.Id).IsRequired();
 
             builder.HasMany(x => x.Members)
                    .WithOne(x => x.Address)

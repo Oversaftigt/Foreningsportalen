@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Commands;
+using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +11,19 @@ namespace ForeningsPortalen.Api.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IAddressQueries _addressQueries;
-        private readonly IAddressCommands addressCommand;
+        private readonly IAddressCommands _addressCommand;
 
         public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand)
         {
             _addressQueries = addressQueries;
-            this.addressCommand = addressCommand;
+            _addressCommand = addressCommand;
         }
 
         [HttpGet("{unionId}")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
-            AddressQueryResultDto h = new();
-            h.City = "vejle";
-            List<AddressQueryResultDto> de = new();
-            de.Add(h);
-            return Ok(de);
+            _addressQueries.GetAddressesByUnion(unionId);
+            return Ok();
         }
 
         [HttpGet]
@@ -36,19 +33,29 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpPost]
-        public void PostAddress([FromBody] AddressCreateRequestDto addressCreateRequestDto)
+        public ActionResult PostAddress([FromBody] AddressCreateRequestDto addressCreateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _addressCommand.CreateAddress(addressCreateRequestDto);
+                return Created();
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpPut]
-        public void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
+        void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public void DeleteAddress(Guid addressId)
+        void DeleteAddress(Guid addressId)
         {
             throw new NotImplementedException();
         }
