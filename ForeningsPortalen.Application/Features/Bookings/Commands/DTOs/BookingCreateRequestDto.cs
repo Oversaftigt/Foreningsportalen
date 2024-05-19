@@ -1,13 +1,14 @@
-﻿using ForeningsPortalen.Domain.Shared;
+﻿using ForeningsPortalen.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ForeningsPortalen.Domain.Entities
+namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
 {
-    public class Booking : Entity
+    public class BookingCreateRequestDto
     {
-        public Booking(Guid id) : base(id)
-        {
-        }
-
         public DateTime CreationDate { get; set; }
         public DateTime BookingStart { get; set; }
         public DateTime BookingEnd { get; set; }

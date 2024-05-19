@@ -22,7 +22,7 @@ namespace ForeningsPortalen.Infrastructure
             // https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/projects?tabs=dotnet-core-cli
 
             // Add-Migration InitialMigration -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
-            // Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
+            //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalenDbConnection"),

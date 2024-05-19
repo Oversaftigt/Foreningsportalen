@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Union : Entity
     {
-        public Union() : base(Guid.NewGuid())
+        internal Union() : base(Guid.NewGuid())
         {
         }
 
