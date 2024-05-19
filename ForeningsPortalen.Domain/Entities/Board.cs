@@ -4,16 +4,17 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Board : Entity
     {
-        internal Board(Guid id) : base(id)
+        public Board()
         {
         }
 
-        public Board(Guid id, string boardEmail, List<User> boardMembers) : base(id)
+        internal Board(Guid id, string boardEmail, List<User> boardMembers)
         {
             BoardEmail = boardEmail;
             BoardMembers = boardMembers;
         }
 
+        public Guid BoardId { get; set; }
         public string BoardEmail { get; set; }
 
         // public Union Union { get; set; }     Den er en 1..1 og den ligger på en union.

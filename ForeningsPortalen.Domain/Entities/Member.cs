@@ -4,16 +4,14 @@
     {
         public Member() { }
 
-        internal Member(Guid id, string firstName,
+        internal Member(string firstName,
                              string lastName,
                              DateOnly moveInDate,
-                             Union union,
-                             Address address, string email, string phoneNumber) : base(id, email, phoneNumber)
+                             Address address, string email, string phoneNumber) : base(email, phoneNumber)
         {
             FirstName = firstName;
             LastName = lastName;
             MoveInDate = moveInDate;
-            Union = union;
             Address = address;
         }
 
@@ -21,8 +19,14 @@
         public string LastName { get; set; }
         public DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
-        public Union Union { get; set; }
         public Address Address { get; set; }
+        
+        private Guid UnionId { set
+            {
+                UnionId = Address.Union.UnionId;
+            }
+           
+}
         //public List<Booking>? Bookings { get; set; }
 
         public static Member Create(string firstName,
@@ -34,7 +38,7 @@
                                          string phoneNumber
                                          )
         {
-            var newUnionMember = new Member(Guid.NewGuid(), firstName, lastName, moveInDate, union, address, email, phoneNumber);
+            var newUnionMember = new Member(firstName, lastName, moveInDate, address, email, phoneNumber);
             return newUnionMember;
         }
     }

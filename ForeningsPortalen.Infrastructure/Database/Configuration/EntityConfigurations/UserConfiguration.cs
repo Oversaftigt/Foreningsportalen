@@ -13,7 +13,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
     {
         void IEntityTypeConfiguration<User>.Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(u => u.Id);
+            builder.HasKey(u => u.UserId);
 
             builder.Property(u => u.Email)
                    .IsRequired()

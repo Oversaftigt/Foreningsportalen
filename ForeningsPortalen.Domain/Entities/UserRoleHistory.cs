@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class UserRoleHistory : Entity
     {
-        public UserRoleHistory(Guid id) : base(id)
+        public UserRoleHistory()
         {
         }
 

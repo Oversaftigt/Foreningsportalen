@@ -18,7 +18,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
             var result = _db.Unions.AsNoTracking()
                    .Select(b => new UnionQueryResultDto
                    {
-                       Id = b.Id,
+                       Id = b.UnionId,
                        Name = b.name,
                        RowVersion = b.RowVersion
                    }).ToList();
@@ -32,7 +32,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
             var result = _db.Unions.AsNoTracking()
                 .Select(b => new UnionQueryResultDto
                 {
-                    Id = b.Id,
+                    Id = b.UnionId,
                     Name = b.name,
                     RowVersion = b.RowVersion
                 })
