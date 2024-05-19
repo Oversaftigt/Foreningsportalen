@@ -1,9 +1,18 @@
-﻿namespace ForeningsPortalen.Domain.Entities
+﻿using ForeningsPortalen.Domain.Shared;
+
+namespace ForeningsPortalen.Domain.Entities
 {
-    public class Role
+    public class Role : Entity
     {
-        public int Id { get; }
-        public string Type { get; set; }
-        //public int ClearanceLevel { get; set; }
+        public Role() : base(Guid.NewGuid()) { }
+
+        public Role(Guid id, string roleName) : base(id)
+        {
+            RoleName = roleName;
+        }
+
+        public string RoleName { get; set; }
+        public ICollection<UserRoleHistory> UserHistories { get; set; } = new List<UserRoleHistory>();
     }
 }
+

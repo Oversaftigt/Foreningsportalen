@@ -26,7 +26,8 @@ namespace ForeningsPortalen.Domain.Entities
 
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public Guid UnionId { get; set; }
+        public ICollection<UserRoleHistory> RoleHistories { get; set; } = new List<UserRoleHistory>();
+
 
     }
 }

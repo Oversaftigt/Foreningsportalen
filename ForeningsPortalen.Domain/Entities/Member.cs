@@ -2,6 +2,7 @@
 {
     public class Member : User
     {
+        public Member() { }
 
         internal Member(Guid id, string firstName,
                              string lastName,
@@ -22,7 +23,7 @@
         public DateOnly? MoveOutDate { get; set; }
         public Union Union { get; set; }
         public Address Address { get; set; }
-        public List<Booking>? Bookings { get; set; }
+        //public List<Booking>? Bookings { get; set; }
 
         public static Member Create(string firstName,
                                          string lastName,

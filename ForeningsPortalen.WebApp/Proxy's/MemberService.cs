@@ -22,24 +22,24 @@ namespace ForeningsPortalen.WebApp.Proxy_s
             throw new Exception(message);
         }
 
-        async Task ILevSundtService.Edit(BmiEditRequestDto bmiEditRequestDto)
-        {
-            var response = await _httpClient.PutAsJsonAsync("api/Bmi", bmiEditRequestDto);
+        //async Task ILevSundtService.Edit(BmiEditRequestDto bmiEditRequestDto)
+        //{
+        //    var response = await _httpClient.PutAsJsonAsync("api/Bmi", bmiEditRequestDto);
 
-            if (response.IsSuccessStatusCode) return;
+        //    if (response.IsSuccessStatusCode) return;
 
-            var messages = await response.Content.ReadAsStringAsync();
-            throw new Exception(messages);
-        }
+        //    var messages = await response.Content.ReadAsStringAsync();
+        //    throw new Exception(messages);
+        //}
 
-        async Task<BmiQueryResultDto?> ILevSundtService.Get(int id, string userId)
-        {
-            return await _httpClient.GetFromJsonAsync<BmiQueryResultDto>($"api/Bmi/{id}/{userId}");
-        }
+        //async Task<BmiQueryResultDto?> ILevSundtService.Get(int id, string userId)
+        //{
+        //    return await _httpClient.GetFromJsonAsync<BmiQueryResultDto>($"api/Bmi/{id}/{userId}");
+        //}
 
-        async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<BmiQueryResultDto>>($"api/Bmi/{userId}");
-        }
+        //async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
+        //{
+        //    return await _httpClient.GetFromJsonAsync<IEnumerable<BmiQueryResultDto>>($"api/Bmi/{userId}");
+        //}
     }
 }

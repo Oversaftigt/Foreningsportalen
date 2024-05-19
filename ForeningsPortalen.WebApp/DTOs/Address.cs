@@ -9,6 +9,6 @@
         public int PostalCode { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public IEnumerable<Member> TenantHistory { get; set; }
+        //public IEnumerable<> TenantHistory { get; set; }
     }
 }

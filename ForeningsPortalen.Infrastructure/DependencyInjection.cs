@@ -20,13 +20,14 @@ namespace ForeningsPortalen.Infrastructure
             // Database
             // https://github.com/dotnet/SqlClient/issues/2239
             // https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/projects?tabs=dotnet-core-cli
-            // Add-Migration InitialMigration -Context BookMyHomeContext -Project BookMyHome.DatabaseMigration
-            // Update-Database -Context BookMyHomeContext -Project BookMyHome.DatabaseMigration
+
+            // Add-Migration InitialMigration -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
+            // Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalenDbConnection"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
                     x =>
-                        x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
+                        x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
             //Queries
             services.AddScoped<IUserQueries, UserQueries>();

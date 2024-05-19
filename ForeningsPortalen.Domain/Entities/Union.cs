@@ -8,16 +8,17 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        public Union(Guid id, string name, List<Address> addressInformation, Board? board, List<User> users) : base(id)
+        public Union(Guid id, string name, List<Address> addressInformation/*, Board? board, List<User> users*/) : base(id)
         {
             this.name = name;
-            AddressInformation = addressInformation;
-            Board = board;
-            Users = users;
+            Addresses = addressInformation;
+            //Board = board;
+            //Users = users;
         }
         public string name { get; set; }
-        public List<Address> AddressInformation { get; set; }
-        public Board? Board { get; set; }
-        public List<User> Users { get; set; }
+        public List<Address> Addresses { get; set; }
+        //public List<User> Users { get; set; }
+        //public Board? Board { get; set; }
+        //public List<User> Users { get; set; }
     }
 }
