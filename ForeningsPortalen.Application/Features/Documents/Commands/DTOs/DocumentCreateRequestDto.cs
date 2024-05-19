@@ -10,7 +10,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.DTOs
     public class DocumentCreateRequestDto
     {
         public required string Title { get; set; }
-        public Member UploadedBy { get; set; } //Denne Menber tager den fra domain projektet, er det korrekt? 
+        public Guid MemberId { get; set; } 
         public DateOnly Date { get; set; }
     }
 }
