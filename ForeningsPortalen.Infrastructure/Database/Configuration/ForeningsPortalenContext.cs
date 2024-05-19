@@ -16,6 +16,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
         public DbSet<Member> Members { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRoleHistory> UserRolesHistory { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
