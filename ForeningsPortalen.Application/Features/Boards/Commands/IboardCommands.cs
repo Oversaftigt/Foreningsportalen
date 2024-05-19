@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Boards.Commands
 {
-    public interface IboardCommands
+    public interface IBoardCommands
     {
         //Create, Update og delete
 
