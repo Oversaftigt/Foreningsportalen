@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Commands;
+using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Unions.Commands;

@@ -14,12 +14,12 @@ namespace ForeningsPortalen.Application.Features.Addresses.Queries.Implementatio
 
         IEnumerable<AddressQueryResultDto> IAddressQuery.GetAddressesByUnionAsync(Guid unionId)
         {
-            return _addresQueries.GetAddressesByUnionAsync(unionId);
+            return _addresQueries.GetAddressesByUnion(unionId);
         }
 
         AddressQueryResultDto IAddressQuery.GetAddressByIdAsync(Guid addressId)
         {
-            return _addresQueries.GetAddressByIdAsync(addressId);
+            return _addresQueries.GetAddressById(addressId);
         }
     }
 }

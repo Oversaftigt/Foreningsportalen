@@ -22,7 +22,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
 
             builder.HasMany(x => x.Addresses)
                    .WithOne(x => x.Union)
-                   .HasForeignKey(x => x.UnionId);
+                   .HasForeignKey(x => x.Id);
 
         }
     }

@@ -22,7 +22,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        Union IUnionRepository.GetOneUnion(Guid id)
+        Union IUnionRepository.GetUnion(Guid id)
         {
             throw new NotImplementedException();
         }
