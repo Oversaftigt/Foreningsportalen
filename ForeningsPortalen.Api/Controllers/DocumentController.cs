@@ -1,7 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Documents.Commands;
+﻿using ForeningsPortalen.Application.Features.Documents.Commands;
 using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Documents.Queries;
 using ForeningsPortalen.Application.Features.Documents.Queries.DTOs;
@@ -25,6 +22,7 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<DocumentQueryResultDto>> GetDocument() 
         {
+            //Denne
             throw new NotImplementedException();
         }
 

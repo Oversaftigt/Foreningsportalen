@@ -19,6 +19,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
 
         void IDocumentCommands.CreateDocument(DocumentCreateRequestDto documentCreateRequestDto)
         {
+            //Denne
             throw new NotImplementedException();
         }
 

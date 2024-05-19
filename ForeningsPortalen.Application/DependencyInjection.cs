@@ -1,7 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Implementations;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Boards.Commands;
 using ForeningsPortalen.Application.Features.Boards.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Bookings.Commands;
@@ -24,7 +22,6 @@ using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Implementations;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ForeningsPortalen.Application
