@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Board : Entity
     {
-        public Board(Guid id) : base(id)
+        internal Board(Guid id) : base(id)
         {
         }
 
