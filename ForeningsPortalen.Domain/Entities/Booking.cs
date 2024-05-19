@@ -1,7 +1,13 @@
-﻿namespace ForeningsPortalen.Domain.Entities
+﻿using ForeningsPortalen.Domain.Shared;
+
+namespace ForeningsPortalen.Domain.Entities
 {
-    public class Booking
+    public class Booking : Entity
     {
+        public Booking(Guid id) : base(id)
+        {
+        }
+
         public int Id { get; }
         public DateTime CreationDate { get; set; }
         public DateTime BookingStart { get; set; }
