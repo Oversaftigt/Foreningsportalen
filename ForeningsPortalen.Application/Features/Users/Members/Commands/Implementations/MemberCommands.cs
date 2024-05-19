@@ -20,7 +20,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Imp
         }
         void IMemberCommands.CreateUnionMember(MemberCreateRequestDto createRequestDto)
         {
-            var union = _UnionRepository.GetOneUnion(createRequestDto.UnionId);
+            var union = _UnionRepository.GetUnion(createRequestDto.UnionId);
             if (union is null) throw new Exception("Union not found");
             var address = _AddressRepository.GetAddress(createRequestDto.AddressId);
             if (address is null) throw new Exception("Address not found");

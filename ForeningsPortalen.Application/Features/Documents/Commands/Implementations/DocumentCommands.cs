@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Documents.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

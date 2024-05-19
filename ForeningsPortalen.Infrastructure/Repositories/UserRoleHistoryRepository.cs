@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.UserRoleHistories.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,26 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         public UserRoleHistoryRepository(ForeningsPortalenContext foreningsPortalenContext)
         {
             _foreningsPortalenContext = foreningsPortalenContext;
+        }
+
+        void IUserRoleHistoryRepository.AddUserRoleHistory(UserRoleHistory userRoleHistory)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IUserRoleHistoryRepository.DeleteUserRoleHistory(UserRoleHistory userRoleHistory, byte[] rowVersion)
+        {
+            throw new NotImplementedException();
+        }
+
+        UserRoleHistory IUserRoleHistoryRepository.GetUserRoleHistory(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IUserRoleHistoryRepository.UpdateUserRoleHistory(UserRoleHistory userRoleHistory, byte[] rowVersion)
+        {
+            throw new NotImplementedException();
         }
     }
 }

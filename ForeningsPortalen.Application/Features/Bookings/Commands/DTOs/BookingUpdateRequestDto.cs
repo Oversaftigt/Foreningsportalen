@@ -23,8 +23,8 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
 
         //Fk
         public required List<BookingUnit> BookingUnits { get; set; }
-        public Address AddressInformation { get; set; }
-        public Member User { get; set; }
+        public Guid AddressId { get; set; }
+        public Guid UserId { get; set; }
         public byte[] Rowversion { get; set; }
     }
 }

@@ -4,10 +4,10 @@ namespace ForeningsPortalen.Application.Repositories
 {
     public interface IUnionRepository
     {
-        Union GetOneUnion(Guid id); //Skal denne ændres til GetUnionById
-        void CreateUnion(Union union);
-        void UpdateUnion();
-        void DeleteUnion();
+        Union GetUnion(Guid id); 
+        void AddUnion(Union union);
+        void UpdateUnion(Union union, byte[] rowversion);
+        void DeleteUnion(Union union, byte[] rowversion);      
 
     }
 }

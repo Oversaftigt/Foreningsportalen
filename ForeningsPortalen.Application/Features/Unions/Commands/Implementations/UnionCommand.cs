@@ -17,7 +17,7 @@ namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
         void IUnionCommands.CreateUnion(UnionCommandCreateDto unionCreateDto)
         {
             var union = Domain.Entities.Union.Create(unionCreateDto.name);
-            _repository.CreateUnion(union);
+            _repository.AddUnion(union);
         }
 
         void IUnionCommands.DeleteUnion(SharedEntityDeleteDto deleteDto)

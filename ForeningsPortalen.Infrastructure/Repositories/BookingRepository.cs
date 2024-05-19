@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Bookings.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,26 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         public BookingRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        void IBookingRepository.AddBooking(Booking booking)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
+        {
+            throw new NotImplementedException();
+        }
+
+        Booking IBookingRepository.GetBooking(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
+        {
+            throw new NotImplementedException();
         }
     }
 }

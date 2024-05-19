@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
 using ForeningsPortalen.Application.Features.BookingUnits.Commands.Interfaces;
-using ForeningsPortalen.Application.Features.BookingUnits.Repositories;
+using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implementations

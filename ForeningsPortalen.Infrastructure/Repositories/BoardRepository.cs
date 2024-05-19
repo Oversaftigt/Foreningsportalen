@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Boards.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,26 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         public BoardRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        void IBoardRepository.AddBoard(Board board)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBoardRepository.DeleteBoard(Board board, byte[] rowversion)
+        {
+            throw new NotImplementedException();
+        }
+
+        Board IBoardRepository.GetBoard(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBoardRepository.UpdateBoard(Board board, byte[] rowversion)
+        {
+            throw new NotImplementedException();
         }
     }
 }
