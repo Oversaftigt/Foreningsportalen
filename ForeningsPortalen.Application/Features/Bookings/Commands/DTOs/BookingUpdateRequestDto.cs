@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
 {
-    internal class BookingUpdateRequestDto
+    public class BookingUpdateRequestDto
     {
     }
 }

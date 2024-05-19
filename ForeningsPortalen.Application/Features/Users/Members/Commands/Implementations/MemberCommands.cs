@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Implementations
 {
@@ -35,7 +36,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Imp
             _UnionMemberRepository.CreateUnionMember(newUnionMember);
         }
 
-        void IMemberCommands.DeleteUnionMember(MemberDeleteRequestDto deleteRequestDto)
+        void IMemberCommands.DeleteUnionMember(SharedEntityDeleteDto deleteRequestDto)
         {
             throw new NotImplementedException();
         }

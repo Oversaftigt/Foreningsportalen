@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Commands;
 using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Unions.Queries;
+using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,11 +68,11 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteUnion(Guid id)
+        public ActionResult DeleteUnion(SharedEntityDeleteDto deleteDto)
         {
             try
             {
-                _Commands.DeleteUnion(id);
+                _Commands.DeleteUnion(deleteDto);
                 return Ok();
 
             }

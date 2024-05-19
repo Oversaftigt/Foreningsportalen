@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementations
@@ -26,7 +27,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
             throw new NotImplementedException();
         }
 
-        void IAddressCommands.DeleteAddress(Guid addressId)
+        void IAddressCommands.DeleteAddress(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

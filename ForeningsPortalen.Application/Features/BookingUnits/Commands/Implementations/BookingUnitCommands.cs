@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
 using ForeningsPortalen.Application.Features.BookingUnits.Commands.Interfaces;
 using ForeningsPortalen.Application.Features.BookingUnits.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implementations
 {
@@ -23,7 +24,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
             throw new NotImplementedException();
         }
 
-        void IBookingUnitCommands.DeleteBookingUnit(Guid id)
+        void IBookingUnitCommands.DeleteBookingUnit(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

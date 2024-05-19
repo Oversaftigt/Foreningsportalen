@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
 {
@@ -19,7 +20,7 @@ namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
             _repository.CreateUnion(union);
         }
 
-        void IUnionCommands.DeleteUnion(Guid id)
+        void IUnionCommands.DeleteUnion(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }
