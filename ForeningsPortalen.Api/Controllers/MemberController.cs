@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -85,7 +86,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         // DELETE api/<UnionMemberController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete([FromBody] MemberDeleteRequestDto deleteRequestDto)
+        public ActionResult Delete([FromBody] SharedEntityDeleteDto deleteRequestDto)
         {
             try
             {

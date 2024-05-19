@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
+namespace ForeningsPortalen.Application.Features.Bookings.Queries.DTOs
 {
-    public class BookingCreateRequestDto
+    public class BookingQueryResultDto
     {
+        public Guid Id { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime BookingStart { get; set; }
         public DateTime BookingEnd { get; set; }
@@ -24,5 +25,6 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
         public required List<BookingUnit> BookingUnits { get; set; }
         public Guid AddressId { get; set; }
         public Guid UserId { get; set; }
+        public byte[] Rowversion { get; set; }
     }
 }

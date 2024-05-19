@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
 {
@@ -23,7 +24,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
             throw new NotImplementedException();
         }
 
-        void ICategoryCommands.DeleteCategory(Guid id)
+        void ICategoryCommands.DeleteCategory(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

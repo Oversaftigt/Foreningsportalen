@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Domain.Entities;
 
-namespace ForeningsPortalen.Application.Features.BookingUnits.Repositories
+namespace ForeningsPortalen.Application.Repositories
 {
     public interface IBookingUnitRepository
     {

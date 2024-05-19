@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
 {
@@ -16,10 +17,10 @@ namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
         void IUnionCommands.CreateUnion(UnionCommandCreateDto unionCreateDto)
         {
             var union = Domain.Entities.Union.Create(unionCreateDto.name);
-            _repository.CreateUnion(union);
+            _repository.AddUnion(union);
         }
 
-        void IUnionCommands.DeleteUnion(Guid id)
+        void IUnionCommands.DeleteUnion(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

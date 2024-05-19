@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Roles.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,26 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         public RoleRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        void IRoleRepository.AddRole(Role role)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRoleRepository.DeleteRole(Role role, byte[] rowversion)
+        {
+            throw new NotImplementedException();
+        }
+
+        Role IRoleRepository.GetRole(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRoleRepository.UpdateRole(Role role, byte[] rowversion)
+        {
+            throw new NotImplementedException();
         }
     }
 }

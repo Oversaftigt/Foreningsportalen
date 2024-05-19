@@ -11,13 +11,13 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         {
             _db= dbContext;
         }
-        void IUnionRepository.CreateUnion(Union union)
+
+        void IUnionRepository.AddUnion(Union union)
         {
             _db.Add(union);
             _db.SaveChanges();
         }
-
-        void IUnionRepository.DeleteUnion()
+        void IUnionRepository.DeleteUnion(Union union, byte[] rowversion)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             return union;
         }
 
-        void IUnionRepository.UpdateUnion()
+        void IUnionRepository.UpdateUnion(Union union, byte[] rowversion)
         {
             throw new NotImplementedException();
         }

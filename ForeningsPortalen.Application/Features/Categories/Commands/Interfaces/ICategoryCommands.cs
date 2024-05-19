@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Interfaces
 {
@@ -6,7 +7,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Interfaces
     {
         void CreateCategory(AddressCreateRequestDto addressCreateRequestDto);
         void UpdateCategory(AddressUpdateRequestDto addressUpdateRequestDto);
-        void DeleteCategory(Guid id);
+        void DeleteCategory(SharedEntityDeleteDto deleteDto);
 
     }
 }

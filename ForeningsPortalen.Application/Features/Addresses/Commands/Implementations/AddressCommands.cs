@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using System.Security.Cryptography;
 
@@ -54,7 +55,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
             throw new NotImplementedException();
         }
 
-        void IAddressCommands.DeleteAddress(Guid addressId)
+        void IAddressCommands.DeleteAddress(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
-    public class BoardRepository : IBoardRepository
+    public class BookingRepository : IBookingRepository
     {
         private readonly ForeningsPortalenContext _dbContext;
-        public BoardRepository(ForeningsPortalenContext dbContext)
+        public BookingRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        void IBoardRepository.AddBoard(Board board)
+        void IBookingRepository.AddBooking(Booking booking)
         {
             throw new NotImplementedException();
         }
 
-        void IBoardRepository.DeleteBoard(Board board, byte[] rowversion)
+        void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
         {
             throw new NotImplementedException();
         }
 
-        Board IBoardRepository.GetBoard(Guid id)
+        Booking IBookingRepository.GetBooking(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        void IBoardRepository.UpdateBoard(Board board, byte[] rowversion)
+        void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
         {
             throw new NotImplementedException();
         }

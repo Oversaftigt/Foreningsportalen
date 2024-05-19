@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Interfaces
 {
@@ -6,6 +7,6 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Interface
     {
         void AddBookingUnit(BookingUnitCreateRequestDto dto);
         void UpdateBookingUnit(BookingUnitUpdateRequestDto dto);
-        void DeleteBookingUnit(Guid id);
+        void DeleteBookingUnit(SharedEntityDeleteDto deleteDto);
     }
 }

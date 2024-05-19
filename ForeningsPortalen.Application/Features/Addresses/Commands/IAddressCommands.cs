@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands
 {
@@ -6,6 +7,6 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands
     {
         void CreateAddress(AddressCreateRequestDto addressCreateRequestDto);
         void UpdateAddress(AddressUpdateRequestDto addressUpdateRequestDto);
-        void DeleteAddress(Guid addressId);
+        void DeleteAddress(SharedEntityDeleteDto deleteDto);
     }
 }

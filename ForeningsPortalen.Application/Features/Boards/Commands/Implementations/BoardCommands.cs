@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Boards.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Boards.Repositories;
+using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Boards.Commands.Implementations
 {
-    public class BoardCommands : IboardCommands
+    public class BoardCommands : IBoardCommands
     {
         private readonly IBoardRepository _repository;
         public BoardCommands(IBoardRepository repository)
@@ -16,17 +17,17 @@ namespace ForeningsPortalen.Application.Features.Boards.Commands.Implementations
             _repository = repository;
         }
 
-        void IboardCommands.CreateBoard(BoardCreateRequestDto boardCreateRequestDto)
+        void IBoardCommands.CreateBoard(BoardCreateRequestDto boardCreateRequestDto)
         {
             throw new NotImplementedException();
         }
 
-        void IboardCommands.DeleteBoard(Guid id)
+        void IBoardCommands.DeleteBoard(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }
 
-        void IboardCommands.UpdateBoard(BoardUpdateRequestDto boardUpdateRequestDto)
+        void IBoardCommands.UpdateBoard(BoardUpdateRequestDto boardUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

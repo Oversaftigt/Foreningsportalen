@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands
 {
@@ -6,6 +7,6 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands
     {
         void CreateUnionMember(MemberCreateRequestDto createRequestDto);
         void UpdateUnionMember(MemberUpdateRequestDto updateRequestDto);
-        void DeleteUnionMember(MemberDeleteRequestDto deleteRequestDto);
+        void DeleteUnionMember(SharedEntityDeleteDto deleteRequestDto);
     }
 }

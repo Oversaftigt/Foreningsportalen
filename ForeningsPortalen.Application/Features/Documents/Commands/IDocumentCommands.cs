@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementations
+namespace ForeningsPortalen.Application.Features.Documents.Commands
 {
-    public class BookingfCommands
+    public interface IDocumentCommands
     {
     }
 }
