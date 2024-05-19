@@ -15,7 +15,8 @@ namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
 
         void IUnionCommands.CreateUnion(UnionCommandCreateDto unionCreateDto)
         {
-            throw new NotImplementedException();
+            var union = Domain.Entities.Union.Create(unionCreateDto.name);
+            _repository.CreateUnion(union);
         }
 
         void IUnionCommands.DeleteUnion(Guid id)

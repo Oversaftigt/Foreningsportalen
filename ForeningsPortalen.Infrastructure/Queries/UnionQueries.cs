@@ -11,12 +11,12 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             _dbContext = dbContext;
         }
-        UnionQueryResultDto IUnionQueries.GelAllUnions()
+        IEnumerable<UnionQueryResultDto> IUnionQueries.GetAllUnions()
         {
             throw new NotImplementedException();
         }
 
-        UnionQueryResultDto IUnionQueries.GelOneUnionById(Guid id)
+        UnionQueryResultDto IUnionQueries.GetUnionById(Guid id)
         {
             throw new NotImplementedException();
         }

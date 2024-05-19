@@ -10,17 +10,17 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class UnionController : ControllerBase
     {
-        private readonly IUnionQuery _Query;
+        private readonly IUnionQueries _Queries;
         private readonly IUnionCommands _Commands;
-        public UnionController(IUnionQuery query, IUnionCommands commands)
+        public UnionController(IUnionQueries query, IUnionCommands commands)
         {
-            _Query = query;
+            _Queries = query;
             _Commands = commands;
         }
         [HttpGet("{id}")]
         public ActionResult<Union> GetUnion(Guid id)
         {
-            var result = _Query.GetUnionWithId(id);
+            var result = _Queries.GetUnionById(id);
             if (result == null)
                 return NotFound(result);
 
@@ -30,7 +30,7 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Union>> GetAllUnions()
         {
-            var result = _Query.GetAllUnions().ToList();
+            var result = _Queries.GetAllUnions().ToList();
             if (!result.Any())
                 return NotFound(result);
 

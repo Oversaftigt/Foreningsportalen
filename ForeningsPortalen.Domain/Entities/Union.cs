@@ -8,10 +8,9 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        public Union(Guid id, string name, List<Address> addressInformation/*, Board? board, List<User> users*/) : base(id)
+        internal Union(Guid id, string name/*, Board? board, List<User> users*/) : base(id)
         {
             this.name = name;
-            Addresses = addressInformation;
             //Board = board;
             //Users = users;
         }
@@ -20,5 +19,12 @@ namespace ForeningsPortalen.Domain.Entities
         //public List<User> Users { get; set; }
         //public Board? Board { get; set; }
         //public List<User> Users { get; set; }
+
+        public static Union Create(string unionName)
+        {
+            if (unionName is null) throw new ArgumentNullException(nameof(unionName));
+            var newUnion = new Union(Guid.NewGuid(), unionName);
+            return newUnion;
+        }
     }
 }

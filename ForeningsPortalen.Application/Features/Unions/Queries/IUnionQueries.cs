@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Application.Features.Unions.Queries
 {
     public interface IUnionQueries
     {
-        UnionQueryResultDto GelOneUnionById(Guid id);
-        UnionQueryResultDto GelAllUnions();
+        UnionQueryResultDto GetUnionById(Guid id);
+        IEnumerable<UnionQueryResultDto> GetAllUnions();
     }
 }

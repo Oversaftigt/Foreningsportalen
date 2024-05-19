@@ -1,18 +1,20 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
     public class UnionRepository : IUnionRepository
     {
-        // readonly DbContext _dbContext;
-        public UnionRepository(/*DbContext dbContext*/)
+        readonly ForeningsPortalenContext _db;
+        public UnionRepository(ForeningsPortalenContext dbContext)
         {
-            //_dbContext = dbContext;
+            _db= dbContext;
         }
         void IUnionRepository.CreateUnion(Union union)
         {
-            throw new NotImplementedException();
+            _db.Add(union);
+            _db.SaveChanges();
         }
 
         void IUnionRepository.DeleteUnion()
