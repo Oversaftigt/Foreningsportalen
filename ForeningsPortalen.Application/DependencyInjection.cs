@@ -1,6 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Addresses.Commands.Interfaces;
 using ForeningsPortalen.Application.Features.Boards.Commands;
 using ForeningsPortalen.Application.Features.Boards.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Bookings.Commands;

@@ -17,22 +17,22 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbCopntext = dbContext;
         }
 
-        void IUserRoleRepository.AddUserRole(UserRole userRole)
+        void IUserRoleRepository.AddUserRole(UserRoleHistory userRole)
         {
             throw new NotImplementedException();
         }
 
-        void IUserRoleRepository.DeleteUserRole(UserRole userRole, byte[] rowVersion)
+        void IUserRoleRepository.DeleteUserRole(UserRoleHistory userRole, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        UserRole IUserRoleRepository.GetUserRole(Guid id)
+        UserRoleHistory IUserRoleRepository.GetUserRole(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        void IUserRoleRepository.UpdateUserRole(UserRole userRole, byte[] rowVersion)
+        void IUserRoleRepository.UpdateUserRole(UserRoleHistory userRole, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }

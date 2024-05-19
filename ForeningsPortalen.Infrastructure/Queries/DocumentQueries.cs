@@ -24,7 +24,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
            var result = _dbContext.Documents.AsNoTracking()
                    .Select(b => new DocumentQueryResultDto
                    {
-                       Id = b.Id,
+                       Id = b.DocumentId,
                        Title = b.Title,
                        UploadedBy = b.UploadedBy,
                        Date = b.Date,

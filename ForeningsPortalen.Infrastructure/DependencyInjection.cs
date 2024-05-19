@@ -17,6 +17,7 @@ using ForeningsPortalen.Application.Features.Documents.Queries;
 using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
 using ForeningsPortalen.Application.Features.UserRoles.Queries;
+using ForeningsPortalen.Application.Features.Helpers;
 
 namespace ForeningsPortalen.Infrastructure
 {

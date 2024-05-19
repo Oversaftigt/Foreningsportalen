@@ -5,9 +5,9 @@ namespace ForeningsPortalen.Application.Repositories
 {
     public interface IUserRoleRepository
     {
-        void AddUserRole(UserRole userRole);
-        void DeleteUserRole(UserRole userRole, byte[] rowVersion);
-        void UpdateUserRole(UserRole userRole, byte[] rowVersion);
-        UserRole GetUserRole(Guid id);
+        void AddUserRole(UserRoleHistory userRole);
+        void DeleteUserRole(UserRoleHistory userRole, byte[] rowVersion);
+        void UpdateUserRole(UserRoleHistory userRole, byte[] rowVersion);
+        UserRoleHistory GetUserRole(Guid id);
     }
 }
