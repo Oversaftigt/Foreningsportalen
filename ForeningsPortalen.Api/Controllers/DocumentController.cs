@@ -45,6 +45,16 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpPost]
         public ActionResult PostDocument([FromBody] DocumentCreateRequestDto documentCreateRequestDto)
         {
+            try
+            {
+                _command.CreateDocument(documentCreateRequestDto);
+                return Created();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
             throw new NotImplementedException();
         }
 
