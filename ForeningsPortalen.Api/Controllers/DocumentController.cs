@@ -31,7 +31,7 @@ namespace ForeningsPortalen.Api.Controllers
           
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public ActionResult<IEnumerable<DocumentQueryResultDto>> GetDocumentById(Guid id)
         {
             var result = _queries.GetDocumentById(id);
