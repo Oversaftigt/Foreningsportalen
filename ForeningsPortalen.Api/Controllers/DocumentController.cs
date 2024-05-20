@@ -20,10 +20,26 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<DocumentQueryResultDto>> GetDocument() 
+        public ActionResult<IEnumerable<DocumentQueryResultDto>> GetAllDocuments() 
         {
-            //Denne
-            throw new NotImplementedException();
+            var result = _queries.GetAllDocuments();
+            if(result == null)
+            {
+                return BadRequest("Ingen dokumenter er fundet");
+            }
+            return Ok(result);
+          
+        }
+
+        [HttpGet("id")]
+        public ActionResult<IEnumerable<DocumentQueryResultDto>> GetDocumentById(Guid id)
+        {
+            var result = _queries.GetDocumentById(id);
+            if (result == null)
+            {
+                return BadRequest("Ingen dokumenter er fundet");
+            }
+            return Ok(result);
         }
 
         [HttpPost]
