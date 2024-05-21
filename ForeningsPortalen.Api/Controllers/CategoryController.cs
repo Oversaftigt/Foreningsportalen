@@ -1,7 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
+using ForeningsPortalen.Application.Features.Categories.Queries;
 using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers

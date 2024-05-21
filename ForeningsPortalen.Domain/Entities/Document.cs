@@ -8,17 +8,27 @@ namespace ForeningsPortalen.Domain.Entities
         public Document()
         {
         }
-
-        public Document(string title, Member uploadedBy, DateOnly date)
+   
+        internal Document(string title, Member uploadedBy, DateOnly date)
         {
             Title = title;
             UploadedBy = uploadedBy;
             Date = date;
         }
+
         public Guid DocumentId { get; set; }
-        public required string Title { get; set; }
+        public string Title { get; set; }
         public Member UploadedBy { get; set; }
         public DateOnly Date { get; set; }
+
+        public static Document CreateDocument(string title, Member uploadedBy, DateOnly date)
+        {
+            if(title == null) { throw new ArgumentNullException(nameof( title )); }
+            
+            var newDocument = new Document(title, uploadedBy, date);
+
+            return newDocument;
+        }
    
     }
 }

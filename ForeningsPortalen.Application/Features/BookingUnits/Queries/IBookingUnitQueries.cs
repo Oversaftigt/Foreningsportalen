@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
 
-namespace ForeningsPortalen.Application.Features.BookingUnits.Queries.Interfaces
+namespace ForeningsPortalen.Application.Features.BookingUnits.Queries
 {
     public interface IBookingUnitQueries
     {
