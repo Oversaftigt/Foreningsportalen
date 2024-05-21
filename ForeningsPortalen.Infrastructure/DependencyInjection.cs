@@ -18,6 +18,8 @@ using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
 using ForeningsPortalen.Application.Features.UserRoles.Queries;
 using ForeningsPortalen.Application.Features.Helpers;
+using ForeningsPortalen.Domain.Validation;
+using ForeningsPortalen.Infrastructure.ThirdPartyIntegrations;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -34,7 +36,7 @@ namespace ForeningsPortalen.Infrastructure
             //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test2"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
@@ -64,10 +66,11 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-            
 
+            //Third party integration
+            services.AddScoped<IDawaAddressValidation,DawaAddressValidation>();
 
-
+            //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUnionQueries, UnionQueries>();

@@ -3,6 +3,7 @@ using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
+using ForeningsPortalen.Domain.Validation;
 using System.Security.Cryptography;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementations
@@ -12,12 +13,14 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
         private readonly IAddressRepository _addressRepository;
         private readonly IUnionRepository _unionRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDawaAddressValidation dawaAddressValidation;
 
-        public AddressCommands(IAddressRepository addressRepository, IUnionRepository unionRepository, IUnitOfWork unitOfWork)
+        public AddressCommands(IAddressRepository addressRepository, IUnionRepository unionRepository, IUnitOfWork unitOfWork, IDawaAddressValidation dawaAddressValidation)
         {
             _addressRepository = addressRepository;
             _unionRepository = unionRepository;
             _unitOfWork = unitOfWork;
+            this.dawaAddressValidation = dawaAddressValidation;
         }
 
         void IAddressCommands.CreateAddress(AddressCreateRequestDto addressCreateRequestDto)
@@ -32,7 +35,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 var address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber, 
                                                  addressCreateRequestDto.Floor, addressCreateRequestDto.Door,
                                                  addressCreateRequestDto.City, addressCreateRequestDto.ZipCode, 
-                                                 union);
+                                                 union, dawaAddressValidation);
 
                 _addressRepository.AddAddress(address);
                 _unitOfWork.Commit();
