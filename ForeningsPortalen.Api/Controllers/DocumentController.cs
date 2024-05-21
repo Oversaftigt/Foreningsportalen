@@ -54,8 +54,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest();
             }
-
-            throw new NotImplementedException();
         }
 
         [HttpPut]
