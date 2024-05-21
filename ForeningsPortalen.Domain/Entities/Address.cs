@@ -29,7 +29,7 @@ namespace ForeningsPortalen.Domain.Entities
         public string City { get; set; }
         public int ZipCode { get; set; }
         public Union Union { get; set; }
-        public List<Member> Members { get; set; }
+        public IEnumerable<Member> Members { get; set; }
 
         public static Address Create(string streetName, int streetNumber, string? floor, string? door,string city, int zipCode, Union union)
         {
@@ -47,8 +47,6 @@ namespace ForeningsPortalen.Domain.Entities
                 return address;
 
                 //lav validering på om den allerede eksistere i databasen ? Senere
-
         }
-
     }
 }

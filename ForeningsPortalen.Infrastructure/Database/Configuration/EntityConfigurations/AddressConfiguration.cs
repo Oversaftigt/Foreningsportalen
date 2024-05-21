@@ -14,13 +14,14 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
         void IEntityTypeConfiguration<Address>.Configure(EntityTypeBuilder<Address> builder)
         {
             builder.HasKey(x => x.AddressId);
+
             builder.Property(x => x.StreetName).IsRequired();
             builder.Property(x => x.StreetNumber).IsRequired();
             builder.Property(x => x.Floor);
             builder.Property(x => x.Door);
             builder.Property(x => x.City).IsRequired();
             builder.Property(x => x.ZipCode).IsRequired();
-            
+
             builder.Property(x => x.RowVersion)
                    .IsRowVersion()
                    .IsRequired();
