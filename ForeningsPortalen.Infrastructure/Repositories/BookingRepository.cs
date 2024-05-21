@@ -19,12 +19,19 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IBookingRepository.AddBooking(Booking booking)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(booking);
+            _dbContext.SaveChanges();
         }
 
         void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
         {
             throw new NotImplementedException();
+        }
+
+        List<Booking> IBookingRepository.GetAllBookings()
+        {
+            var bookings = _dbContext.Find<Booking>();
+            return bookings;
         }
 
         Booking IBookingRepository.GetBooking(Guid id)

@@ -19,7 +19,8 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IBoardRepository.AddBoard(Board board)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(board);
+            _dbContext.SaveChanges();
         }
 
         void IBoardRepository.DeleteBoard(Board board, byte[] rowversion)
