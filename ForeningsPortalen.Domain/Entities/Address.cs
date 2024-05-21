@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Domain.Shared;
 using ForeningsPortalen.Domain.Validation;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ForeningsPortalen.Domain.Entities
@@ -37,21 +38,40 @@ namespace ForeningsPortalen.Domain.Entities
                                      int zipCode, Union union, IDawaAddressValidation dawaAddressValidation)
 
         {
+            StringBuilder fullAddress = new StringBuilder();
+            fullAddress.Append($"{streetName} {streetNumber}");
+
             if (union is null)
             {
                 throw new Exception("Creating an Address failed, because Union was not found");
             }
             if (streetName == null) throw new ArgumentNullException(nameof(streetName));
             if (streetNumber <= 0) throw new ArgumentNullException(nameof(streetNumber));
-            //Lav validering på Floor and Door
             if (city == null) throw new ArgumentNullException(nameof(city));
             if (zipCode <= 999) throw new ArgumentNullException(nameof(zipCode));
+            //Lav validering på Floor and Door
 
+            if (floor is not null)
+            {
+                if (IsFloorValid(floor))
+                {
+                    fullAddress.Append($", {floor}");
+                }
+            }
+            if (door is not null)
+            {
+                if (IsDoorValid(door))
+                {
+                    fullAddress.Append($", {door}");
+                }
+            }
             if (dawaAddressValidation is null) throw new ArgumentNullException(nameof(dawaAddressValidation));
-
-            string fullAddress = $"{streetName} {streetNumber}, {zipCode} {city}";
-            if (dawaAddressValidation.AddressIsValid(fullAddress) is false) throw new InvalidOperationException("Address does not exist");
+            
+            fullAddress.Append($", {zipCode} {city}");
+            if (dawaAddressValidation.AddressIsValid(fullAddress.ToString()) is false) throw new InvalidOperationException("Address does not exist or is not specified well enough");
+            
             var address = new Address(streetName, streetNumber, floor, door, city, zipCode, union);
+            
             return address;
 
             //lav validering på om den allerede eksistere i databasen ? Senere
@@ -59,7 +79,7 @@ namespace ForeningsPortalen.Domain.Entities
         }
 
         //Possible values that floor can be according to dawa's documentation: numbers from 1 to 99, st, kl, k2 up to k9
-        protected bool IsFloorValid()
+        protected static bool IsFloorValid(string Floor)
         {
             if (Floor == "st" || Floor == "kl" ||
                 Regex.IsMatch(Floor, @"^k[1-9]$") ||
@@ -72,9 +92,9 @@ namespace ForeningsPortalen.Domain.Entities
 
         //Possible values that door can be according to dawa's documentation:
         //Numbers from 1 to 9999, small letters as well as the symbols / and -
-        protected bool IsDoorValid()
+        protected static bool IsDoorValid(string Door)
         {
-            string pattern = @"^[1-9][0-9]{0,3}[a-z/-]*$";
+            string pattern = @"^[1-9][0-9]{0,3}[a-z/-]*$"; //Door numbers are assumed to have numbers before letters/symbols
             return Regex.IsMatch(Door, pattern);
         }
     }

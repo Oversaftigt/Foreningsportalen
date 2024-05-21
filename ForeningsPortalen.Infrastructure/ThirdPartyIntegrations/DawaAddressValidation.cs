@@ -19,12 +19,13 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 
             string responseBody = response.Content.ReadAsStringAsync().Result;
 
+            //using jsondocument to get the value of a single property from the full json from the api
             using JsonDocument jsonDoc = JsonDocument.Parse(responseBody);
             JsonElement root = jsonDoc.RootElement;
 
-            string kategori = root.GetProperty("Kategori").GetString();
+            string category = root.GetProperty("kategori").GetString();
 
-            if (kategori == "A" || kategori == "B")
+            if (category == "A" || category == "B")
             {
                 return true;
             }
