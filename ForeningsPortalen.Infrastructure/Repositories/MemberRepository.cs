@@ -23,8 +23,10 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         }
 
         Member IMemberRepository.GetUnionMember(Guid unionMemberId)
-        {
-            throw new NotImplementedException();
+        { 
+            var member = _db.Members.Find(unionMemberId);
+            if (member == null) throw new ArgumentNullException("Member not found");
+            return member;
         }
 
         void IMemberRepository.UpdateUnionMember(Member unionMember, byte[] rowVersion)

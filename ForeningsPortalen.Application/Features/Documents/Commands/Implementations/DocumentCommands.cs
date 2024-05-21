@@ -14,10 +14,12 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
     public class DocumentCommands : IDocumentCommands
     {
         private readonly IDocumentRepository _documentRepository;
+        private readonly IMemberRepository _memberRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public DocumentCommands(IDocumentRepository documentRepository, IUnitOfWork unitOfWork)
+        public DocumentCommands(IDocumentRepository documentRepository, IMemberRepository memberRepository, IUnitOfWork unitOfWork)
         {
             _documentRepository = documentRepository;
+            _memberRepository = memberRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -26,8 +28,13 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
             try
             {
                 _unitOfWork.BeginTransaction();
+                var member = _memberRepository.GetUnionMember(documentCreateRequestDto.MemberId);
+                if (member == null)
+                {
+                    throw new ArgumentNullException("Member not found");
+                }
 
-                var newDocument = Document.CreateDocument(documentCreateRequestDto.Title, documentCreateRequestDto.Member, documentCreateRequestDto.Date);
+                var newDocument = Document.CreateDocument(documentCreateRequestDto.Title, member, documentCreateRequestDto.Date);
 
                 _documentRepository.AddDocument(newDocument);
                 _unitOfWork.Commit();
