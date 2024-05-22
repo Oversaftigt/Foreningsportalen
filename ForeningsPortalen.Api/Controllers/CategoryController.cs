@@ -22,13 +22,26 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategories()
         {
-            throw new NotImplementedException();
+            var result = _queries.GetCategories();
+            if (result == null)
+            {
+                return BadRequest("Ingen Kategorier er fundet");
+            }
+            return Ok(result);
         }
 
         [HttpPost]
         public ActionResult PostCategory([FromBody] CategoryCreateRequestDto categoryCreateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _command.CreateCategory(categoryCreateRequestDto);
+                return Created();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut]
