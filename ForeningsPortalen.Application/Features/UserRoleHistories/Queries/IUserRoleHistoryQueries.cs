@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForeningsPortalen.Application.Features.UserRoleHistories.Commands.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,8 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Queries
     {
         //(Indeholder query-metoder. Metoder skal bruge FeatureQueryResultDto som returtype. 
         //Dette interface implementeres af FeatureQueries i infrastruktur)
+
+        UserRoleHistoryCreateRequestDto GetUserRoleHistory(Guid id);
+        List<UserRoleHistoryCreateRequestDto> GetAlleUserRoleHistories();
     }
 }

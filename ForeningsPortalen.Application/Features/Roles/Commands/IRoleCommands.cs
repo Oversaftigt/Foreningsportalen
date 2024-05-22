@@ -10,7 +10,6 @@ namespace ForeningsPortalen.Application.Features.Roles.Commands
 {
     public interface IRoleCommands
     {
-        //(Indeholder Create, Update og Delete metoder. DTO'er bliver brugt bl.a.)
         void CreateRoles(RoleCreateRequestDto roleCreateRequestDto);
         void UpdateRoles(RoleUpdateRequestDto roleUpdateRequestDto);
         void DeleteRoles(SharedEntityDeleteDto deleteDto);
