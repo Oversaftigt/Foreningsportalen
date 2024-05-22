@@ -25,7 +25,7 @@ namespace ForeningsPortalen.Api.Controllers
             var result = _queries.GetAllDocuments();
             if(result == null)
             {
-                return BadRequest("Ingen dokumenter er fundet");
+                return BadRequest( "Ingen dokumenter er fundet");
             }
             return Ok(result);
           

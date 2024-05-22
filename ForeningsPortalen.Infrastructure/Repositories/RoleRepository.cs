@@ -19,7 +19,8 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IRoleRepository.AddRole(Role role)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(role);
+            _dbContext.SaveChanges();
         }
 
         void IRoleRepository.DeleteRole(Role role, byte[] rowversion)
