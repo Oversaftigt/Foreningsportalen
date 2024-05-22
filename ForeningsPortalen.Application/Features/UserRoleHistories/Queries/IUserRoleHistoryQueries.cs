@@ -9,9 +9,6 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Queries
 {
     public interface IUserRoleHistoryQueries
     {
-        //(Indeholder query-metoder. Metoder skal bruge FeatureQueryResultDto som returtype. 
-        //Dette interface implementeres af FeatureQueries i infrastruktur)
-
         UserRoleHistoryCreateRequestDto GetUserRoleHistory(Guid id);
         List<UserRoleHistoryCreateRequestDto> GetAlleUserRoleHistories();
     }
