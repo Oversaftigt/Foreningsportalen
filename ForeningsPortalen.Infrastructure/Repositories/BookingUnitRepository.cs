@@ -17,12 +17,13 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        void IBookingUnitRepository.AddBookingUnit(BookingUnit BookingUnit)
+        void IBookingUnitRepository.AddBookingUnit(BookingUnit bookingUnit)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(bookingUnit);
+            _dbContext.SaveChanges();
         }
 
-        void IBookingUnitRepository.DeleteBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
+        void IBookingUnitRepository.DeleteBookingUnit(BookingUnit bookingUnit, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +39,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        void IBookingUnitRepository.UpdateBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
+        void IBookingUnitRepository.UpdateBookingUnit(BookingUnit bookingUnit, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }

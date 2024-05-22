@@ -1,18 +1,21 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
     internal class UserRepository : IUserRepository
     {
-        //Inject db context
-        public UserRepository()
+        private readonly ForeningsPortalenContext _dbContext;
+        public UserRepository(ForeningsPortalenContext dbContext)
         {
-            //var _db;
+            _dbContext = dbContext;
         }
         void IUserRepository.AddUser(User user)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(user);
+            _dbContext.SaveChanges();
         }
 
         void IUserRepository.DeleteUser(User booking, byte[] rowVersion)
