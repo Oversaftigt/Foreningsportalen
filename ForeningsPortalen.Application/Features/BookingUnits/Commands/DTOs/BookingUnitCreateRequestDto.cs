@@ -8,5 +8,6 @@
         public double Price { get; set; }
         public int MaxBookingDuration { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid BookingID { get; set; }
     }
 }

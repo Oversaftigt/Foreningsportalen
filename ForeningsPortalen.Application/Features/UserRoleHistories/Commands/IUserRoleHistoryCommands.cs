@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ForeningsPortalen.Application.Features.UserRoles.Commands.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,8 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Commands
 {
     public interface IUserRoleHistoryCommands
     {
-        //(Indeholder Create, Update og Delete metoder. DTO'er bliver brugt bl.a.)
+        void CreateUserRoleHistory(UserRoleCreateRequestDto userRoleCreateRequestDto);
+        void UpdateUserRoleHistory(UserRoleUpdateRequestDto userRoleUpdateRequestDto);
+        void DeleteUserRoleHistory(SharedEntityDeleteDto deleteDto);
     }
 }

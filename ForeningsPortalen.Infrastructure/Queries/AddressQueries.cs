@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Queries;
+using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
@@ -31,9 +31,8 @@ namespace ForeningsPortalen.Infrastructure.Queries
                                ZipCode = a.ZipCode,
                                UnionId = a.Union.UnionId,
                                Members = a.Members.Select(m => m.UserId).ToList(),
-                               CurrentMember = a.Members.FirstOrDefault(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
                                RowVersion = a.RowVersion,
-                           })
+                           }) 
                            .Where(a => a.UnionId == unionId).ToList();
 
             if (!addresses.Any())
@@ -43,6 +42,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
 
             return addresses;
         }
+
 
         AddressQueryResultDto IAddressQueries.GetAddressById(Guid addressId)
         {
@@ -55,7 +55,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                              City = a.City,
                              ZipCode = a.ZipCode,
                              Members = a.Members.Select(m => m.UserId).ToList(),
-                             CurrentMember = a.Members.FirstOrDefault(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
+                             CurrentMember = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
                              RowVersion = a.RowVersion,
                          })
                          .First(a => a.Id == addressId);

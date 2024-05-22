@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Unions.Queries;
+﻿using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Repositories;
@@ -11,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ForeningsPortalen.Application.Features.Boards.Queries;
 using ForeningsPortalen.Application.Features.Bookings.Queries;
-using ForeningsPortalen.Application.Features.BookingUnits.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Documents.Queries;
 using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
@@ -20,6 +17,9 @@ using ForeningsPortalen.Application.Features.UserRoles.Queries;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Domain.Validation;
 using ForeningsPortalen.Infrastructure.ThirdPartyIntegrations;
+using ForeningsPortalen.Application.Features.Addresses.Queries;
+using ForeningsPortalen.Application.Features.BookingUnits.Queries;
+using ForeningsPortalen.Application.Features.Categories.Queries;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -36,7 +36,7 @@ namespace ForeningsPortalen.Infrastructure
             //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test2"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
@@ -62,6 +62,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUnionRepository, UnionRepository>();
             services.AddScoped<IBoardRepository, BoardRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingUnitRepository, BookingUnitRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();
@@ -69,6 +70,11 @@ namespace ForeningsPortalen.Infrastructure
 
             //Third party integration
             services.AddScoped<IDawaAddressValidation,DawaAddressValidation>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
+
+
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();

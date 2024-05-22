@@ -8,5 +8,6 @@ namespace ForeningsPortalen.Application.Repositories
         BookingUnit GetBookingUnit(Guid id);
         void UpdateBookingUnit(BookingUnit BookingUnit, byte[] rowVersion);
         void DeleteBookingUnit(BookingUnit BookingUnit, byte[] rowVersion);
+        List<BookingUnit> GetAll();
     }
 }

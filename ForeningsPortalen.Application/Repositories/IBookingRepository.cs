@@ -15,5 +15,6 @@ namespace ForeningsPortalen.Application.Repositories
         void UpdateBooking(Booking booking, byte[] rowversion);
         void DeleteBooking(Booking booking, byte[] rowversion);
         Booking GetBooking(Guid id);
+        List<Booking> GetAllBookings();
     }
 }

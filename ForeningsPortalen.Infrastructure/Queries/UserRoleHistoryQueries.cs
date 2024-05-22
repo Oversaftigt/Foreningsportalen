@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
+﻿using ForeningsPortalen.Application.Features.UserRoleHistories.Commands.DTOs;
+using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,16 @@ namespace ForeningsPortalen.Infrastructure.Queries
         public UserRoleHistoryQueries(ForeningsPortalenContext dbcontext)
         {
             _dbcontext = dbcontext;
+        }
+
+        List<UserRoleHistoryCreateRequestDto> IUserRoleHistoryQueries.GetAlleUserRoleHistories()
+        {
+            throw new NotImplementedException();
+        }
+
+        UserRoleHistoryCreateRequestDto IUserRoleHistoryQueries.GetUserRoleHistory(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

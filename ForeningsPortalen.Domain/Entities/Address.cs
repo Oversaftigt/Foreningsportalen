@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Domain.Shared;
+﻿
+using ForeningsPortalen.Domain.Shared;
 using ForeningsPortalen.Domain.Validation;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -32,7 +33,7 @@ namespace ForeningsPortalen.Domain.Entities
         public string City { get; set; }
         public int ZipCode { get; set; }
         public Union Union { get; set; }
-        public List<Member> Members { get; set; }
+        public IEnumerable<Member> Members { get; set; }
 
         public static Address Create(string streetName, int streetNumber, string? floor, string? door, string city,
                                      int zipCode, Union union, IDawaAddressValidation dawaAddressValidation)

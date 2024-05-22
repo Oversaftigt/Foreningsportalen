@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Categories.Queries;
+using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
