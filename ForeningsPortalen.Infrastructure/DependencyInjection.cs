@@ -36,7 +36,7 @@ namespace ForeningsPortalen.Infrastructure
             //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test2"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
