@@ -39,7 +39,5 @@ namespace ForeningsPortalen.Domain.Entities
             var newBooking = new Booking(creationDate, bookingStart, bookingEnd, bookingUnits, user);
                 return newBooking;
         }
-
-
     }
 }

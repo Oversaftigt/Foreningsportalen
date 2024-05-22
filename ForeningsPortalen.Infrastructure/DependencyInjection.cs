@@ -60,6 +60,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUnionRepository, UnionRepository>();
             services.AddScoped<IBoardRepository, BoardRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingUnitRepository, BookingUnitRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();

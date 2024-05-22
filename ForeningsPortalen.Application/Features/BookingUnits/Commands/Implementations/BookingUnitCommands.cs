@@ -11,10 +11,11 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
     {
         private readonly IBookingUnitRepository _bookingUnitRepository;
         private readonly IUnitOfWork _unitOfWork;
-       private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IBookingRepository _bookingRepository;
 
-        public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository, IBookingRepository bookingRepository)
+        public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork,
+            ICategoryRepository categoryRepository, IBookingRepository bookingRepository)
         {
             _bookingUnitRepository = bookingUnitRepository;
             _unitOfWork = unitOfWork;
@@ -25,23 +26,37 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
 
         void IBookingUnitCommands.CreateBookingUnit(BookingUnitCreateRequestDto dto)
         {
-            _unitOfWork.BeginTransaction();
-
-            var category = _categoryRepository.GetCategories(dto.CategoryId);
-            if (category == null)
+            try
             {
-                throw new ArgumentNullException("Member not found");
-            }
-            var booking = _bookingRepository.GetAllBookings();
-            if (booking == null)
-            {
-                throw new ArgumentNullException("Member not found");
-            }
+                _unitOfWork.BeginTransaction();
 
-            var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit, 
-                                    dto.Price, dto.MaxBookingDuration, category, booking);
-            _bookingUnitRepository.AddBookingUnit(newBookingUnit);
-            _unitOfWork.Commit();
+                var category = _categoryRepository.GetCategories(dto.CategoryId);
+                if (category == null)
+                {
+                    throw new ArgumentNullException("Member not found");
+                }
+                var booking = _bookingRepository.GetAllBookings();
+                if (booking == null)
+                {
+                    throw new ArgumentNullException("Member not found");
+                }
+
+                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
+                                        dto.Price, dto.MaxBookingDuration, category, booking);
+                _bookingUnitRepository.AddBookingUnit(newBookingUnit);
+                _unitOfWork.Commit();
+            }
+            catch
+            {
+                try
+                {
+                    _unitOfWork?.Rollback();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Rollback has failed: {ex.Message}");
+                }
+            }
         }
 
         void IBookingUnitCommands.UpdateBookingUnit(BookingUnitUpdateRequestDto dto)

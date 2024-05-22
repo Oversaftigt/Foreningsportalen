@@ -4,8 +4,8 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Queries
 {
     public interface IBookingUnitQueries
     {
-        IEnumerable<BookingUnitQueryResultDto> GetAllBookingUnits();
-        IEnumerable<BookingUnitQueryResultDto> GetBookingUnitsByCategoryId(Guid categoryId);
-        IEnumerable<BookingUnitQueryResultDto> GetBookingUnitsByBookingId(Guid bookingId);
+        List<BookingUnitQueryResultDto> GetAllBookingUnits();
+        List<BookingUnitQueryResultDto> GetBookingUnitsByCategoryId(Guid categoryId);
+        List<BookingUnitQueryResultDto> GetBookingUnitsByBookingId(Guid bookingId);
     }
 }

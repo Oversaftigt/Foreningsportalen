@@ -1,25 +1,50 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
+using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
 {
     public class CategoryCommands : ICategoryCommands
     {
-        //private readonly ICategoryRepository _repo;
+        private readonly ICategoryRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryCommands(/*ICategoryRepository repo*/)
+        public CategoryCommands(ICategoryRepository repository, IUnitOfWork unitOfWork)
         {
-        //    _repo = repo;
+            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        void ICategoryCommands.CreateCategory(AddressCreateRequestDto addressCreateRequestDto)
+        void ICategoryCommands.CreateCategory(CategoryCreateRequestDto categoryCreateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                var newCategory = Category.CreateCategory(categoryCreateRequestDto.Name, categoryCreateRequestDto.DurationType, 
+                    categoryCreateRequestDto.MaxBookingsOfThisCategory);
+
+                _repository.AddCategory(newCategory);
+                _unitOfWork.Commit();
+            }
+            catch
+            {
+                try
+                {
+                    _unitOfWork?.Rollback();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Rollback has failed: {ex.Message}");
+                }
+            }
+
         }
 
-        void ICategoryCommands.UpdateCategory(AddressUpdateRequestDto addressUpdateRequestDto)
+        void ICategoryCommands.UpdateCategory(CategoryUpdateRequestDto categoryUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

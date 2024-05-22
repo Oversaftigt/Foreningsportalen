@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Commands.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Categories.Commands;
+using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Queries;
 using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
 using Microsoft.AspNetCore.Mvc;

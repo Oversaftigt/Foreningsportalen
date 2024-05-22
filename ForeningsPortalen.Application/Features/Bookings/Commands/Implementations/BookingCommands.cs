@@ -1,7 +1,6 @@
 ﻿using AutoMapper.Execution;
 using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Bookings.Queries;
-using ForeningsPortalen.Application.Features.BookingUnits.Commands.Interfaces;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
@@ -21,11 +20,12 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBookingRepository _bookingRepository;
-        private readonly IBookingUnitQueries _bookingUnit;
+        private readonly IBookingUnitRepository _bookingUnit;
         private readonly IUserRepository _user;
         private readonly IMemberRepository _member;
 
-        public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitQueries bookingUnit, IUserRepository user, IMemberRepository member)
+        public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitRepository bookingUnit, 
+            IUserRepository user, IMemberRepository member)
         {
             _unitOfWork = unitOfWork;
             _bookingRepository = bookingRepository;
@@ -41,7 +41,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             {
                 _unitOfWork.BeginTransaction();
 
-                var bookingUnits = _bookingUnit.GetAllBookingUnits().ToList();
+                var bookingUnits = _bookingUnit.GetAll().ToList();
 
                 if (bookingUnits == null)
                 {
@@ -55,7 +55,8 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                     throw new ArgumentNullException("member not found");
                 }
 
-                var newBooking = Booking.CreateBooking(bookingCreateDto.CreationDate, bookingCreateDto.BookingStart, bookingCreateDto.BookingEnd, bookingUnits, member);
+                var newBooking = Booking.CreateBooking(bookingCreateDto.CreationDate, bookingCreateDto.BookingStart, 
+                    bookingCreateDto.BookingEnd, bookingUnits, member);
 
                 _bookingRepository.AddBooking(newBooking);
                 _unitOfWork.Commit();

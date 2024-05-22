@@ -13,6 +13,12 @@ namespace ForeningsPortalen.Domain.Entities
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
         public ICollection<UserRoleHistory> UserHistories { get; set; } = new List<UserRoleHistory>();
+
+        public static Role CreateRole(string roleName)
+        {
+            var newRole = new Role(roleName);
+            return newRole;
+        }
     }
 }
 

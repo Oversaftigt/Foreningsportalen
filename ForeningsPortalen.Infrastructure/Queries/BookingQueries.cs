@@ -18,7 +18,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
             _dbContext = dbContext;
         }
 
-        IEnumerable<BookingQueryResultDto> IBookingQueries.GetAllBookings()
+        List<BookingQueryResultDto> IBookingQueries.GetAllBookings()
         {
             throw new NotImplementedException();
         }
