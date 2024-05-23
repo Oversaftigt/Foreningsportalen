@@ -47,10 +47,10 @@ namespace ForeningsPortalen.Domain.Entities
             if (newBooking.AreBookingUnitsAllTheSameCategory() is false)
                 throw new InvalidOperationException("Booking units are not all the same category");
 
-            if (newBooking.IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(newBooking)) is true)
+            if (newBooking.IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId)) is true)
                 throw new InvalidOperationException("Max bookings of this category is reached");
 
-            if (newBooking.IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(newBooking)) is true)
+            if (newBooking.IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId)) is true)
                 throw new InvalidOperationException("Booking overlaps with another existing booking");
 
             return newBooking;

@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Domain.DomainServices
 {
     public interface IBookingDomainService
     {
-        IEnumerable<Booking> OtherBookingsFromUnion(Booking booking);
-        IEnumerable<Booking> OtherBookingsFromAddress(Booking booking);
+        IEnumerable<Booking> OtherBookingsFromUnion(Guid unionId);
+        IEnumerable<Booking> OtherBookingsFromAddress(Guid addressId);
     }
 }

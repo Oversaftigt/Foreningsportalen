@@ -21,8 +21,6 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 
         IEnumerable<Booking> IBookingDomainService.OtherBookingsFromAddress(Guid addressId)
         {
-            
-
             var otherBookingsOnThisAddress = _dbContext.Bookings
                                 .Where(x => x.User.Address.AddressId == addressId);
 
@@ -30,17 +28,12 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 
         }
 
-        IEnumerable<Booking> IBookingDomainService.OtherBookingsFromUnion(Booking booking)
+        IEnumerable<Booking> IBookingDomainService.OtherBookingsFromUnion(Guid unionId)
         {
-            Guid unionId = _dbContext.Bookings
-                            .Where(x => x.BookingId == booking.BookingId)
-                            .Select(x => x.User.Address.Union.UnionId)
-                            .First();
-
             var otherBookingsOnThisUnion = _dbContext.Bookings
                                             .Include(x => x.User)
                                             .ThenInclude(x => x.Address)
-                                            .Where(x => x.User.Address.Union.UnionId == unionId && x.BookingId != booking.BookingId);
+                                            .Where(x => x.User.Address.Union.UnionId == unionId);
 
             return otherBookingsOnThisUnion;
         }
