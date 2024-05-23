@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 {
-    public class DawaAddressValidation : IDawaAddressValidation
+    public class DawaAddressValidationService : IDawaAddressValidationService
     {
-        bool IDawaAddressValidation.AddressIsValid(string fullAddress)
+        bool IDawaAddressValidationService.AddressIsValid(string fullAddress)
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.dataforsyningen.dk/datavask/adresser?betegnelse={Uri.EscapeDataString(fullAddress)}");

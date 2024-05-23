@@ -20,6 +20,8 @@ using ForeningsPortalen.Infrastructure.ThirdPartyIntegrations;
 using ForeningsPortalen.Application.Features.Addresses.Queries;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
 using ForeningsPortalen.Application.Features.Categories.Queries;
+using ForeningsPortalen.Domain.DomainServices;
+using ForeningsPortalen.Infrastructure.DomainServices;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -39,6 +41,9 @@ namespace ForeningsPortalen.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
+
+            //DomainServices
+            services.AddScoped<IBookingDomainService, BookingDomainService>();
 
             //Queries
             services.AddScoped<IUserQueries, UserQueries>();
@@ -69,7 +74,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
             //Third party integration
-            services.AddScoped<IDawaAddressValidation,DawaAddressValidation>();
+            services.AddScoped<IDawaAddressValidationService,DawaAddressValidationService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 

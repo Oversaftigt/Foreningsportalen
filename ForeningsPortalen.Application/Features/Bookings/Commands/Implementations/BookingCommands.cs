@@ -23,16 +23,17 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
         private readonly IBookingUnitRepository _bookingUnit;
         private readonly IUserRepository _user;
         private readonly IMemberRepository _member;
+        private readonly IServiceProvider _serviceProvider;
 
-        public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitRepository bookingUnit, 
-            IUserRepository user, IMemberRepository member)
+        public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitRepository bookingUnit,
+            IUserRepository user, IMemberRepository member, IServiceProvider serviceProvider)
         {
             _unitOfWork = unitOfWork;
             _bookingRepository = bookingRepository;
             _bookingUnit = bookingUnit;
             _user = user;
             _member = member;
-
+            _serviceProvider = serviceProvider;
         }
 
         void IBookingCommands.CreateBooking(BookingCreateRequestDto bookingCreateDto)
@@ -56,7 +57,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                 }
 
                 var newBooking = Booking.CreateBooking(bookingCreateDto.CreationDate, bookingCreateDto.BookingStart, 
-                    bookingCreateDto.BookingEnd, bookingUnits, member);
+                    bookingCreateDto.BookingEnd, bookingUnits, member, _serviceProvider);
 
                 _bookingRepository.AddBooking(newBooking);
                 _unitOfWork.Commit();

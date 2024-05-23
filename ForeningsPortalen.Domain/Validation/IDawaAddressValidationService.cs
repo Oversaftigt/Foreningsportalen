@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Domain.Validation
 {
-    public interface IDawaAddressValidation
+    public interface IDawaAddressValidationService
     {
         bool AddressIsValid(string fullAddress);
     }

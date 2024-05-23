@@ -1,6 +1,7 @@
 ﻿
 using ForeningsPortalen.Domain.Shared;
 using ForeningsPortalen.Domain.Validation;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -36,7 +37,7 @@ namespace ForeningsPortalen.Domain.Entities
         public IEnumerable<Member> Members { get; set; }
 
         public static Address Create(string streetName, int streetNumber, string? floor, string? door, string city,
-                                     int zipCode, Union union, IDawaAddressValidation dawaAddressValidation)
+                                     int zipCode, Union union, IServiceProvider services)
 
         {
             StringBuilder fullAddress = new StringBuilder();
@@ -50,6 +51,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (streetNumber <= 0) throw new ArgumentNullException(nameof(streetNumber));
             if (city == null) throw new ArgumentNullException(nameof(city));
             if (zipCode <= 999) throw new ArgumentNullException(nameof(zipCode));
+            if (services == null) throw new ArgumentNullException(nameof(services));
             //Lav validering på Floor and Door
 
             if (floor is not null)
@@ -66,10 +68,10 @@ namespace ForeningsPortalen.Domain.Entities
                     fullAddress.Append($", {door}");
                 }
             }
-            if (dawaAddressValidation is null) throw new ArgumentNullException(nameof(dawaAddressValidation));
-            
+            var dawaService = services.GetService<IDawaAddressValidationService>();
+            if (dawaService == null) throw new ArgumentNullException(nameof(dawaService));
             fullAddress.Append($", {zipCode} {city}");
-            if (dawaAddressValidation.AddressIsValid(fullAddress.ToString()) is false) throw new InvalidOperationException("Address does not exist or is not specified well enough");
+            if (dawaService.AddressIsValid(fullAddress.ToString()) is false) throw new InvalidOperationException("Address does not exist or is not specified well enough");
             
             var address = new Address(streetName, streetNumber, floor, door, city, zipCode, union);
             
