@@ -33,10 +33,12 @@ namespace ForeningsPortalen.Domain.Entities
             throw new NotImplementedException();
         }
 
-        public static Category CreateCategory(string name, BookingDurationType durationType, int maxBookingsOfThisCategory)
+        public static Category CreateCategory(string name, BookingDurationType durationType,
+            int maxBookingsOfThisCategory)
         {
             var newCategory = new Category(name, durationType, maxBookingsOfThisCategory);
-            //Er der her vi indfører noget if sætning på om metoden DoesCategoryAlreadyExist er true eller false? 
+            //Er der her vi indfører noget if sætning på om metoden DoesCategoryAlreadyExist
+            //er true eller false? 
 
             return newCategory;
         }
