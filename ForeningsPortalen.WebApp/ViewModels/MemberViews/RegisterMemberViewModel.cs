@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.WebApp.DTOs;
-using ForeningsPortalen.WebApp.ViewModels;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 

@@ -85,5 +85,18 @@ namespace ForeningsPortalen.WebApp.Controllers
                 return View();
             }
         }
+
+        public ActionResult UpdateUserClaims()
+        {
+            try
+            {
+                
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
