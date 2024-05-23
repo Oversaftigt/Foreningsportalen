@@ -33,6 +33,7 @@ namespace ForeningsPortalen.Domain.Entities
             throw new NotImplementedException();
         }
 
+
         public static Category CreateCategory(string name, BookingDurationType durationType,
             int maxBookingsOfThisCategory)
         {

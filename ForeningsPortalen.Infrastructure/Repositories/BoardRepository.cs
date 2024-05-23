@@ -30,9 +30,8 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         Board IBoardRepository.GetBoard(Guid id)
         {
-            //var board = _dbContext.Board.Find(id);
-            //return board;
-            throw new NotImplementedException();
+            var board = _dbContext.Board.Find(id);
+            return board;
         }
 
         void IBoardRepository.UpdateBoard(Board board, byte[] rowversion)

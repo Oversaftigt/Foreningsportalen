@@ -7,6 +7,7 @@ namespace ForeningsPortalen.Application.Repositories
         void AddCategory(Category category);
         void UpdateCategory(Category category, byte[] rowVersion);
         void DeleteCategory(Category category, byte[] rowVersion);
+        Category GetCategory(Guid id);
 
     }
 }
