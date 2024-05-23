@@ -55,18 +55,5 @@ namespace ForeningsPortalen.Api.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpPut]
-        public ActionResult PutDocument([FromBody] DocumentUpdateRequestDto documentUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteDocument(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
