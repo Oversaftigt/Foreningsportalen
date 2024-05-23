@@ -27,6 +27,8 @@ namespace ForeningsPortalen.Domain.Entities
             {
                 return BookingUnits[0].Category.Name;
             }
+            init{} 
+        
         }
 
         //Fk

@@ -1,6 +1,10 @@
-﻿using ForeningsPortalen.Application.Repositories;
+﻿using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
+using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +27,18 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbContext.SaveChanges();
         }
 
-        void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
+        void IBookingRepository.DeleteBooking(SharedEntityDeleteDto deleteDto)
         {
-            throw new NotImplementedException();
-        }
-
-        List<Booking> IBookingRepository.GetAllBookings()
-        {
-            var bookings = _dbContext.Bookings.ToList();
-            return bookings;
-
             throw new NotImplementedException();
         }
 
         Booking IBookingRepository.GetBooking(Guid id)
         {
-            throw new NotImplementedException();
+            var booking = _dbContext.Bookings.Find(id);
+                return booking;
         }
 
-        void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
+        void IBookingRepository.UpdateBooking(Booking booking)
         {
             throw new NotImplementedException();
         }

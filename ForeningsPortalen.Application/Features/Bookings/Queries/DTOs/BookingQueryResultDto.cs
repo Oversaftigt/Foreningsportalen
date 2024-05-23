@@ -18,6 +18,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Queries.DTOs
             get
             {
                 return BookingUnits[0].Category.Name;
+
             }
         }
 
