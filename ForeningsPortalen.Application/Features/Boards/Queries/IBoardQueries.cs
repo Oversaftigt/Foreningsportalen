@@ -10,7 +10,6 @@ namespace ForeningsPortalen.Application.Features.Boards.Queries
 {
     public interface IBoardQueries
     {
-        // Read one and Read all
 
         BoardQueryResultDto GelOneBoardById(Guid id);
         BoardQueryResultDto GelAllBoards();

@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Boards.Queries;
 using ForeningsPortalen.Application.Features.Boards.Queries.DTOs;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,22 @@ namespace ForeningsPortalen.Infrastructure.Queries
 
         BoardQueryResultDto IBoardQueries.GelOneBoardById(Guid id)
         {
-            throw new NotImplementedException();
+            var board = _dbContext.Board.AsNoTracking()
+              .Select(b => new BoardQueryResultDto()
+              {
+                  Id = id,
+                  Email = b.BoardEmail,
+                  Members = b.BoardMembers
+              })
+              .FirstOrDefault(b => b.Id == id);
+
+            if (board == null)
+            {
+                throw new Exception("No members were found");
+            }
+
+            return board;
         }
     }
 }
+
