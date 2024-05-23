@@ -1,28 +1,26 @@
-﻿using ForeningsPortalen.Application.Features.Unions.Commands;
-using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
+using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Unions.Commands.Implementations
 {
     public class UnionCommand : IUnionCommands
     {
         private readonly IUnionRepository _repository;
-        public UnionCommand(IUnionRepository repository)
+        //private readonly IUnitOfWork _unitOfWork;
+        public UnionCommand(IUnionRepository repository/*, IUnitOfWork unitOfWork*/)
         {
             _repository = repository;
+            //_unitOfWork = unitOfWork;
         }
 
         void IUnionCommands.CreateUnion(UnionCommandCreateDto unionCreateDto)
         {
-            throw new NotImplementedException();
+            var union = Domain.Entities.Union.Create(unionCreateDto.name);
+            _repository.AddUnion(union);
         }
 
-        void IUnionCommands.DeleteUnion(Guid id)
+        void IUnionCommands.DeleteUnion(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
         }

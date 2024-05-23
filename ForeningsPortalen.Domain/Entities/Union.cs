@@ -1,30 +1,31 @@
 ﻿using ForeningsPortalen.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Domain.Entities
 {
     public class Union : Entity
     {
-        public Union(Guid id) : base(Guid.NewGuid())
+        public Union()
         {
         }
 
-        public Union(Guid id, string name, List<Address> addressInformation, Board? board, List<Document> documents, List<User> users) : base(id)
+        internal Union(string name/*, Board? board, List<User> users*/) 
         {
             this.name = name;
-            AddressInformation = addressInformation;
-            Board = board;
-            Documents = documents;
-            Users = users;
+            //Board = board;
+            //Users = users;
         }
+        public Guid UnionId { get; set; }
         public string name { get; set; }
-        public List<Address> AddressInformation { get; set; }
-        public Board? Board { get; set; }
-        public List<Document> Documents { get; set; }
-        public List<User> Users { get; set; }
+        public List<Address>? Addresses { get; set; }
+        //public List<User> Users { get; set; }
+        //public Board? Board { get; set; }
+        //public List<User> Users { get; set; }
+
+        public static Union Create(string unionName)
+        {
+            if (unionName is null) throw new ArgumentNullException(nameof(unionName));
+            var newUnion = new Union(unionName);
+            return newUnion;
+        }
     }
 }
