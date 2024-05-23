@@ -9,33 +9,31 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
-    public class BoardRepository : IBoardRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly ForeningsPortalenContext _dbContext;
-        public BoardRepository(ForeningsPortalenContext dbContext)
+        public CategoryRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        void IBoardRepository.AddBoard(Board board)
+        void ICategoryRepository.AddCategory(Category category)
         {
-            _dbContext.Add(board);
+            _dbContext.Add(category);
             _dbContext.SaveChanges();
         }
 
-        void IBoardRepository.DeleteBoard(Board board, byte[] rowversion)
+        void ICategoryRepository.DeleteCategory(Category category, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        Board IBoardRepository.GetBoard(Guid id)
+        Category ICategoryRepository.GetCategories(Guid id)
         {
-            //var board = _dbContext.Board.Find(id);
-            //return board;
-            throw new NotImplementedException();
+            var category = _dbContext.Category.Find(id);
+            return category;
         }
 
-        void IBoardRepository.UpdateBoard(Board board, byte[] rowversion)
+        void ICategoryRepository.UpdateCategory(Category category, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }

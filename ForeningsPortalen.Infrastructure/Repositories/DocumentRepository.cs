@@ -28,9 +28,16 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
+        List<Document> IDocumentRepository.GetAllDocuments()
+        {
+            var allDocuments = _dbContext.Documents.ToList();
+            return allDocuments;
+        }
+
         Document IDocumentRepository.GetDocument(Guid id)
         {
-            throw new NotImplementedException();
+            var document = _dbContext.Documents.Find(id);
+            return document;
         }
 
         void IDocumentRepository.UpdateDocument(Document document, byte[] rowversion)

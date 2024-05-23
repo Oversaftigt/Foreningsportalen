@@ -1,4 +1,5 @@
-﻿using ForeningsPortalen.Domain.Shared;
+﻿
+using ForeningsPortalen.Domain.Shared;
 
 namespace ForeningsPortalen.Domain.Entities
 {

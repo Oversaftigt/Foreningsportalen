@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
 
-namespace ForeningsPortalen.Application.Features.Categories.Queries.Interfaces
+namespace ForeningsPortalen.Application.Features.Categories.Queries
 {
     public interface ICategoryQueries
     {

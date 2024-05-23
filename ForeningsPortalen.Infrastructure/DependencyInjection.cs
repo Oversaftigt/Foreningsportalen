@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Unions.Queries;
+﻿using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Repositories;
@@ -11,13 +10,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ForeningsPortalen.Application.Features.Boards.Queries;
 using ForeningsPortalen.Application.Features.Bookings.Queries;
-using ForeningsPortalen.Application.Features.BookingUnits.Queries.Interfaces;
-using ForeningsPortalen.Application.Features.Categories.Queries.Interfaces;
 using ForeningsPortalen.Application.Features.Documents.Queries;
 using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
 using ForeningsPortalen.Application.Features.UserRoles.Queries;
 using ForeningsPortalen.Application.Features.Helpers;
+using ForeningsPortalen.Application.Features.Addresses.Queries;
+using ForeningsPortalen.Application.Features.BookingUnits.Queries;
+using ForeningsPortalen.Application.Features.Categories.Queries;
 
 namespace ForeningsPortalen.Infrastructure
 {
@@ -60,11 +60,14 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IUnionRepository, UnionRepository>();
             services.AddScoped<IBoardRepository, BoardRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingUnitRepository, BookingUnitRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-            
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
 
 
 

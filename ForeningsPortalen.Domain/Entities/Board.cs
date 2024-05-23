@@ -8,7 +8,7 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        internal Board(Guid id, string boardEmail, List<User> boardMembers)
+        internal Board(string boardEmail, List<User> boardMembers)
         {
             BoardEmail = boardEmail;
             BoardMembers = boardMembers;
@@ -19,5 +19,13 @@ namespace ForeningsPortalen.Domain.Entities
 
         // public Union Union { get; set; }     Den er en 1..1 og den ligger på en union.
         public List<User> BoardMembers { get; set; }
+
+        public static Board CreateBoard(string boardEmail, List<User> boardMembers)
+        {
+            var newBoard = new Board(boardEmail, boardMembers);
+            return newBoard;
+        }
+
+
     }
 }

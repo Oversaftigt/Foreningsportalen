@@ -1,21 +1,21 @@
-﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
-using ForeningsPortalen.Application.Features.BookingUnits.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries;
+using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
     public class BookingUnitQueries : IBookingUnitQueries
     {
-        IEnumerable<BookingUnitQueryResultDto> IBookingUnitQueries.GetAllBookingUnits()
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetAllBookingUnits()
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
         {
             throw new NotImplementedException();
         }
 
-        IEnumerable<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
         {
             throw new NotImplementedException();
         }

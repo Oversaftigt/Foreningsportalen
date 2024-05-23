@@ -9,39 +9,36 @@ using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
-    public class BookingRepository : IBookingRepository
+    public class BookingUnitRepository : IBookingUnitRepository
     {
         private readonly ForeningsPortalenContext _dbContext;
-        public BookingRepository(ForeningsPortalenContext dbContext)
+        public BookingUnitRepository(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        void IBookingRepository.AddBooking(Booking booking)
-        {
-            _dbContext.Add(booking);
-            _dbContext.SaveChanges();
-        }
-
-        void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
+        void IBookingUnitRepository.AddBookingUnit(BookingUnit BookingUnit)
         {
             throw new NotImplementedException();
         }
 
-        List<Booking> IBookingRepository.GetAllBookings()
-        {
-            var bookings = _dbContext.Bookings.ToList();
-            return bookings;
-
-            throw new NotImplementedException();
-        }
-
-        Booking IBookingRepository.GetBooking(Guid id)
+        void IBookingUnitRepository.DeleteBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }
 
-        void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
+        List<BookingUnit> IBookingUnitRepository.GetAll()
+        {
+          var bookingUnits = _dbContext.BookingUnit.ToList();
+            return bookingUnits;
+        }
+
+        BookingUnit IBookingUnitRepository.GetBookingUnit(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IBookingUnitRepository.UpdateBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
         {
             throw new NotImplementedException();
         }

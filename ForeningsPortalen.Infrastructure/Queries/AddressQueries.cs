@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces;
+﻿using ForeningsPortalen.Application.Features.Addresses.Queries;
+using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Infrastructure.Database.Configuration;

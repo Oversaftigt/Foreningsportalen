@@ -1,36 +1,70 @@
-﻿using ForeningsPortalen.Domain.Entities;
+﻿using ForeningsPortalen.Application.Features.Bookings.Commands;
+using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Bookings.Queries;
+using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
 {
-    public class BookingController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookingController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<Booking> GetBooking()
+        private readonly IBookingCommands _command;
+        private readonly IBookingQueries _queries;
+
+        public BookingController(IBookingCommands command, IBookingQueries queries)
         {
-            throw new NotImplementedException();
+            _command = command;
+            _queries = queries;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<BookingQueryResultDto> GetBooking(Guid id)
+        {
+            var result = _queries.GetBookingById(id);
+            if (result == null)
+            {
+                return BadRequest("Ingen bookinger er fundet");
+
+            }
+            return Ok(result);
         }
 
         [HttpGet]
-        public ActionResult<IAsyncEnumerable<Booking>> GetAllBookings()
+        public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookings()
         {
-            throw new NotImplementedException();
+           var result = _queries.GetAllBookings();
+            if (result == null)
+            {
+                return BadRequest("Ingen bookinger er fundet");
+
+            }
+            return Ok(result);
         }
 
         [HttpPut]
-        public ActionResult UpdateBooking()
+        public ActionResult UpdateBooking([FromBody] BookingUpdateRequestDto bookingUpdateRequestDto)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public ActionResult PostBooking()
+        public ActionResult PostBooking([FromBody] BookingCreateRequestDto bookingCreateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _command.CreateBooking(bookingCreateRequestDto);
+                return Created();
+            }
+            catch
+            {
+               return BadRequest();
+            }
         }
 
         [HttpDelete]
-        public ActionResult DeleteBooking()
+        public ActionResult DeleteBooking(Guid id)
         {
             throw new NotImplementedException();
         }

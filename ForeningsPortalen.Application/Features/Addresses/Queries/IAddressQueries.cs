@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
 
-namespace ForeningsPortalen.Application.Features.Addresses.Queries.Interfaces
+namespace ForeningsPortalen.Application.Features.Addresses.Queries
 {
     //For infrastucture
     public interface IAddressQueries

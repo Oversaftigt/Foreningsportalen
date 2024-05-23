@@ -13,5 +13,6 @@ namespace ForeningsPortalen.Application.Repositories
         void UpdateDocument(Document document, byte[] rowversion);
         void DeleteDocument(Document document, byte[] rowversion);
         Document GetDocument(Guid id);
+        List<Document> GetAllDocuments();
     }
 }
