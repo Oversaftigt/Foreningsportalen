@@ -27,12 +27,6 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        Category ICategoryRepository.GetCategories(Guid id)
-        {
-            var category = _dbContext.Category.Find(id);
-            return category;
-        }
-
         void ICategoryRepository.UpdateCategory(Category category, byte[] rowVersion)
         {
             throw new NotImplementedException();
