@@ -8,6 +8,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Queries.DTOs
         public string Name { get; set; }
         public BookingDurationType DurationType { get; set; }
         public int MaxBookingsOfThisCategory { get; set; }
+        public Guid UnionId { get; set; }
         public byte[] RowVersion { get; set; }
     }
 }
