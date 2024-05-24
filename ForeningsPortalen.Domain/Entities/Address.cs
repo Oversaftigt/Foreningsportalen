@@ -47,11 +47,11 @@ namespace ForeningsPortalen.Domain.Entities
             {
                 throw new Exception("Creating an Address failed, because Union was not found");
             }
-            if (streetName == null) throw new ArgumentNullException(nameof(streetName));
-            if (streetNumber <= 0) throw new ArgumentNullException(nameof(streetNumber));
-            if (city == null) throw new ArgumentNullException(nameof(city));
-            if (zipCode <= 999) throw new ArgumentNullException(nameof(zipCode));
-            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (streetName is null) throw new ArgumentNullException(nameof(streetName));
+            if (city is null) throw new ArgumentNullException(nameof(city));
+            if (services is null) throw new ArgumentNullException(nameof(services));
+            if (streetNumber <= 0) throw new ArgumentOutOfRangeException(nameof(streetNumber), "Street number must be greater than 0");
+            if (zipCode <= 999 || zipCode >= 9991) throw new ArgumentOutOfRangeException(nameof(zipCode), "Zipcode must be between 1000 and 9990");
             //Lav validering på Floor and Door
 
             if (floor is not null)
@@ -69,16 +69,15 @@ namespace ForeningsPortalen.Domain.Entities
                 }
             }
             var dawaService = services.GetService<IDawaAddressValidationService>();
-            if (dawaService == null) throw new ArgumentNullException(nameof(dawaService));
+            if (dawaService is null) throw new ArgumentNullException(nameof(dawaService));
             fullAddress.Append($", {zipCode} {city}");
             if (dawaService.AddressIsValid(fullAddress.ToString()) is false) throw new InvalidOperationException("Address does not exist or is not specified well enough");
-            
+
+            //Further validation to check if address is already in database
+
             var address = new Address(streetName, streetNumber, floor, door, city, zipCode, union);
-            
+
             return address;
-
-            //lav validering på om den allerede eksistere i databasen ? Senere
-
         }
 
         //Possible values that floor can be according to dawa's documentation: numbers from 1 to 99, st, kl, k2 up to k9

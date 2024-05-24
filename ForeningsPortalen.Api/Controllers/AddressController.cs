@@ -41,9 +41,9 @@ namespace ForeningsPortalen.Api.Controllers
                 return Created();
 
             }
-            catch
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new {message = ex.Message});
             }
             
         }

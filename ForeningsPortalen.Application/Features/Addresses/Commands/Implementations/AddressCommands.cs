@@ -50,6 +50,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

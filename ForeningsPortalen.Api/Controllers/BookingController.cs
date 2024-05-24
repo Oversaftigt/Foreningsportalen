@@ -46,7 +46,16 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpPut]
         public ActionResult UpdateBooking([FromBody] BookingUpdateRequestDto bookingUpdateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _command.UpdateBooking(bookingUpdateRequestDto);
+                return NoContent();
+            }
+            catch
+            {
+
+                return BadRequest();
+            }
         }
 
         [HttpPost]

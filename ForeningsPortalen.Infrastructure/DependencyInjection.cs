@@ -38,12 +38,14 @@ namespace ForeningsPortalen.Infrastructure
             //Update-Database -Context ForeningsPortalenContext -Project ForeningsPortalen.DatabaseMigration
 
             services.AddDbContext<ForeningsPortalenContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test"),
+                options.UseSqlServer(configuration.GetConnectionString("ForeningsPortalen_test2"),
                     x =>
                         x.MigrationsAssembly("ForeningsPortalen.DatabaseMigration")));
 
             //DomainServices
             services.AddScoped<IBookingDomainService, BookingDomainService>();
+            services.AddScoped<ICategoryDomainService, CategoryDomainService>();
+            services.AddScoped<IBookingUnitDomainService, BookingUnitDomainService>();
 
             //Queries
             services.AddScoped<IUserQueries, UserQueries>();
@@ -72,20 +74,14 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleHistoryRepository, UserRoleHistoryRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             //Third party integration
             services.AddScoped<IDawaAddressValidationService,DawaAddressValidationService>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-
-
-
-
 
             //Unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IUnionQueries, UnionQueries>();
-            services.AddScoped<IUnionRepository, UnionRepository>();
 
 
             return services;
