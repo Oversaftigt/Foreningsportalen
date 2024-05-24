@@ -27,7 +27,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
         private readonly IBookingUnitQueries _bookingUnitQueries;
 
         public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitRepository bookingUnit,
-            IUserRepository user, IMemberRepository member, IServiceProvider serviceProvider)
+            IUserRepository user, IMemberRepository member, IServiceProvider serviceProvider, IBookingUnitQueries bookingUnitQueries)
         {
             _unitOfWork = unitOfWork;
             _bookingRepository = bookingRepository;
@@ -35,7 +35,6 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             _user = user;
             _member = member;
             _bookingUnitQueries = bookingUnitQueries;
-
             _serviceProvider = serviceProvider;
         }
 
