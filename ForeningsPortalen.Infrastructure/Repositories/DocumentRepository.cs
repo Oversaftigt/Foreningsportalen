@@ -28,15 +28,13 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        List<Document> IDocumentRepository.GetAllDocuments()
-        {
-            var allDocuments = _dbContext.Documents.ToList();
-            return allDocuments;
-        }
-
         Document IDocumentRepository.GetDocument(Guid id)
         {
             var document = _dbContext.Documents.Find(id);
+            if (document == null)
+            {
+                throw new ArgumentNullException("document not found");
+            }
             return document;
         }
 

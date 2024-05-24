@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using System;
@@ -12,9 +13,8 @@ namespace ForeningsPortalen.Application.Repositories
     public interface IBookingRepository
     {
         void AddBooking(Booking booking);
-        void UpdateBooking(Booking booking, byte[] rowversion);
-        void DeleteBooking(Booking booking, byte[] rowversion);
+        void UpdateBooking(Booking booking);
+        void DeleteBooking(SharedEntityDeleteDto deleteDto);
         Booking GetBooking(Guid id);
-        List<Booking> GetAllBookings();
     }
 }

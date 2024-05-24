@@ -40,7 +40,22 @@ namespace ForeningsPortalen.Infrastructure.Queries
 
         DocumentQueryResultDto IDocumentQueries.GetDocumentById(Guid id)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.Documents.AsNoTracking()
+             .Select(b => new DocumentQueryResultDto
+        {
+            Id = b.DocumentId,
+            Title = b.Title,
+            UploadedBy = b.UploadedBy,
+            Date = b.Date,
+            RowVersion = b.RowVersion
+             }).FirstOrDefault(b => b.Id ==id);
+           
+            if (result == null)
+            {
+                throw new Exception("Dokumenter blev ikke fundet");
+            }
+
+            return result;
         }
     }
 }

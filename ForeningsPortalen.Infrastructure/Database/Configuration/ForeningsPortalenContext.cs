@@ -21,6 +21,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
         public DbSet<BookingUnit> BookingUnit { get; set; }
         public DbSet<Category> Category { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

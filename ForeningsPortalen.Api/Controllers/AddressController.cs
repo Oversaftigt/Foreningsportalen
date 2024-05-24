@@ -23,8 +23,17 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet("Addresses/ByUnion/{unionId}")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
-            var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
-            return Ok(addressesInUnion);
+            try
+            {
+                var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
+                return Ok(addressesInUnion);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+                
+            }
         }
 
         [HttpGet("{addressId}")]
@@ -47,11 +56,11 @@ namespace ForeningsPortalen.Api.Controllers
                 return Created();
 
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
-            
+
         }
 
         [HttpPut]

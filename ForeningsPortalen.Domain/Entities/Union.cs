@@ -17,6 +17,8 @@ namespace ForeningsPortalen.Domain.Entities
         public Guid UnionId { get; set; }
         public string name { get; set; }
         public List<Address>? Addresses { get; set; }
+        public List<Member> Board { get; set; }
+        public List<Category>? Categories { get; set; }
         //public List<User> Users { get; set; }
         //public Board? Board { get; set; }
         //public List<User> Users { get; set; }

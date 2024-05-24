@@ -1,5 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Roles.Queries;
+using ForeningsPortalen.Application.Features.Roles.Queries.DTOs;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,24 @@ namespace ForeningsPortalen.Infrastructure.Queries
         public RoleQueries(ForeningsPortalenContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        IEnumerable<RoleQueryResultDto> IRoleQueries.GetAllRoles()
+        {
+            var roles = _dbContext.Roles.AsNoTracking()
+                        .Select(a => new RoleQueryResultDto
+                        {
+                            Id = a.RoleId,
+                            RoleName = a.RoleName,
+                            Rowversion = a.RowVersion
+                        }).ToList();
+
+            if (roles.Any() is false)
+            {
+                throw new Exception("No roles found");
+            }
+
+            return roles;
         }
     }
 }
