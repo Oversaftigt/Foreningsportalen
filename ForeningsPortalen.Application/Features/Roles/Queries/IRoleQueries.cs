@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForeningsPortalen.Application.Features.Roles.Queries.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace ForeningsPortalen.Application.Features.Roles.Queries
     {
         //(Indeholder query-metoder. Metoder skal bruge FeatureQueryResultDto som returtype. 
         //Dette interface implementeres af FeatureQueries i infrastruktur)
+        IEnumerable<RoleQueryResultDto> GetAllRoles();
     }
 }
