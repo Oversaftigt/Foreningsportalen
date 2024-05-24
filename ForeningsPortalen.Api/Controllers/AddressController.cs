@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries;
 using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
+using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -19,17 +20,22 @@ namespace ForeningsPortalen.Api.Controllers
             _addressCommand = addressCommand;
         }
 
-        [HttpGet("{unionId}")]
+        [HttpGet("Addresses/ByUnion/{unionId}")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
             var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
             return Ok(addressesInUnion);
         }
 
-        [HttpGet]
-        public AddressQueryResultDto GetByUserId(Guid userId)
+        [HttpGet("{addressId}")]
+        public ActionResult<AddressQueryResultDto> GetByUserId(Guid addressId)
         {
-            throw new NotImplementedException();
+            var addressesInUnion = _addressQueries.GetAddressById(addressId);
+            if (addressesInUnion == null)
+            {
+                return NotFound();
+            }
+            return Ok(addressesInUnion);
         }
 
         [HttpPost]

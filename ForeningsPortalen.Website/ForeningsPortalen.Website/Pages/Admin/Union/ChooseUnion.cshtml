@@ -1,5 +1,5 @@
 ﻿@page
-@model ForeningsPortalen.Website.Pages.ChooseUnionModel
+@model ForeningsPortalen.Website.Pages.Admin.Union.ChooseUnionModel
 
 @{
     ViewData["Title"] = "Foreningsportaler";
@@ -13,7 +13,7 @@
         <section>
             <form id="ChooseUnion" method="post">
                 <div class="form-floating mb-2">
-                    <select id="SelectUnions" name="unionId" class="form-control">
+                    <select id="SelectUnions" name="SelectedUnion.Id" class="form-control">
                         @if (Model.AllUnions != null)
                         {
                             @foreach (var union in Model.AllUnions)
@@ -21,6 +21,7 @@
                                 <option value="@union.Id">@union.Name</option>
                             }
                         }
+                        <th></th>
                     </select>
                     <button id="SetUnion" type="submit" class="w-50 btn btn-lg btn-primary d-block mx-auto mb-3">Gå til foreningsportalen</button>
                 </div>

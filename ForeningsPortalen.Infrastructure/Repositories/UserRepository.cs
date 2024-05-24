@@ -12,7 +12,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         }
         void IUserRepository.AddUser(User user)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         void IUserRepository.DeleteUser(User booking, byte[] rowVersion)

@@ -120,7 +120,7 @@ namespace ForeningsPortalen.Website.Areas.Identity.Pages.Account
 
                     if (isAdmin)
                     {
-                        return LocalRedirect("~/ChooseUnion"); // Redirect to a specific page for administrators
+                        return LocalRedirect("~/Admin/Union/ChooseUnion"); // Redirect to a specific page for administrators
                     }
 
                     _logger.LogInformation("User logged in.");

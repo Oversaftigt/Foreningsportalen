@@ -1,0 +1,70 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.BookingUnits.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>BookingUnit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BookingUnit.Id" />
+            <div class="form-group">
+                <label asp-for="BookingUnit.Name" class="control-label"></label>
+                <input asp-for="BookingUnit.Name" class="form-control" />
+                <span asp-validation-for="BookingUnit.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BookingUnit.IsActive" /> @Html.DisplayNameFor(model => model.BookingUnit.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.Deposit" class="control-label"></label>
+                <input asp-for="BookingUnit.Deposit" class="form-control" />
+                <span asp-validation-for="BookingUnit.Deposit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.Price" class="control-label"></label>
+                <input asp-for="BookingUnit.Price" class="form-control" />
+                <span asp-validation-for="BookingUnit.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.MaxBookingDuration" class="control-label"></label>
+                <input asp-for="BookingUnit.MaxBookingDuration" class="form-control" />
+                <span asp-validation-for="BookingUnit.MaxBookingDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.Category" class="control-label"></label>
+                <input asp-for="BookingUnit.Category" class="form-control" />
+                <span asp-validation-for="BookingUnit.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.Bookings" class="control-label"></label>
+                <input asp-for="BookingUnit.Bookings" class="form-control" />
+                <span asp-validation-for="BookingUnit.Bookings" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookingUnit.RowVersion" class="control-label"></label>
+                <input asp-for="BookingUnit.RowVersion" class="form-control" />
+                <span asp-validation-for="BookingUnit.RowVersion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

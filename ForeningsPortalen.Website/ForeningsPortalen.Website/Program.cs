@@ -1,6 +1,7 @@
-using ForeningsPortalen.WebApp.Contract.Proxy_s;
-using ForeningsPortalen.WebApp.Contract;
+using ForeningsPortalen.Website.Contract;
+using ForeningsPortalen.Website.Contract.Proxy_s;
 using ForeningsPortalen.Website.Data;
+using ForeningsPortalen.Website.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -11,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ForeningsPortalenWebDbConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<MyDbContext>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -38,8 +41,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddSession(options => 
 {
-    options.IOTimeout = TimeSpan.FromMinutes(90);
-    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.IOTimeout = TimeSpan.FromMinutes(60);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
 
