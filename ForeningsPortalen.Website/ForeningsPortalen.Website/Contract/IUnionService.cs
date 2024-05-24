@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Website.DTOs.Union;
 
-namespace ForeningsPortalen.WebApp.Contract
+namespace ForeningsPortalen.Website.Contract
 {
     public interface IUnionService
     {

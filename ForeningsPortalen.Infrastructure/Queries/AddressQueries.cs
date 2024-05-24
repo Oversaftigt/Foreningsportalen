@@ -4,6 +4,7 @@ using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
@@ -55,7 +56,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                              City = a.City,
                              ZipCode = a.ZipCode,
                              Members = a.Members.Select(m => m.UserId).ToList(),
-                             CurrentMember = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
+                             CurrentMember = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery).Select(m => m.UserId),
                              RowVersion = a.RowVersion,
                          })
                          .First(a => a.Id == addressId);

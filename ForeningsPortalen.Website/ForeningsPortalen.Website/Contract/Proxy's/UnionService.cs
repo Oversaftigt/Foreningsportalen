@@ -1,6 +1,6 @@
 ﻿using ForeningsPortalen.Website.DTOs.Union;
 
-namespace ForeningsPortalen.WebApp.Contract.Proxy_s
+namespace ForeningsPortalen.Website.Contract.Proxy_s
 {
     public class UnionService : IUnionService
     {

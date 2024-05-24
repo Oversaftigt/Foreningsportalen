@@ -1,0 +1,67 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.BookingUnits.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>BookingUnit</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.IsActive)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.Deposit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.Deposit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.MaxBookingDuration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.MaxBookingDuration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.Category)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.Bookings)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.Bookings)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingUnit.RowVersion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingUnit.RowVersion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.BookingUnit.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
