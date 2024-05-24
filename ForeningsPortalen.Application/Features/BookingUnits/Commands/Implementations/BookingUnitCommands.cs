@@ -13,15 +13,16 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IServiceProvider _serviceProvider;
 
         public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork,
-            ICategoryRepository categoryRepository, IBookingRepository bookingRepository)
+            ICategoryRepository categoryRepository, IBookingRepository bookingRepository, IServiceProvider serviceProvider)
         {
             _bookingUnitRepository = bookingUnitRepository;
             _unitOfWork = unitOfWork;
             _categoryRepository = categoryRepository;
             _bookingRepository = bookingRepository;
-
+            _serviceProvider = serviceProvider;
         }
 
         void IBookingUnitCommands.CreateBookingUnit(BookingUnitCreateRequestDto dto)
@@ -42,7 +43,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 }
 
                 var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
-                                        dto.Price, dto.MaxBookingDuration, category, booking);
+                                        dto.Price, dto.MaxBookingDuration, category, booking, _serviceProvider);
                 _bookingUnitRepository.AddBookingUnit(newBookingUnit);
                 _unitOfWork.Commit();
             }

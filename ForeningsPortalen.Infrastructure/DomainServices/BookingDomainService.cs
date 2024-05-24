@@ -12,16 +12,16 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 {
     public class BookingDomainService : IBookingDomainService
     {
-        private readonly ForeningsPortalenContext _dbContext;
+        private readonly ForeningsPortalenContext _context;
 
         public BookingDomainService(ForeningsPortalenContext dbContext)
         {
-            _dbContext = dbContext;
+            _context = dbContext;
         }
 
         IEnumerable<Booking> IBookingDomainService.OtherBookingsFromAddress(Guid addressId)
         {
-            var otherBookingsOnThisAddress = _dbContext.Bookings
+            var otherBookingsOnThisAddress = _context.Bookings
                                 .Where(x => x.User.Address.AddressId == addressId);
 
             return otherBookingsOnThisAddress;
@@ -30,9 +30,7 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 
         IEnumerable<Booking> IBookingDomainService.OtherBookingsFromUnion(Guid unionId)
         {
-            var otherBookingsOnThisUnion = _dbContext.Bookings
-                                            .Include(x => x.User)
-                                            .ThenInclude(x => x.Address)
+            var otherBookingsOnThisUnion = _context.Bookings
                                             .Where(x => x.User.Address.Union.UnionId == unionId);
 
             return otherBookingsOnThisUnion;

@@ -11,11 +11,13 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
     {
         private readonly ICategoryRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceProvider _serviceProvider;
 
-        public CategoryCommands(ICategoryRepository repository, IUnitOfWork unitOfWork)
+        public CategoryCommands(ICategoryRepository repository, IUnitOfWork unitOfWork, IServiceProvider serviceProvider)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _serviceProvider = serviceProvider;
         }
 
         void ICategoryCommands.CreateCategory(CategoryCreateRequestDto categoryCreateRequestDto)
@@ -25,7 +27,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
                 _unitOfWork.BeginTransaction();
 
                 var newCategory = Category.CreateCategory(categoryCreateRequestDto.Name, categoryCreateRequestDto.DurationType, 
-                    categoryCreateRequestDto.MaxBookingsOfThisCategory);
+                    categoryCreateRequestDto.MaxBookingsOfThisCategory, _serviceProvider);
 
                 _repository.AddCategory(newCategory);
                 _unitOfWork.Commit();

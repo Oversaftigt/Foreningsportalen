@@ -39,59 +39,62 @@ namespace ForeningsPortalen.Domain.Entities
 
             if (bookingUnits.Count < 1) throw new InvalidOperationException("Booking must have at least one booking unit");
 
-            var newBooking = new Booking(creationDate, bookingStart, bookingEnd, bookingUnits, user);
 
-            if (newBooking.AreBookingDatesValid() is false)
+            if (AreBookingDatesValid(bookingStart, bookingEnd) is false)
                 throw new InvalidOperationException("Invalid booking dates");
 
-            if (newBooking.AreBookingUnitsAllTheSameCategory() is false)
+            if (AreBookingUnitsAllTheSameCategory(bookingUnits) is false)
                 throw new InvalidOperationException("Booking units are not all the same category");
 
-            if (newBooking.IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId)) is true)
+            if (IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId), bookingUnits) is true)
                 throw new InvalidOperationException("Max bookings of this category is reached");
 
-            if (newBooking.IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId)) is true)
+            if (IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId), 
+                                                           bookingStart, bookingEnd, bookingUnits) is true)
                 throw new InvalidOperationException("Booking overlaps with another existing booking");
+
+            var newBooking = new Booking(creationDate, bookingStart, bookingEnd, bookingUnits, user);
 
             return newBooking;
         }
 
 
-        private bool AreBookingDatesValid()
+        private static bool AreBookingDatesValid(DateTime bookingStart, DateTime bookingEnd)
         {
-            if (BookingStart > DateTime.Now) return false;
-            if ((BookingStart < BookingEnd) is false) return false; 
+            if (bookingStart > DateTime.Now) return false;
+            if ((bookingStart < bookingEnd) is false) return false;
 
             return true;
         }
 
-        private bool IsBookingOverlapping(IEnumerable<Booking> otherBookings)
+        private static bool IsBookingOverlapping(IEnumerable<Booking> otherBookings, DateTime bookingStart, 
+                                                 DateTime bookingEnd, IEnumerable<BookingUnit> bookingUnits)
         {
             //first get the bookings with overlapping time from the same union
             var bookingsWithOverlappingTime = otherBookings.Where(other =>
-                (BookingEnd <= other.BookingEnd && BookingEnd >= other.BookingStart) ||
-                (BookingStart <= other.BookingEnd && BookingStart >= other.BookingStart) ||
-                (BookingStart <= other.BookingStart && BookingEnd >= other.BookingEnd));
+                (bookingEnd <= other.BookingEnd && bookingEnd >= other.BookingStart) ||
+                (bookingStart <= other.BookingEnd && bookingStart >= other.BookingStart) ||
+                (bookingStart <= other.BookingStart && bookingEnd >= other.BookingEnd));
 
             //secondly if there is any bookings that overlap, check is they have overlapping bookingunits used in them
             var bookingUnitsInOverlappingBookings = bookingsWithOverlappingTime.SelectMany(booking => booking.BookingUnits);
 
             return bookingUnitsInOverlappingBookings
-                    .Any(bookingUnit => BookingUnits
+                    .Any(bookingUnit => bookingUnits
                         .Any(x => x.BookingUnitId == bookingUnit.BookingUnitId));
 
         }
 
-        private bool AreBookingUnitsAllTheSameCategory()
+        private static bool AreBookingUnitsAllTheSameCategory(List<BookingUnit> bookingUnits)
         {
-            Guid categoryGuid = BookingUnits[0].Category.CategoryId;
-            return BookingUnits.All(bookingUnit => bookingUnit.Category.CategoryId.Equals(categoryGuid));
+            Guid categoryGuid = bookingUnits[0].Category.CategoryId;
+            return bookingUnits.All(bookingUnit => bookingUnit.Category.CategoryId.Equals(categoryGuid));
         }
 
-        private bool IsBookingLimitReachedOfCategory(IEnumerable<Booking> otherBookingsFromThisAddress)
+        private static bool IsBookingLimitReachedOfCategory(IEnumerable<Booking> otherBookingsFromThisAddress, List<BookingUnit> bookingUnits)
         {
-            Guid categoryGuid = BookingUnits[0].Category.CategoryId;
-            int maxBookingsOfCategory = BookingUnits[0].Category.MaxBookingsOfThisCategory;
+            Guid categoryGuid = bookingUnits[0].Category.CategoryId;
+            int maxBookingsOfCategory = bookingUnits[0].Category.MaxBookingsOfThisCategory;
             int currentNumberOfBookingsOfCategory = otherBookingsFromThisAddress
                                                     .Where(booking => booking.BookingUnits[0].Category.CategoryId.Equals(categoryGuid))
                                                     .Count();
