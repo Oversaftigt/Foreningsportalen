@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Documents.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Roles.Queries;
+﻿using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.Roles.Queries.DTOs;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -19,26 +18,22 @@ namespace ForeningsPortalen.Infrastructure.Queries
             _dbContext = dbContext;
         }
 
-        List<RoleQueryResultDto> IRoleQueries.GetAllRoles()
+        IEnumerable<RoleQueryResultDto> IRoleQueries.GetAllRoles()
         {
-            var result = _dbContext.Roles.AsNoTracking()
-                .Select(r => new RoleQueryResultDto
-                {
-                    Id = r.RoleId,
-                    RoleName = r.RoleName,
-                    UserHistories = r.UserHistories,
-                    Rowversion = r.RowVersion,
-                }).ToList();
-            if (!result.Any())
-            {
-                throw new Exception("Roles were not found");
-            }
-            return result;
-        }
+            var roles = _dbContext.Roles.AsNoTracking()
+                        .Select(a => new RoleQueryResultDto
+                        {
+                            Id = a.RoleId,
+                            RoleName = a.RoleName,
+                            Rowversion = a.RowVersion
+                        }).ToList();
 
-        RoleQueryResultDto IRoleQueries.GetRole(Guid id)
-        {
-            throw new NotImplementedException();
+            if (roles.Any() is false)
+            {
+                throw new Exception("No roles found");
+            }
+
+            return roles;
         }
     }
 }
