@@ -18,7 +18,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
         private readonly ICategoryQueries _categoryQueries;
 
         public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork,
-            ICategoryRepository categoryRepository, IBookingRepository bookingRepository,ICategoryQueries categoryQueries,IServiceProvider serviceProvider)
+            ICategoryRepository categoryRepository, IBookingRepository bookingRepository, ICategoryQueries categoryQueries, IServiceProvider serviceProvider)
         {
             _bookingUnitRepository = bookingUnitRepository;
             _unitOfWork = unitOfWork;
@@ -41,15 +41,14 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                     throw new ArgumentNullException("Member not found");
                 }
 
+
                 var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
-                                        dto.Price, dto.MaxBookingDuration, category); 
+                                        dto.Price, dto.MaxBookingDuration, category, _serviceProvider);
+
                 if (newBookingUnit == null)
                 {
                     throw new ArgumentNullException("BookingUnit not found");
                 }
-
-                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
-                                        dto.Price, dto.MaxBookingDuration, category, booking, _serviceProvider);
                 _bookingUnitRepository.AddBookingUnit(newBookingUnit);
                 _unitOfWork.Commit();
             }

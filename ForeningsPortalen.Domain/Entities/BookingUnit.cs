@@ -31,11 +31,10 @@ namespace ForeningsPortalen.Domain.Entities
         public List<Booking> Bookings { get; set; }
 
         public static BookingUnit CreateBookingUnit(string name, bool isActive, double deposit, double price,
-                        int maxBookingDuration, Category category, List<Booking> bookings, IServiceProvider services)
+                        int maxBookingDuration, Category category, IServiceProvider services)
         {
             if (name is null) throw new ArgumentNullException(nameof(name));
             if (category is null) throw new ArgumentNullException(nameof(category));
-            if (bookings is null) throw new ArgumentNullException(nameof(bookings));
             if (services is null) throw new ArgumentNullException(nameof(services));
 
             var domainService = services.GetService<IBookingUnitDomainService>();
@@ -53,7 +52,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (IsMaxBookingDurationValid(maxBookingDuration, category.DurationType) is false)
                 throw new InvalidOperationException("Invalid value for max booking duration for the category");
 
-            var newBookingUnit = new BookingUnit(name, isActive, deposit, price, maxBookingDuration, category, bookings);
+            var newBookingUnit = new BookingUnit(name, isActive, deposit, price, maxBookingDuration, category);
             return newBookingUnit;
         }
 
