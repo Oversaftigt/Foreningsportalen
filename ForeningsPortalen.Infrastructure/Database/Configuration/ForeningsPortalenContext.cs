@@ -20,7 +20,6 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<BookingUnit> BookingUnit { get; set; }
         public DbSet<Category> Category { get; set; }
-        public DbSet<Board> Board { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
