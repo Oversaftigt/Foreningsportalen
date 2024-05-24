@@ -23,7 +23,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         public static Document CreateDocument(string title, Member uploadedBy, DateOnly date)
         {
-            if(title == null) { throw new ArgumentNullException("Title not found"); }
+            if(title == null) { throw new ArgumentNullException(nameof( title )); }
             
             var newDocument = new Document(title, uploadedBy, date);
 
