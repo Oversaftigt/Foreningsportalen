@@ -11,7 +11,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         }
         internal BookingUnit(string name, bool isActive, double deposit, double price,
-                        int maxBookingDuration, Category category, List<Booking> bookings)
+                        int maxBookingDuration, Category category)
         {
             Name = name;
             IsActive = isActive;
@@ -19,7 +19,6 @@ namespace ForeningsPortalen.Domain.Entities
             Price = price;
             MaxBookingDuration = maxBookingDuration;
             Category = category;
-            Bookings = bookings;
         }
 
         public Guid BookingUnitId { get; set; }

@@ -1,6 +1,10 @@
-﻿using ForeningsPortalen.Application.Repositories;
+﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
+using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
+using ForeningsPortalen.Application.Repositories;
+using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +21,30 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        void IBookingUnitRepository.AddBookingUnit(BookingUnit BookingUnit)
+        void IBookingUnitRepository.AddBookingUnit(BookingUnit bookingUnit)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(bookingUnit);
+            _dbContext.SaveChanges();
         }
 
-        void IBookingUnitRepository.DeleteBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
+        void IBookingUnitRepository.DeleteBookingUnit(SharedEntityDeleteDto deleteDto)
         {
             throw new NotImplementedException();
-        }
-
-        List<BookingUnit> IBookingUnitRepository.GetAll()
-        {
-          var bookingUnits = _dbContext.BookingUnit.ToList();
-            return bookingUnits;
         }
 
         BookingUnit IBookingUnitRepository.GetBookingUnit(Guid id)
         {
-            throw new NotImplementedException();
+            var bookingUnit = _dbContext.BookingUnit.Find(id);
+
+            if (bookingUnit == null)
+            {
+                throw new ArgumentNullException("bookingunit not found");
+            }
+
+            return bookingUnit;
         }
 
-        void IBookingUnitRepository.UpdateBookingUnit(BookingUnit BookingUnit, byte[] rowVersion)
+        void IBookingUnitRepository.UpdateBookingUnit(BookingUnit bookingUnit)
         {
             throw new NotImplementedException();
         }

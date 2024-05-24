@@ -5,9 +5,9 @@ namespace ForeningsPortalen.Application.Repositories
     public interface ICategoryRepository
     {
         void AddCategory(Category category);
-        Category GetCategories(Guid id);
         void UpdateCategory(Category category, byte[] rowVersion);
         void DeleteCategory(Category category, byte[] rowVersion);
+        Category GetCategory(Guid id);
 
     }
 }

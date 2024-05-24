@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
+using ForeningsPortalen.Application.Features.Categories.Queries;
 using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
@@ -14,14 +15,17 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBookingRepository _bookingRepository;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ICategoryQueries _categoryQueries;
 
         public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork,
-            ICategoryRepository categoryRepository, IBookingRepository bookingRepository, IServiceProvider serviceProvider)
+            ICategoryRepository categoryRepository, IBookingRepository bookingRepository,ICategoryQueries categoryQueries,IServiceProvider serviceProvider)
         {
             _bookingUnitRepository = bookingUnitRepository;
             _unitOfWork = unitOfWork;
             _categoryRepository = categoryRepository;
             _bookingRepository = bookingRepository;
+            _categoryQueries = categoryQueries;
+
             _serviceProvider = serviceProvider;
         }
 
@@ -31,15 +35,17 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
             {
                 _unitOfWork.BeginTransaction();
 
-                var category = _categoryRepository.GetCategories(dto.CategoryId);
+                var category = _categoryRepository.GetCategory(dto.CategoryId);
                 if (category == null)
                 {
                     throw new ArgumentNullException("Member not found");
                 }
-                var booking = _bookingRepository.GetAllBookings();
-                if (booking == null)
+
+                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
+                                        dto.Price, dto.MaxBookingDuration, category); 
+                if (newBookingUnit == null)
                 {
-                    throw new ArgumentNullException("Member not found");
+                    throw new ArgumentNullException("BookingUnit not found");
                 }
 
                 var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,

@@ -24,6 +24,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
         private readonly IUserRepository _user;
         private readonly IMemberRepository _member;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IBookingUnitQueries _bookingUnitQueries;
 
         public BookingCommands(IUnitOfWork unitOfWork, IBookingRepository bookingRepository, IBookingUnitRepository bookingUnit,
             IUserRepository user, IMemberRepository member, IServiceProvider serviceProvider)
@@ -33,6 +34,8 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             _bookingUnit = bookingUnit;
             _user = user;
             _member = member;
+            _bookingUnitQueries = bookingUnitQueries;
+
             _serviceProvider = serviceProvider;
         }
 
@@ -42,7 +45,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             {
                 _unitOfWork.BeginTransaction();
 
-                var bookingUnits = _bookingUnit.GetAll().ToList();
+                var bookingUnits = _bookingUnitQueries.GetAllBookingUnits().ToList();
 
                 if (bookingUnits == null)
                 {

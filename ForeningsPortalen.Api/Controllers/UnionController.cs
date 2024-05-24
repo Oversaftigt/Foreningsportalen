@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Unions.Commands;
 using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Unions.Queries;
+using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +30,13 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Union>> GetAllUnions()
+        public ActionResult<IEnumerable<UnionQueryResultDto>> GetAllUnions()
         {
             var result = _Queries.GetAllUnions().ToList();
             if (!result.Any())
-                return NotFound(result);
+                return NoContent();
 
-            else return Ok(result);
+            return Ok(result);
         }
 
         [HttpPut("{id}")]

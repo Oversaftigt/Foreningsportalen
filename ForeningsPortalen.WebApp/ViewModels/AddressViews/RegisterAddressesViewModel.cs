@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.WebApp.DTOs;
-using ForeningsPortalen.WebApp.ViewModels;
+﻿
 
 namespace ForeningsPortalen.WebApp.ViewModels.AddressViews
 {

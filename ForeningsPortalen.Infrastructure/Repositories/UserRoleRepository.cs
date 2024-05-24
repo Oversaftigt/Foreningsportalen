@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,16 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 {
     public class UserRoleRepository : IUserRoleRepository
     {
-        private readonly ForeningsPortalenContext _dbCopntext;
+        private readonly ForeningsPortalenContext _dbContext;
         public UserRoleRepository(ForeningsPortalenContext dbContext)
         {
-            _dbCopntext = dbContext;
+            _dbContext = dbContext;
         }
 
         void IUserRoleRepository.AddUserRole(UserRoleHistory userRole)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(userRole);
+            _dbContext.SaveChanges();
         }
 
         void IUserRoleRepository.DeleteUserRole(UserRoleHistory userRole, byte[] rowVersion)
