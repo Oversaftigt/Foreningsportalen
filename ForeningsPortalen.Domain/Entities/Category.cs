@@ -12,11 +12,12 @@ namespace ForeningsPortalen.Domain.Entities
 
         }
 
-        internal Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory)
+        internal Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory, Union union)
         {
             Name = name;
             DurationType = durationType;
             MaxBookingsOfThisCategory = maxBookingsOfThisCategory;
+            Union = union;
         }
         //public Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory)
         //{
@@ -29,10 +30,10 @@ namespace ForeningsPortalen.Domain.Entities
         public string Name { get; set; }
         public BookingDurationType DurationType { get; set; }
         public int MaxBookingsOfThisCategory { get; set; }
-
+        public Union Union { get; set; }
 
         public static Category CreateCategory(string name, BookingDurationType durationType,
-                                              int maxBookingsOfThisCategory, IServiceProvider services)
+                                              int maxBookingsOfThisCategory, Union union ,IServiceProvider services)
         {
             if (services is null) throw new ArgumentNullException(nameof(services));
             if (name is null) throw new ArgumentNullException(nameof(name));
@@ -45,7 +46,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(Guid.NewGuid()/*To be replaced with unionId*/), name))
                 throw new InvalidOperationException("Categrory with that name already exists");
 
-            var newCategory = new Category(name, durationType, maxBookingsOfThisCategory);
+            var newCategory = new Category(name, durationType, maxBookingsOfThisCategory, union);
             //Er der her vi indfører noget if sætning på om metoden DoesCategoryAlreadyExist er true eller false? 
             //Ja
             return newCategory;

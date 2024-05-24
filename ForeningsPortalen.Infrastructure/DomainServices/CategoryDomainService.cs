@@ -20,7 +20,8 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 
         IEnumerable<Category> ICategoryDomainService.OtherCategoriesFromUnion(Guid unionId)
         {
-            throw new NotImplementedException();
+            var categories = _context.Category.Where(x => x.Union.UnionId == unionId);
+            return categories;
         }
     }
 }

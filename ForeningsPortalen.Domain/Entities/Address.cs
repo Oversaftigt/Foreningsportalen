@@ -56,17 +56,13 @@ namespace ForeningsPortalen.Domain.Entities
 
             if (floor is not null)
             {
-                if (IsFloorValid(floor))
-                {
-                    fullAddress.Append($", {floor}");
-                }
+                if (IsFloorValid(floor)) fullAddress.Append($", {floor}");
+                else floor = string.Empty;
             }
             if (door is not null)
             {
-                if (IsDoorValid(door))
-                {
-                    fullAddress.Append($", {door}");
-                }
+                if (IsDoorValid(door)) fullAddress.Append($", {door}");
+                else door = string.Empty;
             }
             var dawaService = services.GetService<IDawaAddressValidationService>();
             if (dawaService is null) throw new ArgumentNullException(nameof(dawaService));
