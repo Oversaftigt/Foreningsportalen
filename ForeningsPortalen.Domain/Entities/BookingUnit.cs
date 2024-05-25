@@ -6,7 +6,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class BookingUnit : Entity
     {
-        public BookingUnit() {}
+        public BookingUnit() { }
 
         internal BookingUnit(string name, bool isActive, double deposit, double price,
                         int maxBookingDuration, Category category)
@@ -72,7 +72,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool IsMaxBookingDurationValid(int duration, BookingDurationType durationType)
         {
-            
+
             if (durationType == BookingDurationType.Days)
             {
                 return (duration > 0 && duration <= 2);

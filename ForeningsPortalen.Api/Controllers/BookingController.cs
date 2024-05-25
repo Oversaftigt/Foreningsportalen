@@ -34,28 +34,13 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookings()
         {
-           var result = _queries.GetAllBookings();
+            var result = _queries.GetAllBookings();
             if (result == null)
             {
                 return BadRequest("Ingen bookinger er fundet");
 
             }
             return Ok(result);
-        }
-
-        [HttpPut]
-        public ActionResult UpdateBooking([FromBody] BookingUpdateRequestDto bookingUpdateRequestDto)
-        {
-            try
-            {
-                _command.UpdateBooking(bookingUpdateRequestDto);
-                return NoContent();
-            }
-            catch
-            {
-
-                return BadRequest();
-            }
         }
 
         [HttpPost]
@@ -68,7 +53,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
             catch
             {
-               return BadRequest();
+                return BadRequest();
             }
         }
 

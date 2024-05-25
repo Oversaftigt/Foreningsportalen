@@ -14,8 +14,6 @@ using ForeningsPortalen.Application.Features.Unions.Commands;
 using ForeningsPortalen.Application.Features.Unions.Commands.Implementations;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Commands;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Implementaions;
-using ForeningsPortalen.Application.Features.UserRoles.Commands;
-using ForeningsPortalen.Application.Features.UserRoles.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands;
@@ -38,7 +36,6 @@ namespace ForeningsPortalen.Application
             services.AddScoped<IDocumentCommands, DocumentCommands>();
             services.AddScoped<IRoleCommands, RoleCommands>();
             services.AddScoped<IUserRoleHistoryCommands, UserRoleHistoryCommands>();
-            services.AddScoped<IUserRoleCommands, UserRoleCommands>();
             services.AddScoped<IBookingUnitCommands, BookingUnitCommands>();
 
             return services;

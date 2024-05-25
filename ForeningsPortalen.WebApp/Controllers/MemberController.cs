@@ -1,5 +1,4 @@
 ﻿using ForeningsPortalen.WebApp.ViewModels.MemberViews;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.WebApp.Controllers
@@ -7,7 +6,7 @@ namespace ForeningsPortalen.WebApp.Controllers
     public class MemberController : Controller
     {
         private List<MemberInformationViewModel> _members;
-        
+
         // GET: MemberController
         public ActionResult Index()
         {
@@ -65,7 +64,7 @@ namespace ForeningsPortalen.WebApp.Controllers
         // GET: MemberController/Delete/5
         public ActionResult Delete(MemberInformationViewModel model)
         {
-            
+
 
 
             return View();
@@ -90,7 +89,7 @@ namespace ForeningsPortalen.WebApp.Controllers
         {
             try
             {
-                
+
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -12,7 +12,7 @@ namespace ForeningsPortalen.Website.Models.Address
         public string City { get; set; }
         public int ZipCode { get; set; }
         public IEnumerable<Guid>? CurrentMember { get; set; }
-        
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
     }

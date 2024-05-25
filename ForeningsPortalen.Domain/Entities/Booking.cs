@@ -49,7 +49,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId), bookingUnits) is true)
                 throw new InvalidOperationException("Max bookings of this category is reached");
 
-            if (IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId), 
+            if (IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId),
                                                            bookingStart, bookingEnd, bookingUnits) is true)
                 throw new InvalidOperationException("Booking overlaps with another existing booking");
 
@@ -67,7 +67,7 @@ namespace ForeningsPortalen.Domain.Entities
             return true;
         }
 
-        private static bool IsBookingOverlapping(IEnumerable<Booking> otherBookings, DateTime bookingStart, 
+        private static bool IsBookingOverlapping(IEnumerable<Booking> otherBookings, DateTime bookingStart,
                                                  DateTime bookingEnd, IEnumerable<BookingUnit> bookingUnits)
         {
             //first get the bookings with overlapping time from the same union

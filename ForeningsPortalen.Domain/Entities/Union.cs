@@ -8,13 +8,13 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        internal Union(string name) 
+        internal Union(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
         public Guid UnionId { get; set; }
-        public string name { get; set; }
+        public string Name { get; set; }
         public IEnumerable<Address>? Addresses { get; set; }
         public IEnumerable<Document>? Documents { get; set; }
         //public IEnumerable<User> Users { get; set; }

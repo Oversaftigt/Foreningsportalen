@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using ForeningsPortalen.Website.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using ForeningsPortalen.Website.Models;
 
 namespace ForeningsPortalen.Website.Pages.BookingUnits
 {
@@ -18,7 +12,7 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
 
         }
 
-        public IList<BookingUnit> BookingUnits { get;set; } = default!;
+        public IList<BookingUnit> BookingUnits { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

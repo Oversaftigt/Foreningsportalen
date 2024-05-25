@@ -1,7 +1,6 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
-using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
