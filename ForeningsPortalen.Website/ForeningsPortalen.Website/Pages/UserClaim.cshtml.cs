@@ -27,7 +27,7 @@ namespace ForeningsPortalen.Website.Pages
             //Roles equals a claim
         }
 
-        public async void OnPost() 
+        public async void OnPost()
         {
             //var user = await _userManager.FindByEmailAsync(Member.Email);
             //if (user is null)

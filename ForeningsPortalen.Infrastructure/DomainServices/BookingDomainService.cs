@@ -1,12 +1,6 @@
 ﻿using ForeningsPortalen.Domain.DomainServices;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.DomainServices
 {
@@ -22,7 +16,7 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
         IEnumerable<Booking> IBookingDomainService.OtherBookingsFromAddress(Guid addressId)
         {
             var otherBookingsOnThisAddress = _context.Bookings
-                                            .Where(x => x.BookingEnd > DateTime.Now && 
+                                            .Where(x => x.BookingEnd > DateTime.Now &&
                                                         x.User.Address.AddressId == addressId);
 
             return otherBookingsOnThisAddress;

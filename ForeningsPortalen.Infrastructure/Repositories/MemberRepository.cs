@@ -23,7 +23,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         }
 
         Member IMemberRepository.GetUnionMember(Guid unionMemberId)
-        { 
+        {
             var member = _db.Members.Find(unionMemberId);
             if (member == null) throw new ArgumentNullException("Member not found");
             return member;

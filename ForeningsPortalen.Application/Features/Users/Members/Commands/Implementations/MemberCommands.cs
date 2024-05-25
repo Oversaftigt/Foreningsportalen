@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
+﻿using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;

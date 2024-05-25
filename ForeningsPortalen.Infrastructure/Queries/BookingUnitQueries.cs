@@ -1,5 +1,4 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries;
-using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +25,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                     MaxBookingDuration = b.MaxBookingDuration,
                     Category = b.Category,
                     Bookings = b.Bookings,
-            }).ToList();
+                }).ToList();
             return bookingUnits;
         }
 

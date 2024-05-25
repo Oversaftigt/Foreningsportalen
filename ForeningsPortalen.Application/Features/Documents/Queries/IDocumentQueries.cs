@@ -1,10 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Documents.Queries.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ForeningsPortalen.Application.Features.Documents.Queries.DTOs;
 
 namespace ForeningsPortalen.Application.Features.Documents.Queries
 {

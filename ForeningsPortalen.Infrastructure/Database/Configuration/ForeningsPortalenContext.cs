@@ -1,5 +1,4 @@
 ﻿using ForeningsPortalen.Domain.Entities;
-using ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

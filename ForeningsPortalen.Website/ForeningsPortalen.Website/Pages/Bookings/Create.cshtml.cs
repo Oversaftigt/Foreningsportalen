@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ForeningsPortalen.Website.Models.Booking;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using ForeningsPortalen.Website.Models;
-using ForeningsPortalen.Website.Models.Booking;
 
 namespace ForeningsPortalen.Website.Pages.Bookings
 {

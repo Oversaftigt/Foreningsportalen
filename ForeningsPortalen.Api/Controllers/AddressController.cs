@@ -2,7 +2,6 @@
 using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Addresses.Queries;
 using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -32,7 +31,7 @@ namespace ForeningsPortalen.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
-                
+
             }
         }
 

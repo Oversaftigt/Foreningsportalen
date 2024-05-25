@@ -1,5 +1,4 @@
 ﻿using ForeningsPortalen.Domain.Entities;
-using Microsoft.VisualBasic;
 
 namespace ForeningsPortalen.Application.Repositories
 {

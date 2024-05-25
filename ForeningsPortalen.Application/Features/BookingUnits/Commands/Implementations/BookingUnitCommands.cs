@@ -1,6 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Queries;
-using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
@@ -42,8 +41,8 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 }
 
 
-                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
-                                        dto.Price, dto.MaxBookingDuration, category, _serviceProvider);
+                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.BookingUnitName, dto.IsBookingUnitActive, dto.AdvancePayment,
+                                        dto.Fee, dto.ReservationLimit, category, _serviceProvider);
 
                 if (newBookingUnit == null)
                 {

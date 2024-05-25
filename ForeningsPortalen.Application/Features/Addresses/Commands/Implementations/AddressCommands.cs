@@ -3,8 +3,6 @@ using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
-using ForeningsPortalen.Domain.Validation;
-using System.Security.Cryptography;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementations
 {
@@ -32,9 +30,9 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 var union = _unionRepository.GetUnion(addressCreateRequestDto.UnionId);
                 if (union is null) throw new Exception("Union not found");
 
-                var address = Address.Create(addressCreateRequestDto.StreetName, addressCreateRequestDto.StreetNumber, 
-                                                 addressCreateRequestDto.Floor, addressCreateRequestDto.Door,
-                                                 addressCreateRequestDto.City, addressCreateRequestDto.ZipCode, 
+                var address = Address.Create(addressCreateRequestDto.Street, addressCreateRequestDto.Number,
+                                                 addressCreateRequestDto.Level, addressCreateRequestDto.Door,
+                                                 addressCreateRequestDto.CityName, addressCreateRequestDto.PostalCode,
                                                  union, _serviceProvider);
 
                 _addressRepository.AddAddress(address);

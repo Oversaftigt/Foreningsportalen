@@ -1,3 +1,4 @@
+using ForeningsPortalen.Website.Contract;
 using ForeningsPortalen.Website.DTOs.Address;
 using ForeningsPortalen.Website.DTOs.Member;
 using Microsoft.AspNetCore.Authorization;
@@ -6,7 +7,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using ForeningsPortalen.Website.Contract;
 
 namespace ForeningsPortalen.Website.Pages.Admin.Member
 {
