@@ -61,8 +61,8 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool AreBookingDatesValid(DateTime bookingStart, DateTime bookingEnd)
         {
-            if (bookingStart > DateTime.Now) return false;
-            if ((bookingStart < bookingEnd) is false) return false;
+            if (bookingStart < DateTime.Now) return false; //Check if booking is being made in the past
+            if (bookingStart < bookingEnd is false) return false; //Check if booking end time is after the start time
 
             return true;
         }
@@ -72,9 +72,8 @@ namespace ForeningsPortalen.Domain.Entities
         {
             //first get the bookings with overlapping time from the same union
             var bookingsWithOverlappingTime = otherBookings.Where(other =>
-                (bookingEnd <= other.BookingEnd && bookingEnd >= other.BookingStart) ||
-                (bookingStart <= other.BookingEnd && bookingStart >= other.BookingStart) ||
-                (bookingStart <= other.BookingStart && bookingEnd >= other.BookingEnd));
+                                              (bookingEnd > other.BookingStart && bookingStart < other.BookingEnd));
+
 
             //secondly if there is any bookings that overlap, check is they have overlapping bookingunits used in them
             var bookingUnitsInOverlappingBookings = bookingsWithOverlappingTime.SelectMany(booking => booking.BookingUnits);
@@ -100,6 +99,11 @@ namespace ForeningsPortalen.Domain.Entities
                                                     .Count();
 
             return currentNumberOfBookingsOfCategory >= maxBookingsOfCategory;
+        }
+
+        private static bool IsBookingWithinAllowedDuration(DateTime start, DateTime end)
+        {
+            throw new NotImplementedException();
         }
 
     }

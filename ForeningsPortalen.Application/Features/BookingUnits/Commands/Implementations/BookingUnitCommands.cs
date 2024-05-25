@@ -61,6 +61,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

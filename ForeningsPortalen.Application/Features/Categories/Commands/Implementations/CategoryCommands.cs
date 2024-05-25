@@ -44,6 +44,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
 
         }

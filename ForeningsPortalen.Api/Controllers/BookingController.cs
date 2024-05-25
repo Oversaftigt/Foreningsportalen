@@ -51,9 +51,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _command.CreateBooking(bookingCreateRequestDto);
                 return Created();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
 
