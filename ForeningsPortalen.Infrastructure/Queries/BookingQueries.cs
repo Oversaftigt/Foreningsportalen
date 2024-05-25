@@ -1,11 +1,6 @@
-﻿using ForeningsPortalen.Infrastructure.Database.Configuration;
-using ForeningsPortalen.Application.Features.Bookings.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ForeningsPortalen.Application.Features.Bookings.Queries;
 using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Queries
@@ -23,14 +18,14 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             var result = _dbContext.Bookings.AsNoTracking()
                  .Include(b => b.BookingUnits) // Ensure BookingUnits are included
-                 .ThenInclude(bo => bo.Category) // Ensure Category within BookingUnits are included
+                 .ThenInclude(bo => bo.Category) // Ensure CategoryId within BookingUnits are included
                  .Select(b => new BookingQueryResultDto
                  {
                      Id = b.BookingId,
-                     CreationDate = b.CreationDate,
-                     BookingStart = b.BookingStart,
-                     BookingEnd = b.BookingEnd,
-                     BookingUnits = b.BookingUnits.ToList(), // Map BookingUnits
+                     DateOfCreation = b.CreationDate,
+                     StartTime = b.BookingStart,
+                     EndTime = b.BookingEnd,
+                     BookingUnitIds = b.BookingUnits.Select(x => x.BookingUnitId), // Map BookingUnits
                      UserId = b.User.UserId,
                      Rowversion = b.RowVersion,
                  }).ToList();

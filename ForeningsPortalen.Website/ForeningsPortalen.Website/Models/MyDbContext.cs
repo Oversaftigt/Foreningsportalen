@@ -1,6 +1,5 @@
 ﻿using ForeningsPortalen.Website.Models.Address;
 using Microsoft.EntityFrameworkCore;
-using ForeningsPortalen.Website.Models.Booking;
 
 namespace ForeningsPortalen.Website.Models
 {

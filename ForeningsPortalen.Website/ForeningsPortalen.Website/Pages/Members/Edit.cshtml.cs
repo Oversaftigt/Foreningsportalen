@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ForeningsPortalen.Website.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ForeningsPortalen.Website.Models;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
@@ -29,7 +24,7 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return NotFound();
             }
 
-            var member =  await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
+            var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
             if (member == null)
             {
                 return NotFound();

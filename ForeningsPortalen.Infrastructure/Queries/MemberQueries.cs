@@ -1,7 +1,5 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
+﻿using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
-using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 

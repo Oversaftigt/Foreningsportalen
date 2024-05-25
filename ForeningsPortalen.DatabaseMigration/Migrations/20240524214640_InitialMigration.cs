@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -64,7 +63,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "CategoryId",
                 columns: table => new
                 {
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -130,13 +129,13 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     table.ForeignKey(
                         name: "FK_BookingUnit_Category_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "CategoryId",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
+                name: "BookingIds",
                 columns: table => new
                 {
                     BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -224,10 +223,10 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     table.ForeignKey(
                         name: "FK_BookingBookingUnit_Bookings_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "Bookings",
+                        principalTable: "BookingIds",
                         principalColumn: "BookingId",
                         onDelete: ReferentialAction.NoAction);
-        });
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UnionId",
@@ -241,7 +240,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
-                table: "Bookings",
+                table: "BookingIds",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -251,7 +250,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Category_UnionId",
-                table: "Category",
+                table: "CategoryId",
                 column: "UnionId");
 
             migrationBuilder.CreateIndex(
@@ -286,13 +285,13 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 name: "BookingUnit");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
+                name: "BookingIds");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "CategoryId");
 
             migrationBuilder.DropTable(
                 name: "Users");

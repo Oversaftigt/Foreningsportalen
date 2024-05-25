@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForeningsPortalen.Application.Shared.DTOs
+﻿namespace ForeningsPortalen.Application.Shared.DTOs
 {
     public class SharedEntityDeleteDto
     {

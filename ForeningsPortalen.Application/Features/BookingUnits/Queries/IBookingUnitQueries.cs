@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
-using ForeningsPortalen.Domain.Entities;
+﻿using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.BookingUnits.Queries
 {

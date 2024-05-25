@@ -8,14 +8,14 @@ namespace ForeningsPortalen.Infrastructure.Repositories
     {
         private readonly ForeningsPortalenContext _db;
 
-        public AddressRepository(ForeningsPortalenContext foreningsPortalenContext) 
+        public AddressRepository(ForeningsPortalenContext foreningsPortalenContext)
         {
             _db = foreningsPortalenContext;
         }
         void IAddressRepository.AddAddress(Address address)
         {
-                _db.Add(address);
-                _db.SaveChanges();
+            _db.Add(address);
+            _db.SaveChanges();
         }
 
         Address IAddressRepository.GetAddress(Guid id)
@@ -23,7 +23,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             var address = _db.Addresses.Find(id);
             if (address is null) throw new Exception("Address not found");
             return address;
-           
+
         }
 
         void IAddressRepository.UpdateAddress(Address address, byte[] rowVersion)

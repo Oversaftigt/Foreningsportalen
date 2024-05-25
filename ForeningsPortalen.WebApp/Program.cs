@@ -3,7 +3,6 @@ using ForeningsPortalen.WebApp.Data;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

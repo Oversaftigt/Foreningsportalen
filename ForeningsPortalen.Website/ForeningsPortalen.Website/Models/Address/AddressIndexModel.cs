@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ForeningsPortalen.Website.Models.Address
+﻿namespace ForeningsPortalen.Website.Models.Address
 {
     public class AddressIndexModel
     {

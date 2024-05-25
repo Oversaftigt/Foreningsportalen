@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Queries;
+﻿using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                    .Select(b => new UnionQueryResultDto
                    {
                        Id = b.UnionId,
-                       Name = b.name,
+                       Name = b.Name,
                        RowVersion = b.RowVersion
                    }).ToList();
 
@@ -33,7 +32,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                 .Select(b => new UnionQueryResultDto
                 {
                     Id = b.UnionId,
-                    Name = b.name,
+                    Name = b.Name,
                     RowVersion = b.RowVersion
                 })
                 .FirstOrDefault(b => b.Id == id);

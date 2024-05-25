@@ -6,7 +6,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class BookingUnit : Entity
     {
-        public BookingUnit() {}
+        public BookingUnit() { }
 
         internal BookingUnit(string name, bool isActive, double deposit, double price,
                         int maxBookingDuration, Category category)
@@ -39,7 +39,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (domainService is null) throw new ArgumentNullException(nameof(domainService));
 
             if (DoesBookingUnitNameAlreadyExist(domainService.OtherBookingUnitsFromUnion(Guid.NewGuid()/*To be unionId */), name) is true)
-                throw new InvalidOperationException("Booking with that name already exists");
+                throw new InvalidOperationException("Booking with that Name already exists");
 
             if (IsDepositValid(deposit) is false)
                 throw new InvalidOperationException("Invalid deposit value");
@@ -72,7 +72,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool IsMaxBookingDurationValid(int duration, BookingDurationType durationType)
         {
-            
+
             if (durationType == BookingDurationType.Days)
             {
                 return (duration > 0 && duration <= 2);

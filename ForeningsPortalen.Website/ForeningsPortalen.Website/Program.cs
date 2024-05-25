@@ -4,7 +4,6 @@ using ForeningsPortalen.Website.Data;
 using ForeningsPortalen.Website.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +41,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 //Frontend config
 builder.Services.AddRazorPages();
 
-builder.Services.AddSession(options => 
+builder.Services.AddSession(options =>
 {
     options.IOTimeout = TimeSpan.FromMinutes(60);
     options.IdleTimeout = TimeSpan.FromMinutes(30);
