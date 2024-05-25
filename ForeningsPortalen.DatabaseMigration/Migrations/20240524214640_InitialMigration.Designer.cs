@@ -4,6 +4,7 @@ using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForeningsPortalen.DatabaseMigration.Migrations
 {
     [DbContext(typeof(ForeningsPortalenContext))]
-    partial class ForeningsPortalenContextModelSnapshot : ModelSnapshot
+    [Migration("20240524214640_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("BookingUnitId");
 
-                    b.ToTable("BookingBookingUnit", (string)null);
+                    b.ToTable("BookingBookingUnit");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>
@@ -76,7 +79,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("UnionId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Booking", b =>
@@ -107,7 +110,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.BookingUnit", b =>
@@ -145,7 +148,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BookingUnit", (string)null);
+                    b.ToTable("BookingUnit");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Category", b =>
@@ -177,7 +180,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("UnionId");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Document", b =>
@@ -202,16 +205,11 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<Guid>("UnionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("DocumentId");
 
                     b.HasIndex("CreatorUserId");
 
-                    b.HasIndex("UnionId");
-
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Role", b =>
@@ -235,7 +233,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Union", b =>
@@ -256,7 +254,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("UnionId");
 
-                    b.ToTable("Unions", (string)null);
+                    b.ToTable("Unions");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.User", b =>
@@ -288,7 +286,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
@@ -319,7 +317,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRolesHistory", (string)null);
+                    b.ToTable("UserRolesHistory");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Member", b =>
@@ -415,15 +413,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ForeningsPortalen.Domain.Entities.Union", "Union")
-                        .WithMany("Documents")
-                        .HasForeignKey("UnionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Creator");
-
-                    b.Navigation("Union");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.UserRoleHistory", b =>
@@ -469,8 +459,6 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Union", b =>
                 {
                     b.Navigation("Addresses");
-
-                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.User", b =>

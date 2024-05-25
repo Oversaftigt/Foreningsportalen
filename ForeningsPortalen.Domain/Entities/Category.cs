@@ -6,11 +6,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Category : Entity
     {
-
-        public Category()
-        {
-
-        }
+        public Category() {}
 
         internal Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory, Union union)
         {
@@ -19,12 +15,6 @@ namespace ForeningsPortalen.Domain.Entities
             MaxBookingsOfThisCategory = maxBookingsOfThisCategory;
             Union = union;
         }
-        //public Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory)
-        //{
-        //    Name = name;
-        //    DurationType = durationType;
-        //    MaxBookingsOfThisCategory = maxBookingsOfThisCategory;
-        //}
 
         public Guid CategoryId { get; set; }
         public string Name { get; set; }

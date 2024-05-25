@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ForeningsPortalen.DatabaseMigration.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,8 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 columns: table => new
                 {
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsBoardPosition = table.Column<bool>(type: "bit", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -63,6 +64,28 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DurationType = table.Column<int>(type: "int", nullable: false),
+                    MaxBookingsOfThisCategory = table.Column<int>(type: "int", nullable: false),
+                    UnionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.CategoryId);
+                    table.ForeignKey(
+                        name: "FK_Category_Unions_UnionId",
+                        column: x => x.UnionId,
+                        principalTable: "Unions",
+                        principalColumn: "UnionId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -89,12 +112,58 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookingUnit",
+                columns: table => new
+                {
+                    BookingUnitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Deposit = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    MaxBookingDuration = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingUnit", x => x.BookingUnitId);
+                    table.ForeignKey(
+                        name: "FK_BookingUnit_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.BookingId);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
                     DocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UploadedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatorUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
@@ -102,8 +171,8 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     table.PrimaryKey("PK_Documents", x => x.DocumentId);
                     table.ForeignKey(
-                        name: "FK_Documents_Users_UploadedByUserId",
-                        column: x => x.UploadedByUserId,
+                        name: "FK_Documents_Users_CreatorUserId",
+                        column: x => x.CreatorUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -115,8 +184,8 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FromDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -136,15 +205,59 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "BookingBookingUnit",
+                columns: table => new
+                {
+                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BookingUnitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingBookingUnit", x => new { x.BookingId, x.BookingUnitId });
+                    table.ForeignKey(
+                        name: "FK_BookingBookingUnit_BookingUnit_BookingUnitId",
+                        column: x => x.BookingUnitId,
+                        principalTable: "BookingUnit",
+                        principalColumn: "BookingUnitId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_BookingBookingUnit_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "BookingId",
+                        onDelete: ReferentialAction.NoAction);
+        });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UnionId",
                 table: "Addresses",
                 column: "UnionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_UploadedByUserId",
+                name: "IX_BookingBookingUnit_BookingUnitId",
+                table: "BookingBookingUnit",
+                column: "BookingUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId",
+                table: "Bookings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingUnit_CategoryId",
+                table: "BookingUnit",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Category_UnionId",
+                table: "Category",
+                column: "UnionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_CreatorUserId",
                 table: "Documents",
-                column: "UploadedByUserId");
+                column: "CreatorUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRolesHistory_RoleId",
@@ -161,13 +274,25 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BookingBookingUnit");
+
+            migrationBuilder.DropTable(
                 name: "Documents");
 
             migrationBuilder.DropTable(
                 name: "UserRolesHistory");
 
             migrationBuilder.DropTable(
+                name: "BookingUnit");
+
+            migrationBuilder.DropTable(
+                name: "Bookings");
+
+            migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Users");

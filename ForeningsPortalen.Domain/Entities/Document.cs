@@ -11,15 +11,16 @@ namespace ForeningsPortalen.Domain.Entities
    
         internal Document(string title, Member uploadedBy, DateOnly date)
         {
-            Title = title;
-            UploadedBy = uploadedBy;
+            Name = title;
+            Creator = uploadedBy;
             Date = date;
         }
 
         public Guid DocumentId { get; set; }
-        public string Title { get; set; }
-        public Member UploadedBy { get; set; }
+        public string Name { get; set; }
+        public Member Creator { get; set; }
         public DateOnly Date { get; set; }
+        public Union Union { get; set; }
 
         public static Document CreateDocument(string title, Member uploadedBy, DateOnly date)
         {

@@ -24,6 +24,10 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
                    .WithOne(x => x.Union)
                    .HasForeignKey("UnionId");
 
+            builder.HasMany(x => x.Documents)
+                   .WithOne(x => x.Union)
+                   .HasForeignKey("UnionId");
+
         }
     }
 }

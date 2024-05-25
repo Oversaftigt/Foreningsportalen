@@ -13,7 +13,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
     {
         public void Configure(EntityTypeBuilder<UserRoleHistory> builder)
         {
-            
+
             builder.HasKey(urh => new { urh.UserId, urh.RoleId, urh.FromDate });
 
             builder.HasOne(x => x.User)
