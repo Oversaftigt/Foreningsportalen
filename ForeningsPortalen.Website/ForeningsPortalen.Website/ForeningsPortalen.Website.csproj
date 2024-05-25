@@ -20,4 +20,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Booking\" />
+    <Folder Include="DTOs\BookingUnit\" />
+    <Folder Include="DTOs\Category\" />
+    <Folder Include="DTOs\Document\" />
+    <Folder Include="DTOs\Role\" />
+  </ItemGroup>
+
 </Project>

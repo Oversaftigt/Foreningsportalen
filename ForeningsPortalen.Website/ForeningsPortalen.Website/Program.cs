@@ -9,17 +9,20 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Database Config
 var connectionString = builder.Configuration.GetConnectionString("ForeningsPortalenWebDbConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<MyDbContext>();
-
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//DependencyInjection Config
 builder.Services.AddScoped<IUnionService, UnionService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 
+//Identity Config
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -31,13 +34,13 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-builder.Services.AddRazorPages();
-
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true;
 });
 
+//Frontend config
+builder.Services.AddRazorPages();
 
 builder.Services.AddSession(options => 
 {
@@ -48,10 +51,11 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpClient("ApiClient", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5256"); //ForeningsPortalenBaseUrl
+    client.BaseAddress = new Uri("ForeningsPortalenBaseUrl"); //ForeningsPortalenBaseUrl
 });
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -68,11 +72,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
-
 app.Run();
