@@ -43,8 +43,8 @@ namespace ForeningsPortalen.Domain.Entities
 
             var domainService = services.GetService<ICategoryDomainService>();
             if (domainService is null) throw new ArgumentNullException(nameof(domainService));
-            if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(Guid.NewGuid()/*To be replaced with unionId*/), name))
-                throw new InvalidOperationException("Categrory with that name already exists");
+            if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(union.UnionId), name))
+                throw new InvalidOperationException("Category with that name already exists");
 
             var newCategory = new Category(name, durationType, maxBookingsOfThisCategory, union);
             //Er der her vi indfører noget if sætning på om metoden DoesCategoryAlreadyExist er true eller false? 

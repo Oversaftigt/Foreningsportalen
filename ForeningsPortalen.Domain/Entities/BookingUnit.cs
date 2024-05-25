@@ -40,7 +40,7 @@ namespace ForeningsPortalen.Domain.Entities
             var domainService = services.GetService<IBookingUnitDomainService>();
             if (domainService is null) throw new ArgumentNullException(nameof(domainService));
 
-            if (DoesBookingUnitNameAlreadyExist(domainService.OtherBookingUnitsFromUnion(Guid.NewGuid()/*To be unionId */), name) is true)
+            if (DoesBookingUnitNameAlreadyExist(domainService.OtherBookingUnitsFromUnion(category.Union.UnionId), name) is true)
                 throw new InvalidOperationException("Booking with that name already exists");
 
             if (IsDepositValid(deposit) is false)
