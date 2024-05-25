@@ -8,19 +8,16 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        internal Union(string name/*, Board? board, List<User> users*/) 
+        internal Union(string name) 
         {
             this.name = name;
-            //Board = board;
-            //Users = users;
         }
+
         public Guid UnionId { get; set; }
         public string name { get; set; }
-        public List<Address>? Addresses { get; set; }
-        public List<Category>? Categories { get; set; }
-        //public List<User> Users { get; set; }
-        //public Board? Board { get; set; }
-        //public List<User> Users { get; set; }
+        public IEnumerable<Address>? Addresses { get; set; }
+        public IEnumerable<Document>? Documents { get; set; }
+        //public IEnumerable<User> Users { get; set; }
 
         public static Union Create(string unionName)
         {

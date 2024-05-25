@@ -25,8 +25,8 @@ namespace ForeningsPortalen.Infrastructure.Queries
                    .Select(b => new DocumentQueryResultDto
                    {
                        Id = b.DocumentId,
-                       Title = b.Title,
-                       UploadedBy = b.UploadedBy,
+                       Title = b.Name,
+                       UploadedBy = b.Creator,
                        Date = b.Date,
                        RowVersion = b.RowVersion
                    }).ToList();
@@ -44,8 +44,8 @@ namespace ForeningsPortalen.Infrastructure.Queries
              .Select(b => new DocumentQueryResultDto
         {
             Id = b.DocumentId,
-            Title = b.Title,
-            UploadedBy = b.UploadedBy,
+            Title = b.Name,
+            UploadedBy = b.Creator,
             Date = b.Date,
             RowVersion = b.RowVersion
              }).FirstOrDefault(b => b.Id ==id);

@@ -1,7 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Boards.Commands;
-using ForeningsPortalen.Application.Features.Boards.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Bookings.Commands;
 using ForeningsPortalen.Application.Features.Bookings.Commands.Implementations;
 using ForeningsPortalen.Application.Features.BookingUnits.Commands;
@@ -34,7 +32,6 @@ namespace ForeningsPortalen.Application
             services.AddScoped<IAddressCommands, AddressCommands>();
             services.AddScoped<IUnionCommands, UnionCommand>();
             services.AddScoped<IMemberCommands, MemberCommands>();
-            services.AddScoped<IBoardCommands, BoardCommands>();
             services.AddScoped<IBookingCommands, BookingCommands>();
             services.AddScoped<IBookingUnitCommands, BookingUnitCommands>();
             services.AddScoped<ICategoryCommands, CategoryCommands>();

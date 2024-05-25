@@ -43,17 +43,5 @@ namespace ForeningsPortalen.Api.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpPut]
-        public ActionResult PutCategory([FromBody] CategoryUpdateRequestDto categoryUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteCategory(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

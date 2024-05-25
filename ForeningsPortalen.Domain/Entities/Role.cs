@@ -8,11 +8,12 @@ namespace ForeningsPortalen.Domain.Entities
 
         internal Role(string roleName)
         {
-            RoleName = roleName;
+            Name = roleName;
         }
         public Guid RoleId { get; set; }
-        public string RoleName { get; set; }
-        public ICollection<UserRoleHistory> UserHistories { get; set; } = new List<UserRoleHistory>();
+        public string Name { get; set; }
+        public bool IsBoardPosition { get; set; }
+        public ICollection<UserRoleHistory> UserHistories { get; set; }
 
         public static Role CreateRole(string roleName)
         {

@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class User : Entity
     {
-        internal User()
+        public User()
         {
         }
 
@@ -13,10 +13,6 @@ namespace ForeningsPortalen.Domain.Entities
             Email = email;
             PhoneNumber = phoneNumber;
         }
-
-        //public User(Guid id) : base(id)
-        //{
-        //}
 
         public static User Create(string email, string phoneNumber)
         {
@@ -27,7 +23,7 @@ namespace ForeningsPortalen.Domain.Entities
         public Guid UserId { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<UserRoleHistory> RoleHistories { get; set; } = new List<UserRoleHistory>();
+        public ICollection<UserRoleHistory> RoleHistories { get; set; }
 
 
     }

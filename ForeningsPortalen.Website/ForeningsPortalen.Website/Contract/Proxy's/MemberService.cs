@@ -1,8 +1,8 @@
 ﻿using ForeningsPortalen.Website.DTOs.Member;
 
-namespace ForeningsPortalen.WebApp.Proxy_s
+namespace ForeningsPortalen.Website.Contract.Proxy_s
 {
-    public class MemberService
+    public class MemberService : IMemberService
     {
         private readonly HttpClient _httpClient;
 
@@ -10,8 +10,7 @@ namespace ForeningsPortalen.WebApp.Proxy_s
         {
             _httpClient = httpClient;
         }
-
-        public async Task Create(MemberCreateRequestDto memberCreateRequest)
+        async Task IMemberService.Create(MemberCreateRequestDto memberCreateRequest)
         {
             var response = await _httpClient.PostAsJsonAsync("api/Member", memberCreateRequest);
 
@@ -19,6 +18,15 @@ namespace ForeningsPortalen.WebApp.Proxy_s
 
             var message = await response.Content.ReadAsStringAsync();
             throw new Exception(message);
+        }
+
+        async Task IMemberService.Edit(MemberUpdateRequestDto memberUpdateRequest)
+        {
+            throw new NotImplementedException();
+        }
+        async Task<MemberQueryResultDto?> IMemberService.Get(int id, string identityName)
+        {
+            throw new NotImplementedException();
         }
 
         //async Task ILevSundtService.Edit(BmiEditRequestDto bmiEditRequestDto)

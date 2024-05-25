@@ -24,7 +24,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                         .Select(a => new RoleQueryResultDto
                         {
                             Id = a.RoleId,
-                            RoleName = a.RoleName,
+                            RoleName = a.Name,
                             Rowversion = a.RowVersion
                         }).ToList();
 

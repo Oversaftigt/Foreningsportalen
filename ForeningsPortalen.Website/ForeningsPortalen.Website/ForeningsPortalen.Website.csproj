@@ -9,13 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTOs\NewFolder2\**" />
-    <Content Remove="DTOs\NewFolder2\**" />
-    <EmbeddedResource Remove="DTOs\NewFolder2\**" />
-    <None Remove="DTOs\NewFolder2\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="jQuery" Version="3.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
@@ -24,10 +18,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admin\" />
   </ItemGroup>
 
 </Project>
