@@ -1,5 +1,4 @@
 ﻿using ForeningsPortalen.Domain.Shared;
-using System.Reflection.Emit;
 
 namespace ForeningsPortalen.Domain.Entities
 {
@@ -8,7 +7,7 @@ namespace ForeningsPortalen.Domain.Entities
         public Document()
         {
         }
-   
+
         internal Document(string title, Member uploadedBy, DateOnly date)
         {
             Name = title;
@@ -22,14 +21,15 @@ namespace ForeningsPortalen.Domain.Entities
         public DateOnly Date { get; set; }
         public Union Union { get; set; }
 
-        public static Document CreateDocument(string title, Member uploadedBy, DateOnly date)
+        public static Document CreateDocument(string title, Member uploadedBy)
         {
-            if(title == null) { throw new ArgumentNullException(nameof( title )); }
-            
-            var newDocument = new Document(title, uploadedBy, date);
+            if (title == null) { throw new ArgumentNullException(nameof(title)); }
+
+            var documentCreeation = DateOnly.FromDateTime(DateTime.Now);
+            var newDocument = new Document(title, uploadedBy, documentCreeation);
 
             return newDocument;
         }
-   
+
     }
 }

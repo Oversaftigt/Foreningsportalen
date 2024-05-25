@@ -1,5 +1,4 @@
-﻿using Azure;
-using ForeningsPortalen.Website.DTOs.Address;
+﻿using ForeningsPortalen.Website.DTOs.Address;
 
 namespace ForeningsPortalen.Website.Contract.Proxy_s
 {
@@ -37,7 +36,7 @@ namespace ForeningsPortalen.Website.Contract.Proxy_s
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var addresses = await response.Content.ReadFromJsonAsync<IEnumerable<AddressQueryResultDto>>();
-           
+
             return addresses;
         }
 

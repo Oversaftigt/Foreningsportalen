@@ -13,7 +13,7 @@ namespace ForeningsPortalen.Website.Contract.Proxy_s
         async Task<IEnumerable<UnionQueryResultDto>> IUnionService.GetAllUnionsAsync()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5256/api/Union");
-            
+
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var unions = await response.Content.ReadFromJsonAsync<IEnumerable<UnionQueryResultDto>>();

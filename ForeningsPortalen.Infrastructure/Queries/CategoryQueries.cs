@@ -1,6 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Categories.Queries;
 using ForeningsPortalen.Application.Features.Categories.Queries.DTOs;
-using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +17,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
             var categories = _dbContext.Category.AsNoTracking()
                   .Select(c => new CategoryQueryResultDto()
                   {
-                      Name = c.Name,
-                      DurationType = c.DurationType,
-                      MaxBookingsOfThisCategory = c.MaxBookingsOfThisCategory,
+                      CategoryName = c.Name,
+                      ReservationLimitType = c.DurationType.ToString(),
+                      MaxBookings = c.MaxBookingsOfThisCategory,
                   });
 
             if (!categories.Any())
@@ -36,9 +35,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
             var category = _dbContext.Category.AsNoTracking()
                   .Select(c => new CategoryQueryResultDto()
                   {
-                      Name = c.Name,
-                      DurationType = c.DurationType,
-                      MaxBookingsOfThisCategory = c.MaxBookingsOfThisCategory,
+                      CategoryName = c.Name,
+                      ReservationLimitType = c.DurationType.ToString(),
+                      MaxBookings = c.MaxBookingsOfThisCategory,
                   }).FirstOrDefault(c => c.Id == id);
 
             if (category == null)

@@ -1,15 +1,7 @@
-﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
-using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
-using ForeningsPortalen.Application.Repositories;
+﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {

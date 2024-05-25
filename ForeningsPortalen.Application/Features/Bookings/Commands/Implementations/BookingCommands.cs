@@ -1,18 +1,9 @@
-﻿using AutoMapper.Execution;
-using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Bookings.Queries;
+﻿using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
 using ForeningsPortalen.Application.Features.Helpers;
-using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
-using ForeningsPortalen.Application.Features.Users.BaseUsers.Queries;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementations
 {
@@ -58,8 +49,8 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                     throw new ArgumentNullException("member not found");
                 }
 
-                var newBooking = Booking.CreateBooking(bookingCreateDto.CreationDate, bookingCreateDto.BookingStart, 
-                    bookingCreateDto.BookingEnd, bookingUnits, member, _serviceProvider);
+                var newBooking = Booking.CreateBooking(bookingCreateDto.DateOfCreation, bookingCreateDto.StartTime,
+                    bookingCreateDto.EndTime, bookingUnits, member, _serviceProvider);
 
                 _bookingRepository.AddBooking(newBooking);
                 _unitOfWork.Commit();
@@ -82,9 +73,5 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             throw new NotImplementedException();
         }
 
-        void IBookingCommands.UpdateBooking(BookingUpdateRequestDto bookingUpdateDto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

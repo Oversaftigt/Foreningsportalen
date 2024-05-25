@@ -1,5 +1,4 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
+﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
@@ -29,8 +28,8 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
                 _unitOfWork.BeginTransaction();
                 var union = _unionRepo.GetUnion(categoryCreateRequestDto.UnionId);
 
-                var newCategory = Category.CreateCategory(categoryCreateRequestDto.Name, categoryCreateRequestDto.DurationType,
-                    categoryCreateRequestDto.MaxBookingsOfThisCategory, union, _serviceProvider);
+                var newCategory = Category.CreateCategory(categoryCreateRequestDto.CategoryName, categoryCreateRequestDto.ReservationLimitType,
+                    categoryCreateRequestDto.MaxBookings, union, _serviceProvider);
 
                 _categoriRepo.AddCategory(newCategory);
                 _unitOfWork.Commit();

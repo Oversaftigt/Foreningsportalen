@@ -1,27 +1,13 @@
-﻿using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
+﻿namespace ForeningsPortalen.Application.Features.Bookings.Commands.DTOs
 {
     public class BookingCreateRequestDto
     {
-        public DateTime CreationDate { get; set; }
-        public DateTime BookingStart { get; set; }
-        public DateTime BookingEnd { get; set; }
-        public string CategoryName
-        {
-            get
-            {
-                return BookingUnits[0].Category.Name;
-            }
-        }
+        public DateTime DateOfCreation { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         //Fk
-        public List<BookingUnit> BookingUnits { get; set; }
+        public IEnumerable<Guid> BookingUnitsID { get; set; }
         public Guid UserId { get; set; }
     }
 }

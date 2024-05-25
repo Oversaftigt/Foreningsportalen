@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         readonly ForeningsPortalenContext _db;
         public UnionRepository(ForeningsPortalenContext dbContext)
         {
-            _db= dbContext;
+            _db = dbContext;
         }
 
         void IUnionRepository.AddUnion(Union union)
