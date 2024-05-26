@@ -4,41 +4,66 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ForeningsPortalen.Website</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Use Bootstrap 5 from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ForeningsPortalen.Website.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">ForeningsPortalen.Website</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Union/ChooseUnion">Vælg Portal</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="bestyrelsenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Forenings Bestyrelsen
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="bestyrelsenDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Board/Index">Bestyrelsesmedlemmer</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Create">Opret Dokument</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Delete">Slet Dokument</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Booking
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Create">Ny Booking</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine bookinger</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/BookingUnits/Index">BookingEnheder</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="personligDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Personlig
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="personligDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Addresses/Index">Adresser</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Documents/Index">Dokumenter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Medlemmer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/BookingUnits/Index">Administrer BookingEnheder</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administrer Forening
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/ChooseUnion">Login på ForeningsPortal</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Index">Foreningsoversigt</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Addresses/Index">Adresseoversigt</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/Index">Medlemsoversigt</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Create">Registrer Ny Adresse</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Create">Registrer Ny Forening</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/RegisterMember">Registrer Nyt Medlem</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -51,20 +76,15 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - ForeningsPortalen.Website - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include Bootstrap 5 scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

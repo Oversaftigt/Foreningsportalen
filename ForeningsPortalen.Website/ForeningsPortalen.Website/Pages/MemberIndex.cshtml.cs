@@ -1,4 +1,4 @@
-using ForeningsPortalen.Website.DTOs.Member;
+using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

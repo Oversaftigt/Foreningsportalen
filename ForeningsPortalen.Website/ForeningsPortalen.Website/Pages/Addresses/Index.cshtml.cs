@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Website.Contract;
+﻿using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Models.Address;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,20 +12,18 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             _addressService = addressService;
         }
 
-        public IList<AddressIndexModel> Address { get; set; }
+        public List<AddressIndexModel> Address { get; set; } = new();
 
         public async Task OnGetAsync()
         {
-            var sessionValue = HttpContext.Session.GetString("Union");
-            if (sessionValue != null)
+            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionPortal");
+            if (activeUnionId != null)
             {
+                var allAddresses = await _addressService.GetAllAddressesAsync(Guid.Parse(activeUnionId.Value));
 
-                var businessModel = await _addressService.GetAllAddressesAsync(Guid.Parse(sessionValue));
-
-                if (businessModel != null)
+                if (allAddresses != null)
                 {
-                    Address = new List<AddressIndexModel>();
-                    businessModel?.ToList().ForEach(dto => Address.Add(new AddressIndexModel
+                    allAddresses?.ToList().ForEach(dto => Address.Add(new AddressIndexModel
                     { Street = dto.Street, StreetNumber = dto.StreetNumber, ZipCode = dto.ZipCode, City = dto.City, Id = dto.Id }));
                 }
             }

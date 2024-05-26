@@ -15,7 +15,7 @@ namespace ForeningsPortalen.Website.Pages.Members
         }
 
         [BindProperty]
-        public Member Member { get; set; } = default!;
+        public IndexMemberModel Member { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -24,12 +24,12 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return NotFound();
             }
 
-            var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
-            if (member == null)
-            {
-                return NotFound();
-            }
-            Member = member;
+            //var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
+            //if (member == null)
+            //{
+            //    return NotFound();
+            //}
+            //Member = member;
             return Page();
         }
 
@@ -50,22 +50,22 @@ namespace ForeningsPortalen.Website.Pages.Members
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MemberExists(Member.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                //if (!MemberExists(Member.Id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool MemberExists(Guid id)
-        {
-            return _context.Member.Any(e => e.Id == id);
-        }
+        //private bool MemberExists(Guid id)
+        //{
+        //    return _context.Member.Any(e => e.Id == id);
+        //}
     }
 }
