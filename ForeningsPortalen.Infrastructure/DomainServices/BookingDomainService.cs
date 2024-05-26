@@ -22,7 +22,7 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
                                             .ThenInclude(x => x.Union)
                                             .Include(x => x.BookingUnits)
                                             .ThenInclude(x => x.Category)
-                                            .Where(x => x.BookingEnd > DateTime.Now &&
+                                            .Where(x => x.BookingEnd > DateTime.Now && //Excludes bookings from the past
                                                         x.User.Address.AddressId == addressId);
 
             return otherBookingsOnThisAddress;
@@ -37,8 +37,8 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
                                             .ThenInclude(x => x.Union)
                                             .Include(x => x.BookingUnits)
                                             .ThenInclude(x => x.Category)
-                                            .Where(x => x.BookingEnd > DateTime.Now &&
-                                                        x.User.Address.Union.UnionId == unionId);
+                                            .Where(x => x.BookingEnd > DateTime.Now && //Excludes bookings from the past
+                                                        x.User.Address.Union.UnionId == unionId); 
 
             return otherBookingsOnThisUnion;
         }

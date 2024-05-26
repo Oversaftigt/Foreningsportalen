@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool DoesBookingUnitNameAlreadyExist(IEnumerable<BookingUnit> otherBookings, string newBookingUnitName)
         {
-            return otherBookings.Any(x => x.Name == newBookingUnitName);
+            return otherBookings.Any(x => x.Name.ToLower().Trim() == newBookingUnitName.ToLower().Trim());
         }
 
         private static bool IsDepositValid(double deposit)

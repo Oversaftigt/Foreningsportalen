@@ -47,7 +47,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool DoesCategoryAlreadyExist(IEnumerable<Category> otherCategories, string newCategoryName)
         {
-            return otherCategories.Any(x => x.Name == newCategoryName);
+            return otherCategories.Any(x => x.Name.ToLower().Trim() == newCategoryName.ToLower().Trim());
         }
 
         private static bool IsMaxBookingOfThisCategoryValid(int maxBookingOfThisCategory)

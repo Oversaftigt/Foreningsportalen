@@ -22,12 +22,30 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategories()
         {
-            var result = _queries.GetCategories();
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen Kategorier er fundet");
+                var result = _queries.GetCategories();
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("categories/ByUnion/{unionId}")]
+        public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategoriesByUnionId(Guid unionId)
+        {
+            try
+            {
+                var result = _queries.GetCategoriesByUnionId(unionId);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -38,9 +56,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _command.CreateCategory(categoryCreateRequestDto);
                 return Created();
             }
-            catch
+            catch(Exception ex) 
             {
-                return BadRequest();
+                return BadRequest(new {message = ex.Message});
             }
         }
     }

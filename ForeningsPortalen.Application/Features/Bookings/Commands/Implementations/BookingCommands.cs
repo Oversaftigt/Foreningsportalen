@@ -29,14 +29,14 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
             _serviceProvider = serviceProvider;
         }
 
-        void IBookingCommands.CreateBooking(BookingCreateRequestDto bookingCreateDto)
+        void IBookingCommands.CreateBooking(BookingCreateRequestDto dto)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
                 //Create bookingunits first
                 List<BookingUnit> bookingUnits = new();
-                foreach (Guid bookingUnitGuid in bookingCreateDto.BookingUnitsID)
+                foreach (Guid bookingUnitGuid in dto.BookingUnitsID)
                 {
                     var bookingUnit = (_bookingUnitRepository.GetBookingUnit(bookingUnitGuid));
                     bookingUnits.Add(bookingUnit);
@@ -44,12 +44,13 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                 if (bookingUnits == null) throw new ArgumentNullException("List of booking units not found");
 
                 //then create member
-                var member = _member.GetUnionMember(bookingCreateDto.UserId);
+                var member = _member.GetUnionMember(dto.UserId);
                 if (member == null) throw new ArgumentNullException("member not found");
 
+
                 //then the booking
-                var newBooking = Booking.CreateBooking(bookingCreateDto.DateOfCreation, bookingCreateDto.StartTime,
-                    bookingCreateDto.EndTime, bookingUnits, member, _serviceProvider);
+                var newBooking = Booking.CreateBooking(dto.DateOfCreation, dto.StartTime,
+                    dto.EndTime, bookingUnits, member, _serviceProvider);
 
                 _bookingRepository.AddBooking(newBooking);
                 _unitOfWork.Commit();
