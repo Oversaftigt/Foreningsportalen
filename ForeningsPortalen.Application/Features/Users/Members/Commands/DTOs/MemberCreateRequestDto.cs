@@ -2,12 +2,12 @@
 {
     public class MemberCreateRequestDto
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public Guid AddressId { get; set; }
-        public Guid UnionId { get; set; }
-        public DateOnly MoveInDate { get; set; } = new DateOnly();
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public required Guid AddressId { get; set; }
+        public required Guid UnionId { get; set; }
+        public required DateOnly MoveInDate { get; set; }
     }
 }

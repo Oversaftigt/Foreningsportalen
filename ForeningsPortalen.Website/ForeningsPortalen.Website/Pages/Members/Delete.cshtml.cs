@@ -1,21 +1,22 @@
 ﻿using ForeningsPortalen.Website.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
+    [Authorize(Policy = "AdministratorPolicy")]
     public class DeleteModel : PageModel
     {
-        private readonly ForeningsPortalen.Website.Models.MyDbContext _context;
 
-        public DeleteModel(ForeningsPortalen.Website.Models.MyDbContext context)
+
+        public DeleteModel()
         {
-            _context = context;
         }
 
         [BindProperty]
-        public Member Member { get; set; } = default!;
+        public IndexMemberModel Member { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -24,16 +25,16 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return NotFound();
             }
 
-            var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
+            //var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (member == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Member = member;
-            }
+            //if (member == null)
+            //{
+            //    return NotFound();
+            //}
+            //else
+            //{
+            //    Member = member;
+            //}
             return Page();
         }
 
@@ -44,13 +45,13 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return NotFound();
             }
 
-            var member = await _context.Member.FindAsync(id);
-            if (member != null)
-            {
-                Member = member;
-                _context.Member.Remove(Member);
-                await _context.SaveChangesAsync();
-            }
+            //var member = await _context.Member.FindAsync(id);
+            //if (member != null)
+            //{
+            //    Member = member;
+            //    _context.Member.Remove(Member);
+            //    await _context.SaveChangesAsync();
+            //}
 
             return RedirectToPage("./Index");
         }

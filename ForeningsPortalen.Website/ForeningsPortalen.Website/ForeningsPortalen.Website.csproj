@@ -20,4 +20,18 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Contract\DTOs\Booking\" />
+    <Folder Include="Infrastructure\Contract\DTOs\BookingUnit\" />
+    <Folder Include="Infrastructure\Contract\DTOs\Category\" />
+    <Folder Include="Infrastructure\Contract\DTOs\Document\" />
+    <Folder Include="Infrastructure\Contract\DTOs\Role\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

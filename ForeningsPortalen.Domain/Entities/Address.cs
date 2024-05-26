@@ -92,8 +92,11 @@ namespace ForeningsPortalen.Domain.Entities
         //Numbers from 1 to 9999, small letters as well as the symbols / and -
         protected static bool IsDoorValid(string Door)
         {
-            string pattern = @"^[1-9][0-9]{0,3}[a-z/-]*$"; //Door numbers are assumed to have numbers before letters/symbols
-            return Regex.IsMatch(Door, pattern);
+            string NumAndLetterpattern = @"^[1-9][0-9]{0,3}[a-z/-]*$"; //Door numbers are assumed to have numbers before letters/symbols
+            string abbreviationPattern = @"(?i)^(?:mf\.?|t[hv]\.?)$"; //Or to be abbreviations like tv. or th
+
+            string combinedPattern = $"({abbreviationPattern})|({NumAndLetterpattern})";
+            return Regex.IsMatch(Door, combinedPattern);
         }
     }
 }

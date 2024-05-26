@@ -14,7 +14,7 @@ namespace ForeningsPortalen.Website.Pages.Members
             _context = context;
         }
 
-        public Member Member { get; set; } = default!;
+        public IndexMemberModel Member { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -23,15 +23,15 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return NotFound();
             }
 
-            var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
-            if (member == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Member = member;
-            }
+            //var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
+            //if (member == null)
+            //{
+            //    return NotFound();
+            //}
+            //else
+            //{
+            //    Member = member;
+            //}
             return Page();
         }
     }
