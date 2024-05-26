@@ -15,7 +15,8 @@ namespace ForeningsPortalen.Infrastructure.DomainServices
 
         IEnumerable<BookingUnit> IBookingUnitDomainService.OtherBookingUnitsFromUnion(Guid unionId)
         {
-            throw new NotImplementedException();
+            var bookingUnits = _context.BookingUnit.Where(x => x.Category.Union.UnionId == unionId);
+            return bookingUnits;
         }
     }
 }
