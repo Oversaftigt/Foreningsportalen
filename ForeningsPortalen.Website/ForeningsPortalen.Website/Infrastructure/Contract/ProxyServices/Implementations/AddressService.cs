@@ -32,7 +32,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
         //}
         async Task<IEnumerable<AddressQueryResultDto>> IAddressService.GetAllAddressesAsync(Guid unionId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:5256/api/Address/Addresses/ByUnion/{unionId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/address/Addresses/ByUnion/{unionId}");
 
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();

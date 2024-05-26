@@ -39,12 +39,12 @@ namespace ForeningsPortalen.Website.Pages.Addresses
 
                 var dto = new AddressCreateRequestDto
                 {
-                    StreetName = Address.Street,
-                    StreetNumber = Address.StreetNumber,
-                    Floor = Address.Floor,
+                    Street = Address.Street,
+                    Number = Address.StreetNumber,
+                    Level = Address.Floor,
                     Door = Address.Door,
-                    ZipCode = Address.ZipCode,
-                    City = Address.City,
+                    PostalCode = Address.ZipCode,
+                    CityName = Address.City,
                     UnionId = guidUnionId
                 };
 

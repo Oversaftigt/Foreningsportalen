@@ -29,7 +29,7 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             if (dto != null)
             {
                 Address = new AddressIndexModel()
-                { Street = dto.Street, StreetNumber = dto.StreetNumber, ZipCode = dto.ZipCode, City = dto.City, Id = dto.Id };
+                { Street = dto.Street, StreetNumber = dto.Number, ZipCode = dto.PostalCode, City = dto.CityName, Id = dto.Id };
             }
             //if (address == null)
             //{
