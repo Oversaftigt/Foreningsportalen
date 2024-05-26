@@ -1,0 +1,40 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Admin.Unions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+<p>
+    <button asp-page="Create">Create New</button>
+</p>
+<div class="container">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Unions[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Unions)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                <input type="hidden" name="itemId" value="@item.Id" />
+                
+            </td>
+            <td>
+                <button asp-page="./Details" asp-route-id="@item.Id">Details</button> |
+                <button asp-page="./Delete" asp-route-id="@item.Id">Delete</button>
+            </td>
+        </tr>
+        }   
+    </tbody>
+</table>
+</div>
+

@@ -1,4 +1,7 @@
-﻿namespace ForeningsPortalen.Website.Models.Address
+﻿using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
+using ForeningsPortalen.Website.Pages;
+
+namespace ForeningsPortalen.Website.Models.Address
 {
     public class AddressIndexModel
     {

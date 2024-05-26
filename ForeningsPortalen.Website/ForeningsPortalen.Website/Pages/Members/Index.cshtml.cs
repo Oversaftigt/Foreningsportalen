@@ -11,13 +11,13 @@ namespace ForeningsPortalen.Website.Pages.Members
 
         }
 
-        public IList<Member> Members { get; set; } = default!;
+        public IList<IndexMemberModel> Members { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (Members == null)
             {
-                Members = new List<Member>();
+                Members = new List<IndexMemberModel>();
             }
         }
     }

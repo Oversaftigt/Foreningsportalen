@@ -2,7 +2,7 @@
 @model ForeningsPortalen.Website.Pages.Addresses.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Adresseoversigt";
 }
 
 <h1>Index</h1>
@@ -46,9 +46,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentMember)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
