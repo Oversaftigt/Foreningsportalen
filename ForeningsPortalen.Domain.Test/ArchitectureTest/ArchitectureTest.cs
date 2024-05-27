@@ -1,6 +1,8 @@
 ﻿using Xunit;
 using NetArchTest.Rules;
 using System.Linq;
+using System.Reflection;
+using ForeningsPortalen.Application.Repositories;
 
 namespace ForeningsPortalen.Domain.Test.ArchitectureTest
 {
@@ -71,12 +73,72 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                               .GetResult();
 
             // Assert
-            Assert.True(result.IsSuccessful, "The Application layer should have a dependency on the Domain layer.");
+            Assert.True(result.IsSuccessful, "TheInfrastructure layer should have a dependency on the Domain and Application layer.");
         }
 
+        //[Fact] //APi test kan ikke gå igennem 
+        //public void Api_Should_Have_Dependency_On_Application_Domain_Infrastructure()
+        //{
+        //    // Arrange
+        //    var assembly = typeof(Api.Controllers.AddressController).Assembly;
+        //    var otherProjects = new[]
+        //    {
+        //        DomainNamespace,
+        //        ApplicationNamespace,
+        //        InfrastructureNamespace
+        //    };
 
-       
+        //    // Act
+        //    var result = Types.InAssembly(assembly)
+        //                      .That()
+        //                      .ResideInNamespace(ApiNamespace)
+        //                      .Should()
+        //                      .HaveDependencyOnAny(otherProjects)
+        //                      .GetResult();
+
+        //    //Assert
+        //    Assert.True(result.IsSuccessful, "The Api layer should have a dependency on the Domain, Application and Infrastructure layer.");
+
+        //}
+
+        [Fact]
+        public void DomainEntities_Should_Have_Protected_Empty_Constructor() //Fejler pga vores Enum klasse
+        {
+            // Get all types in the specified namespace
+            var entityTypes = Types.InAssembly(Assembly.GetAssembly(typeof(Domain.Entities.Address)))
+                                   .That()
+                                   .ResideInNamespace(DomainNamespace)
+                                   .GetTypes();
+
+            foreach (var type in entityTypes)
+            {
+                var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+                var hasProtectedParameterlessConstructor = constructors.Any(c => c.IsFamily && c.GetParameters().Length == 0);
+
+                Assert.True(hasProtectedParameterlessConstructor, $"Type {type.FullName} does not have a protected parameterless constructor.");
+            }
+
+        }
+        [Fact]
+        public void Repositories_Should_Have_NameEndingWith_Repository()
+        {
+            //Arrange
+
+            var assembly = typeof(Infrastructure.Repositories.AddressRepository).Assembly;
+
+            //Act
+            var result = Types.InAssembly(assembly)
+                .That()
+                .ImplementInterface(typeof(IAddressRepository))
+                .Should()
+                .HaveNameEndingWith("repository")
+                .GetResult();
+
+            //Assert
+            Assert.True(result.IsSuccessful);                
+        }
     }
-
-
 }
+
+
+

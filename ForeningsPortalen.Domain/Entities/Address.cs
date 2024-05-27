@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Address : Entity
     {
-        public Address()
+        protected Address()
         {
 
         }

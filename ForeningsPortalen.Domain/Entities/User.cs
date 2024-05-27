@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class User : Entity
     {
-        public User()
+        protected User()
         {
         }
 

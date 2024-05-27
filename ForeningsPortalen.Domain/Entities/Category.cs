@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Domain.DomainServices;
+using ForeningsPortalen.Domain.Helpers;
 using ForeningsPortalen.Domain.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,7 +7,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Category : Entity
     {
-        public Category() { }
+        protected Category() { }
 
         internal Category(string name, BookingDurationType durationType, int maxBookingsOfThisCategory, Union union)
         {
