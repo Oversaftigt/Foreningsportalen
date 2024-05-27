@@ -21,7 +21,12 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IBookingRepository.DeleteBooking(SharedEntityDeleteDto deleteDto)
         {
-            throw new NotImplementedException();
+            var booking = _dbContext.Bookings.FirstOrDefault(b => b.BookingId == deleteDto.Id);
+            if (booking is not null)
+            {
+                _dbContext.Bookings.Remove(booking);
+                _dbContext.SaveChanges();
+            }
         }
 
         Booking IBookingRepository.GetBooking(Guid id)

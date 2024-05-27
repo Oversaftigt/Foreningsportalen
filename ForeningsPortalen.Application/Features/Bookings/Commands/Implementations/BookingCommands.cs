@@ -71,7 +71,26 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
 
         void IBookingCommands.DeleteBooking(SharedEntityDeleteDto deleteDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                _bookingRepository.DeleteBooking(deleteDto);
+
+                _unitOfWork.Commit();
+            }
+            catch
+            {
+                try
+                {
+                    _unitOfWork?.Rollback();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Rollback has failed: {ex.Message}");
+                }
+                throw;
+            }
         }
 
     }
