@@ -56,11 +56,27 @@ namespace ForeningsPortalen.Domain.Entities
             return maxBookingOfThisCategory > 0;
         }
 
+        /// <summary>
+        /// Checks if durationType is part of the enum BookingDurationType, if it is then return true and an out parameter to get the parsed enum value
+        /// </summary>
+        /// <param name="durationType"></param>
+        /// <param name="bookingDurationType"></param>
+        /// <returns></returns>
         private static bool IsBookingDurationTypeValid(string durationType, out BookingDurationType bookingDurationType)
         {
-            //checks if durationType is part of the enum BookingDurationType,
-            //if it is then return true and an out parameter to get the parsed enum value
-            return Enum.TryParse(durationType, true, out bookingDurationType);
+            //Check is durationType is only numbers, because if it is, the enum parse considers it as an index in the enum
+            //and will return true and thus random wrong ints will be saved in the database
+            if (durationType.All(char.IsDigit) is false)
+            {
+                if (Enum.TryParse(durationType, true, out bookingDurationType))
+                {
+                    return true;
+                }
+            }
+            //If durationType is only consisting of numbers, bookingDurationType will be given a value because of the out parameter. Afterwards return false
+            bookingDurationType = BookingDurationType.Hours; 
+            return false;
+
         }
 
     }
