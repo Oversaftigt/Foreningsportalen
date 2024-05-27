@@ -19,7 +19,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                     .Select(b => new DocumentQueryResultDto
                     {
                         Id = b.DocumentId,
-                        Title = b.Name,
+                        Title = b.FileName,
                         UploadedBy = b.Creator,
                         DateOfUpload = b.Date,
                         RowVersion = b.RowVersion
@@ -38,7 +38,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
              .Select(b => new DocumentQueryResultDto
              {
                  Id = b.DocumentId,
-                 Title = b.Name,
+                 Title = b.FileName,
                  UploadedBy = b.Creator,
                  DateOfUpload = b.Date,
                  RowVersion = b.RowVersion

@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace ForeningsPortalen.Website.Pages.Admin.Members
 {
@@ -20,12 +23,12 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterMemberModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IAddressService _addressService;
         private readonly IMemberService _memberService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRoleService _roleService;
 
 
         public RegisterMemberModel(UserManager<IdentityUser> userManager,
@@ -36,7 +39,8 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                                    IEmailSender emailSender,
                                    IAddressService addressService,
                                    IMemberService memberService,
-                                   IUnitOfWork unitOfWork)
+                                   IUnitOfWork unitOfWork,
+                                   IRoleService roleService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,23 +50,29 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
             _addressService = addressService;
             _memberService = memberService;
             _unitOfWork = unitOfWork;
+            _roleService = roleService;
+
         }
 
         [BindProperty]
-        public CreateMemberModel CreateMember { get; set; }
+        public CreateMemberModel CreateMember { get; set; } = new();
         public List<AddressIndexModel> UnionAddresses { get; set; } = new List<AddressIndexModel>();
-        public Guid UnionId { get; set; }
+        public List<Dictionary<Guid, string>> Roles { get; set; } = new();
 
-        public IUserEmailStore<IdentityUser> EmailStore => _emailStore;
+        [BindProperty]
+        public Guid UnionId { get; set; }
 
         //public string ReturnUrl { get; set; }
 
         public async Task OnGetAsync(/*string returnUrl = null*/)
         {
-            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionPortal");
+            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
             if (activeUnionId != null)
             {
-                var allAddresses = await _addressService.GetAllAddressesAsync(Guid.Parse(activeUnionId.Value));
+
+                UnionId = Guid.Parse(activeUnionId);
+
+                var allAddresses = await _addressService.GetAllAddressesAsync(UnionId);
 
                 if (allAddresses != null)
                 {
@@ -70,10 +80,21 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                     allAddresses?.ToList().ForEach(dto => UnionAddresses.Add(new AddressIndexModel
                     { Street = dto.Street, StreetNumber = dto.Number, ZipCode = dto.PostalCode, City = dto.CityName, Id = dto.Id }));
                 }
+
+                var allRoles = await _roleService.GetAllRolesAsync();
+                if (allRoles != null)
+                {
+                    Roles.AddRange(allRoles.Select(dto => new Dictionary<Guid, string>
+    {
+        { dto.Id, dto.RoleName }
+    }));
+                }
+            var password = CreateInitialPassword();
+            CreateMember.Password = password;
+            CreateMember.ConfirmPassword = CreateMember.Password;
             }
 
         }
-
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -83,78 +104,87 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
             {
                 _unitOfWork.BeginTransaction();
 
-                await PostUnionMember();
+
+                await CreateDetailedUnionMember();
                 var user = await CreateIdentityUser();
 
+                if (_userStore == null)
+                {
+                    throw new InvalidOperationException("User store is not initialized.");
+                }
+
+                if (CreateMember == null)
+                {
+                    throw new InvalidOperationException("CreateMember is not initialized.");
+                }
+
+                if (string.IsNullOrEmpty(CreateMember.Email))
+                {
+                    throw new InvalidOperationException("CreateMember.Email is not initialized or empty.");
+                }
+
+
                 await _userStore.SetUserNameAsync(user, CreateMember.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, CreateMember.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, CreateMember.Password);
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    //_logger.LogInformation($"User created a new account with generated {CreateMember.Password}.");
 
                     //var userId = await _userManager.GetUserIdAsync(user);
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    //code = WebEncoders.Base64UrlEncode(System.Text.Encoding.UTF8.GetBytes(code));
                     //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
+                    //    "/Account/ResetPassword",
                     //    pageHandler: null,
                     //    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     //    protocol: Request.Scheme);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    //{
-                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    //}
-                    //else
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //    return LocalRedirect(returnUrl);
-                    //}
+                    //await _emailSender.SendEmailAsync(CreateMember.Email, "Skift din kode, før du kan tilgå din Boligportal",
+                    //   $"Brug dette link til at tilgå siden, hvor du kan skifte din kode " +
+                    //   $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     _unitOfWork.Commit();
                 }
-                
-                _unitOfWork.Rollback();
-                foreach (var error in result.Errors)
+                else
                 {
-                    
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    _unitOfWork.Rollback();
+                    foreach (var error in result.Errors)
+                    {
+
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
+
             }
-            // If we got this far, something failed, redisplay form
             return Page();
         }
 
-        private async Task PostUnionMember()
+        private async Task CreateDetailedUnionMember()
         {
             try
             {
+
                 var dto = new MemberCreateRequestDto
                 {
                     FirstName = CreateMember.FirstName,
                     LastName = CreateMember.LastName,
                     Email = CreateMember.Email,
                     PhoneNumber = CreateMember.Phone ?? "",
-                    RoleId = CreateMember.Role,
+                    RoleId = CreateMember.RoleId,
                     MoveInDate = CreateMember.MoveInDate,
-                    UnionId = CreateMember.UnionId,
+                    UnionId = UnionId,
                     AddressId = CreateMember.AddressId
                 };
                 await _memberService.PostMemberAsync(dto);
             }
-            catch 
+            catch
             {
                 throw new InvalidOperationException($"Something went wrong and the Request " +
                     $"                              to Post an instance of a member " +
                     $"                              on ForeningsPortalen api failed.");
             }
         }
-
 
         private async Task<IdentityUser> CreateIdentityUser()
         {
@@ -171,14 +201,47 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
             }
         }
 
-        //private async Task<ActionResult> RegisterUser()
-        //{
+        private string CreateInitialPassword()
+        {
+            try
+            {
+                Random _random = new Random();
 
-        //}
-        //private async Task<string> CreateInitialPassword()
-        //{
+                string[] Words = new[]
+               {
+                     "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india",
+                     "juliet", "kilo", "lima", "mike", "november", "oscar", "papa", "quebec", "romeo",
+                     "sierra", "tango", "uniform", "victor", "whiskey", "xray", "yankee", "zulu"
+        };
 
-        //}
+                string SpecialChars = "!@#$%^&*?";
+                string upperCaseLetters = "ROGJSCNJRHLDVJGHECWÅS";
 
+                int wordCount = 3;
+
+                var password = new StringBuilder();
+                for (int i = 0; i < wordCount; i++)
+                {
+                    var randomWord = Words[_random.Next(Words.Length)];
+                    password.Append(randomWord);
+                }
+
+                var randomNumber = _random.Next(100, 1000);
+                password.Append(randomNumber);
+
+                var randomSpecialChar = SpecialChars[_random.Next(SpecialChars.Length)];
+                password.Append(randomSpecialChar);
+
+                var randomUpperCase = upperCaseLetters[_random.Next(upperCaseLetters.Length)];
+                password.Append(randomUpperCase);
+
+                return new string(password.ToString().OrderBy(c => _random.Next()).ToArray());
+
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Password failed to be created");
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
                     throw new ArgumentNullException("Member not found");
                 }
 
-                var newDocument = Document.CreateDocument(documentCreateRequestDto.Title, member);
+                var newDocument = Document.CreateDocument(member, documentCreateRequestDto.DocumentName,documentCreateRequestDto.DocumentPath);
 
                 _documentRepository.AddDocument(newDocument);
                 _unitOfWork.Commit();

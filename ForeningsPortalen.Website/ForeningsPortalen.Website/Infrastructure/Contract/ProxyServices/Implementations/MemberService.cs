@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
 using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using System.Net.Http;
 
 namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implementations
 {
@@ -7,9 +8,9 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
     {
         private readonly HttpClient _httpClient;
 
-        public MemberService(HttpClient httpClient)
+        public MemberService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClientFactory.CreateClient("ApiClient");
         }
         async Task IMemberService.PostMemberAsync(MemberCreateRequestDto memberCreateRequest)
         {
@@ -32,7 +33,13 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
 
         async Task<IEnumerable<MemberQueryResultDto>?> IMemberService.GetAllMembersAsync(Guid unionId)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/AllTenants/ByUnion/{unionId}");
+
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            var addresses = await response.Content.ReadFromJsonAsync<IEnumerable<MemberQueryResultDto>>();
+
+            return addresses;
         }
 
 

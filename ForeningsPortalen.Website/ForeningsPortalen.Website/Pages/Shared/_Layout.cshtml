@@ -13,65 +13,69 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ForeningsPortalen.Website</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Foreningsportalen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="bestyrelsenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Forenings Bestyrelsen
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="bestyrelsenDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Board/Index">Bestyrelsesmedlemmer</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Create">Opret Dokument</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Delete">Slet Dokument</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Booking
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Create">Ny Booking</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine bookinger</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/BookingUnits/Index">BookingEnheder</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="personligDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Personlig
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="personligDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Administrer Forening
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="adminDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/ChooseUnion">Login på ForeningsPortal</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Index">Foreningsoversigt</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Index">Adresseoversigt</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/Index">Medlemsoversigt</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Create">Registrer Ny Adresse</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Create">Registrer Ny Forening</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/RegisterMember">Registrer Nyt Medlem</a></li>
-                            </ul>
-                        </li>
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="bestyrelsenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Forenings Bestyrelsen
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bestyrelsenDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Board/Index">Bestyrelsesmedlemmer</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Create">Opret Dokument</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Delete">Slet Dokument</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Booking
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Create">Ny Booking</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine bookinger</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/BookingUnits/Index">BookingEnheder</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="personligDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Personlig
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="personligDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrer Forening
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/ChooseUnion">Login på ForeningsPortal</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Index">Foreningsoversigt</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Index">Adresseoversigt</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Members/Index">Medlemsoversigt</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Create">Registrer Ny Adresse</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Unions/Create">Registrer Ny Forening</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/RegisterMember">Registrer Nyt Medlem</a></li>
+                                </ul>
+                            </li>
+                        <partial name="_LoginPartial" />      
+                        }
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
