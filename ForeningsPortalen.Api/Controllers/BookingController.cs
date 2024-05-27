@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Bookings.Queries;
 using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -98,9 +99,17 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteBooking(Guid id)
+        public ActionResult DeleteBooking(SharedEntityDeleteDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _command.DeleteBooking(dto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
     }
