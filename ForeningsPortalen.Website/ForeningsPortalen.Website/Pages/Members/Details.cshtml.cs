@@ -7,11 +7,10 @@ namespace ForeningsPortalen.Website.Pages.Members
 {
     public class DetailsModel : PageModel
     {
-        private readonly ForeningsPortalen.Website.Models.MyDbContext _context;
-
-        public DetailsModel(ForeningsPortalen.Website.Models.MyDbContext context)
+        
+        public DetailsModel()
         {
-            _context = context;
+
         }
 
         public IndexMemberModel Member { get; set; } = default!;

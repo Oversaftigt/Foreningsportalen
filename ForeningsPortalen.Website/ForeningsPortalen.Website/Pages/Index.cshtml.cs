@@ -23,7 +23,7 @@ namespace ForeningsPortalen.Website.Pages
 
         public void OnPost()
         {
-
+            RedirectToPage("/Account/Manage/login");
         }
 
     }

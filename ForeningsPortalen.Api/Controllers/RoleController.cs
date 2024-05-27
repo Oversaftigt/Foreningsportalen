@@ -20,7 +20,7 @@ namespace ForeningsPortalen.Api.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<RoleQueryResultDto>> GetAllUnions()
+        public ActionResult<IEnumerable<RoleQueryResultDto>> GetAllRoles()
         {
             var result = _roleQueries.GetAllRoles();
             if (!result.Any())

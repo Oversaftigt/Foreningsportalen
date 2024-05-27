@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Domain.Shared;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ForeningsPortalen.Domain.Entities
 {
@@ -8,27 +9,52 @@ namespace ForeningsPortalen.Domain.Entities
         {
         }
 
-        internal Document(string title, Member uploadedBy, DateOnly date)
+        internal Document(Member creator, string fileName, string filePath, byte[] docContent, DateOnly date, string extension)
         {
-            Name = title;
-            Creator = uploadedBy;
+            Member = creator;
+            FileName = fileName;
+            FilePath = filePath;
+            DocContent = docContent;
             Date = date;
+            FileExtension = extension;
         }
 
         public Guid DocumentId { get; set; }
-        public string Name { get; set; }
-        public Member Creator { get; set; }
+        public Member Member { get; set; }
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
+        public byte[] DocContent { get; set; }
         public DateOnly Date { get; set; }
         public Union Union { get; set; }
+        public string FileExtension { get; set; }
 
-        public static Document CreateDocument(string title, Member uploadedBy)
+
+        public static Document CreateDocument(Member uploadedBy, string documentName, string filePath)
         {
-            if (title == null) { throw new ArgumentNullException(nameof(title)); }
+            if (documentName == null) { throw new ArgumentNullException(nameof(documentName)); }
+            if (filePath == null) {throw new ArgumentNullException(nameof(filePath)); }
 
-            var documentCreeation = DateOnly.FromDateTime(DateTime.Now);
-            var newDocument = new Document(title, uploadedBy, documentCreeation);
+            var documentCreation = DateOnly.FromDateTime(DateTime.Now);
+            var docConvertedToByte = ConvertDocumentToByte(filePath);
+            if (docConvertedToByte == null)
+            {
+                throw new ArgumentNullException(nameof(docConvertedToByte));
+            }
+
+            var extension = Path.GetExtension(filePath);
+            var newDocument = new Document(uploadedBy, documentName, filePath, docConvertedToByte, documentCreation, extension);
 
             return newDocument;
+        }
+
+        private static byte[] ConvertDocumentToByte(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            {
+                var docInByte = new byte[stream.Length];
+                stream.Read(docInByte);
+                return docInByte;
+            }
         }
 
     }

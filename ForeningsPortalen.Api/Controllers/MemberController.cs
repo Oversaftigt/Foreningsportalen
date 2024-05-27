@@ -41,6 +41,25 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
+        //[HttpGet("byEmail/{email}")]
+        //public ActionResult<MemberQueryResultDto> GetMemberById(string email)
+        //{
+        //    try
+        //    {
+        //        var unionMember = _UnionMemberQueries.GetUnionMemberByUserId(unionMemberId);
+
+        //        if (unionMember == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        return Ok(unionMember);
+        //    }
+        //    catch
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
         // GET api/<UnionMemberController>/5
         [HttpGet("AllTenants/ByUnion/{unionId}")]
         public ActionResult<IEnumerable<MemberQueryResultDto>> GetMembersByUnionId(Guid unionId)

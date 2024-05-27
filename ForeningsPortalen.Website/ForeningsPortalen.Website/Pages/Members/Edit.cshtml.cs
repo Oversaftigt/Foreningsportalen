@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Website.Models;
+using ForeningsPortalen.Website.Models.Member;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,15 +8,14 @@ namespace ForeningsPortalen.Website.Pages.Members
 {
     public class EditModel : PageModel
     {
-        private readonly ForeningsPortalen.Website.Models.MyDbContext _context;
 
-        public EditModel(ForeningsPortalen.Website.Models.MyDbContext context)
+
+        public EditModel()
         {
-            _context = context;
         }
 
         [BindProperty]
-        public IndexMemberModel Member { get; set; } = default!;
+        public UpdateMemberModel Member { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -42,23 +42,23 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return Page();
             }
 
-            _context.Attach(Member).State = EntityState.Modified;
+            //_context.Attach(Member).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                //if (!MemberExists(Member.Id))
-                //{
-                //    return NotFound();
-                //}
-                //else
-                //{
-                //    throw;
-                //}
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    //if (!MemberExists(Member.Id))
+            //    //{
+            //    //    return NotFound();
+            //    //}
+            //    //else
+            //    //{
+            //    //    throw;
+            //    //}
+            //}
 
             return RedirectToPage("./Index");
         }

@@ -12,9 +12,9 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        void IDocumentRepository.AddDocument(Document doocument)
+        void IDocumentRepository.AddDocument(Document document)
         {
-            _dbContext.Add(doocument);
+            _dbContext.Add(document);
             _dbContext.SaveChanges();
         }
 
