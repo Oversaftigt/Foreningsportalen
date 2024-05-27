@@ -8,7 +8,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Queries
         BookingQueryResultDto GetBookingById(Guid id);
 
         IEnumerable<BookingQueryResultDto> GetAllBookings();
-        IEnumerable<BookingQueryResultDto> GetAllBookingsByMember(Guid memberId);
-        IEnumerable<BookingQueryResultDto> GetAllBookingsByAddress(Guid addressId);
+        IEnumerable<BookingQueryResultDto> GetAllFutureBookingsByMember(Guid memberId);
+        IEnumerable<BookingQueryResultDto> GetAllFutureBookingsByAddress(Guid addressId);
     }
 }

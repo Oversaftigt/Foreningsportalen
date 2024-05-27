@@ -31,9 +31,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                      Rowversion = b.RowVersion,
                  });
 
-            if (result == null || !result.Any())
+            if (result == null)
             {
-                throw new ArgumentNullException("Booking not found");
+                throw new ArgumentNullException("Error finding all bookings");
             }
             return result;
 
@@ -64,7 +64,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
             return result;
         }
 
-        IEnumerable<BookingQueryResultDto> IBookingQueries.GetAllBookingsByMember(Guid memberId)
+        IEnumerable<BookingQueryResultDto> IBookingQueries.GetAllFutureBookingsByMember(Guid memberId)
         {
             var result = _dbContext.Bookings.AsNoTracking()
                  .Include(b => b.BookingUnits) // Ensure BookingUnits are included
@@ -80,16 +80,17 @@ namespace ForeningsPortalen.Infrastructure.Queries
                      CategoryName = b.BookingUnits[0].Category.Name,
                      Rowversion = b.RowVersion,
                  })
-                 .Where(b => b.UserId == memberId && b.EndTime > DateTime.Now); //Excludes bookings from the past
+                 .Where(b => b.UserId == memberId && b.EndTime > DateTime.Now); //Excludes bookings from the past,
+                                                                                //but includes any ongoing ones
 
-            if (result == null || !result.Any())
+            if (result == null)
             {
-                throw new ArgumentNullException("Booking not found");
+                throw new ArgumentNullException("Error finding all future bookings for member");
             }
             return result;
         }
 
-        IEnumerable<BookingQueryResultDto> IBookingQueries.GetAllBookingsByAddress(Guid addressId)
+        IEnumerable<BookingQueryResultDto> IBookingQueries.GetAllFutureBookingsByAddress(Guid addressId)
         {
             var membersOnThisAddress = _dbContext.Bookings.AsNoTracking()
                     .Include(b => b.User)
@@ -111,12 +112,13 @@ namespace ForeningsPortalen.Infrastructure.Queries
                      CategoryName = b.BookingUnits[0].Category.Name,
                      Rowversion = b.RowVersion,
                  })
-                 .Where(b => membersOnThisAddress.Contains(b.UserId) && b.EndTime > DateTime.Now); //Excludes bookings from the past
+                 .Where(b => membersOnThisAddress.Contains(b.UserId) && b.EndTime > DateTime.Now); //Excludes bookings from the past,
 
-            if (result == null || !result.Any())
+            if (result == null)
             {
-                throw new ArgumentNullException("Booking not found");
-            }
+                throw new ArgumentNullException("Error finding all future bookings for address");
+            }//but includes any ongoing ones
+
             return result;
         }
     }

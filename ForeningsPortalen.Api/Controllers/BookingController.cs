@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                var result = _queries.GetAllBookingsByAddress(addressId);
+                var result = _queries.GetAllFutureBookingsByAddress(addressId);
                 return Ok(result);
 
             }
@@ -73,7 +73,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                var result = _queries.GetAllBookingsByMember(memberId);
+                var result = _queries.GetAllFutureBookingsByMember(memberId);
                 return Ok(result);
 
             }
