@@ -4,7 +4,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Role : Entity
     {
-        public Role() { }
+        protected Role() { }
 
         internal Role(string roleName)
         {

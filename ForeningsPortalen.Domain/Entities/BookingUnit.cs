@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Domain.DomainServices;
+using ForeningsPortalen.Domain.Helpers;
 using ForeningsPortalen.Domain.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,7 +7,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class BookingUnit : Entity
     {
-        public BookingUnit() { }
+        protected BookingUnit() { }
 
         internal BookingUnit(string name, bool isActive, double deposit, double price,
                         int maxBookingDuration, Category category)

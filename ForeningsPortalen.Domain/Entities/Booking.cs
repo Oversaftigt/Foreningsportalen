@@ -6,7 +6,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Booking : Entity
     {
-        public Booking()
+        protected Booking()
         {
         }
         internal Booking(DateTime creationDate, DateTime bookingStart,

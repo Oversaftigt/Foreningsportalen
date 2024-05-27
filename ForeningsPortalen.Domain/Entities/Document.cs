@@ -5,7 +5,7 @@ namespace ForeningsPortalen.Domain.Entities
 {
     public class Document : Entity
     {
-        public Document()
+        protected Document()
         {
         }
 

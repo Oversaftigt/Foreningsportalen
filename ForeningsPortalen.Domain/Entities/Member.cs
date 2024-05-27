@@ -2,7 +2,7 @@
 {
     public class Member : User
     {
-        public Member() { }
+        protected Member() { }
 
         internal Member(string firstName,
                              string lastName,
