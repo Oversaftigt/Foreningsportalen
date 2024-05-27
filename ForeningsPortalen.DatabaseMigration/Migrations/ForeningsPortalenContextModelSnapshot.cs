@@ -34,7 +34,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("BookingUnitId");
 
-                    b.ToTable("BookingBookingUnit", (string)null);
+                    b.ToTable("BookingBookingUnit");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>
@@ -43,14 +43,14 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CityName")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Door")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Level")
+                    b.Property<string>("Floor")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("RowVersion")
@@ -59,24 +59,24 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<string>("Street")
+                    b.Property<string>("StreetName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Number")
+                    b.Property<int>("StreetNumber")
                         .HasColumnType("int");
 
                     b.Property<Guid>("UnionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PostalCode")
+                    b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("AddressId");
 
                     b.HasIndex("UnionId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Booking", b =>
@@ -85,13 +85,13 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime>("BookingEnd")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime>("BookingStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfCreation")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("RowVersion")
@@ -107,7 +107,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BookingIds", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.BookingUnit", b =>
@@ -119,20 +119,20 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AdvancePayment")
+                    b.Property<double>("Deposit")
                         .HasColumnType("float");
 
-                    b.Property<bool>("IsBookingUnitActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ReservationLimit")
+                    b.Property<int>("MaxBookingDuration")
                         .HasColumnType("int");
 
-                    b.Property<string>("BookingUnitName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Fee")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<byte[]>("RowVersion")
@@ -145,22 +145,22 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BookingUnit", (string)null);
+                    b.ToTable("BookingUnit");
                 });
 
-            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.CategoryId", b =>
+            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ReservationLimitType")
+                    b.Property<int>("DurationType")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaxBookings")
+                    b.Property<int>("MaxBookingsOfThisCategory")
                         .HasColumnType("int");
 
-                    b.Property<string>("BookingUnitName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -177,7 +177,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasIndex("UnionId");
 
-                    b.ToTable("CategoryId", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Document", b =>
@@ -186,15 +186,27 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CreatorUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateOnly>("DateOfUpload")
+                    b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
-                    b.Property<string>("BookingUnitName")
+                    b.Property<byte[]>("DocContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileExtension")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MemberUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -207,11 +219,11 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("CreatorUserId");
+                    b.HasIndex("MemberUserId");
 
                     b.HasIndex("UnionId");
 
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Role", b =>
@@ -223,7 +235,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<bool>("IsBoardPosition")
                         .HasColumnType("bit");
 
-                    b.Property<string>("BookingUnitName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -235,7 +247,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Union", b =>
@@ -244,19 +256,19 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<string>("UnionName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("UnionId");
 
-                    b.ToTable("Unions", (string)null);
+                    b.ToTable("Unions");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.User", b =>
@@ -288,7 +300,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
@@ -303,7 +315,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly>("RoleAssigned")
+                    b.Property<DateOnly>("FromDate")
                         .HasColumnType("date");
 
                     b.Property<byte[]>("RowVersion")
@@ -312,14 +324,14 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<DateOnly>("ToDate")
+                    b.Property<DateOnly?>("ToDate")
                         .HasColumnType("date");
 
-                    b.HasKey("UserId", "RoleId", "RoleAssigned");
+                    b.HasKey("UserId", "RoleId", "FromDate");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRolesHistory", (string)null);
+                    b.ToTable("UserRolesHistory");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Member", b =>
@@ -377,7 +389,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Booking", b =>
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Member", "User")
-                        .WithMany("BookingIds")
+                        .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -387,16 +399,16 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.BookingUnit", b =>
                 {
-                    b.HasOne("ForeningsPortalen.Domain.Entities.CategoryId", "CategoryId")
+                    b.HasOne("ForeningsPortalen.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CategoryId");
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.CategoryId", b =>
+            modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Category", b =>
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Union", "Union")
                         .WithMany()
@@ -409,9 +421,9 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Document", b =>
                 {
-                    b.HasOne("ForeningsPortalen.Domain.Entities.Member", "Creator")
+                    b.HasOne("ForeningsPortalen.Domain.Entities.Member", "Member")
                         .WithMany()
-                        .HasForeignKey("CreatorUserId")
+                        .HasForeignKey("MemberUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -421,7 +433,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.Navigation("Member");
 
                     b.Navigation("Union");
                 });
@@ -448,7 +460,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Member", b =>
                 {
                     b.HasOne("ForeningsPortalen.Domain.Entities.Address", "Address")
-                        .WithMany("AllTenants")
+                        .WithMany("Members")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -458,7 +470,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Address", b =>
                 {
-                    b.Navigation("AllTenants");
+                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Role", b =>
@@ -480,7 +492,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             modelBuilder.Entity("ForeningsPortalen.Domain.Entities.Member", b =>
                 {
-                    b.Navigation("BookingIds");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }
