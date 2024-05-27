@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
@@ -24,7 +25,10 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         Member IMemberRepository.GetUnionMember(Guid unionMemberId)
         {
-            var member = _db.Members.Find(unionMemberId);
+            var member = _db.Members
+                            .Include(m => m.Address)
+                            .ThenInclude(a => a.Union)
+                            .FirstOrDefault(m => m.UserId == unionMemberId);
             if (member == null) throw new ArgumentNullException("Member not found");
             return member;
         }

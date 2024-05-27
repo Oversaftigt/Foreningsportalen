@@ -11,7 +11,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBookingRepository _bookingRepository;
-        private readonly IBookingUnitRepository _bookingUnit;
+        private readonly IBookingUnitRepository _bookingUnitRepository;
         private readonly IUserRepository _user;
         private readonly IMemberRepository _member;
         private readonly IServiceProvider _serviceProvider;
@@ -22,35 +22,35 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
         {
             _unitOfWork = unitOfWork;
             _bookingRepository = bookingRepository;
-            _bookingUnit = bookingUnit;
+            _bookingUnitRepository = bookingUnit;
             _user = user;
             _member = member;
             _bookingUnitQueries = bookingUnitQueries;
             _serviceProvider = serviceProvider;
         }
 
-        void IBookingCommands.CreateBooking(BookingCreateRequestDto bookingCreateDto)
+        void IBookingCommands.CreateBooking(BookingCreateRequestDto dto)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
-
-                var bookingUnits = _bookingUnitQueries.GetAllBookingUnits().ToList();
-
-                if (bookingUnits == null)
+                //Create bookingunits first
+                List<BookingUnit> bookingUnits = new();
+                foreach (Guid bookingUnitGuid in dto.BookingUnitsID)
                 {
-                    throw new ArgumentNullException("List of booking units not found");
+                    var bookingUnit = (_bookingUnitRepository.GetBookingUnit(bookingUnitGuid));
+                    bookingUnits.Add(bookingUnit);
                 }
+                if (bookingUnits == null) throw new ArgumentNullException("List of booking units not found");
 
-                var member = _member.GetUnionMember(bookingCreateDto.UserId);
+                //then create member
+                var member = _member.GetUnionMember(dto.UserId);
+                if (member == null) throw new ArgumentNullException("member not found");
 
-                if (member == null)
-                {
-                    throw new ArgumentNullException("member not found");
-                }
 
-                var newBooking = Booking.CreateBooking(bookingCreateDto.DateOfCreation, bookingCreateDto.StartTime,
-                    bookingCreateDto.EndTime, bookingUnits, member, _serviceProvider);
+                //then the booking
+                var newBooking = Booking.CreateBooking(dto.DateOfCreation, dto.StartTime,
+                    dto.EndTime, bookingUnits, member, _serviceProvider);
 
                 _bookingRepository.AddBooking(newBooking);
                 _unitOfWork.Commit();
@@ -65,6 +65,7 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

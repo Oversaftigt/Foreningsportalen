@@ -28,7 +28,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                                CityName = a.City,
                                PostalCode = a.ZipCode,
                                UnionId = a.Union.UnionId,
-                               AllTenants = a.Members.Select(m => m.UserId).ToList(),
+                               CurrentTenants = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery).Select(m => m.UserId),
                                RowVersion = a.RowVersion,
                            })
                            .Where(a => a.UnionId == unionId).ToList();
@@ -52,7 +52,6 @@ namespace ForeningsPortalen.Infrastructure.Queries
                              Number = a.StreetNumber,
                              CityName = a.City,
                              PostalCode = a.ZipCode,
-                             AllTenants = a.Members.Select(m => m.UserId).ToList(),
                              CurrentTenants = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery).Select(m => m.UserId),
                              RowVersion = a.RowVersion,
                          })

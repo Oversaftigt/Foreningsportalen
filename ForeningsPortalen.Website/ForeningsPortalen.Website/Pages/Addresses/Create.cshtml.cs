@@ -1,5 +1,5 @@
-﻿using ForeningsPortalen.Website.Contract;
-using ForeningsPortalen.Website.DTOs.Address;
+﻿using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Address;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Models.Address;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,18 +29,23 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             {
                 return Page();
             }
-            var sessionValue = HttpContext.Session.GetString("Union");
-            if (sessionValue != null)
+            
+            var unionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
+
+
+            if (unionId is not null)
             {
+                var guidUnionId = Guid.Parse(unionId);
+
                 var dto = new AddressCreateRequestDto
                 {
-                    StreetName = Address.Street,
-                    StreetNumber = Address.StreetNumber,
-                    Floor = Address.Floor,
+                    Street = Address.Street,
+                    Number = Address.StreetNumber,
+                    Level = Address.Floor,
                     Door = Address.Door,
-                    ZipCode = Address.ZipCode,
-                    City = Address.City,
-                    UnionId = Guid.Parse(sessionValue)
+                    PostalCode = Address.ZipCode,
+                    CityName = Address.City,
+                    UnionId = guidUnionId
                 };
 
                 await _addressService.PostAddressAsync(dto);

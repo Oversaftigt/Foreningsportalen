@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
@@ -26,7 +27,9 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         BookingUnit IBookingUnitRepository.GetBookingUnit(Guid id)
         {
-            var bookingUnit = _dbContext.BookingUnit.Find(id);
+            var bookingUnit = _dbContext.BookingUnit
+                                        .Include(x => x.Category)
+                                        .FirstOrDefault(x => x.BookingUnitId == id);
 
             if (bookingUnit == null)
             {

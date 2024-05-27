@@ -38,8 +38,8 @@ namespace ForeningsPortalen.Domain.Entities
             var domainService = services.GetService<IBookingUnitDomainService>();
             if (domainService is null) throw new ArgumentNullException(nameof(domainService));
 
-            if (DoesBookingUnitNameAlreadyExist(domainService.OtherBookingUnitsFromUnion(Guid.NewGuid()/*To be unionId */), name) is true)
-                throw new InvalidOperationException("Booking with that Name already exists");
+            if (DoesBookingUnitNameAlreadyExist(domainService.OtherBookingUnitsFromUnion(category.Union.UnionId), name) is true)
+                throw new InvalidOperationException("Booking with that name already exists");
 
             if (IsDepositValid(deposit) is false)
                 throw new InvalidOperationException("Invalid deposit value");
@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool DoesBookingUnitNameAlreadyExist(IEnumerable<BookingUnit> otherBookings, string newBookingUnitName)
         {
-            return otherBookings.Any(x => x.Name == newBookingUnitName);
+            return otherBookings.Any(x => x.Name.ToLower().Trim() == newBookingUnitName.ToLower().Trim());
         }
 
         private static bool IsDepositValid(double deposit)

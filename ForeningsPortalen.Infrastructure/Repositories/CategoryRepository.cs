@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
@@ -24,7 +25,12 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         Category ICategoryRepository.GetCategory(Guid id)
         {
-            throw new NotImplementedException();
+            var category = _dbContext.Category
+                                     .Include(x => x.Union)
+                                     .FirstOrDefault(x => x.CategoryId == id);
+            if (category is null) throw new Exception("Category was not found");
+
+            return category;
         }
 
         void ICategoryRepository.UpdateCategory(Category category, byte[] rowVersion)
