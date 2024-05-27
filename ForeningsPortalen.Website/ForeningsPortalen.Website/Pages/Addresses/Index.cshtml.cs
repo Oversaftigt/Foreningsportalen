@@ -1,5 +1,6 @@
 ﻿using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Models.Address;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ForeningsPortalen.Website.Pages.Addresses
@@ -12,11 +13,12 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             _addressService = addressService;
         }
 
+        [BindProperty]
         public List<AddressIndexModel> Address { get; set; } = new();
 
         public async Task OnGetAsync()
         {
-            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionPortal");
+            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId");
             if (activeUnionId != null)
             {
                 var allAddresses = await _addressService.GetAllAddressesAsync(Guid.Parse(activeUnionId.Value));

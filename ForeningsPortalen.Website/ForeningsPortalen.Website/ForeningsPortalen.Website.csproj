@@ -25,7 +25,6 @@
     <Folder Include="Infrastructure\Contract\DTOs\BookingUnit\" />
     <Folder Include="Infrastructure\Contract\DTOs\Category\" />
     <Folder Include="Infrastructure\Contract\DTOs\Document\" />
-    <Folder Include="Infrastructure\Contract\DTOs\Role\" />
   </ItemGroup>
 
   <ItemGroup>

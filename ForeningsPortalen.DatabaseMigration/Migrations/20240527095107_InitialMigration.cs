@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -29,7 +30,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 columns: table => new
                 {
                     UnionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -63,7 +64,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryId",
+                name: "Category",
                 columns: table => new
                 {
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -129,13 +130,13 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     table.ForeignKey(
                         name: "FK_BookingUnit_Category_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "CategoryId",
+                        principalTable: "Category",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookingIds",
+                name: "Bookings",
                 columns: table => new
                 {
                     BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -161,20 +162,30 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 columns: table => new
                 {
                     DocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatorUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DocContent = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    UnionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documents", x => x.DocumentId);
                     table.ForeignKey(
+                        name: "FK_Documents_Unions_UnionId",
+                        column: x => x.UnionId,
+                        principalTable: "Unions",
+                        principalColumn: "UnionId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
                         name: "FK_Documents_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,7 +195,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FromDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ToDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    ToDate = table.Column<DateOnly>(type: "date", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -218,14 +229,12 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                         name: "FK_BookingBookingUnit_BookingUnit_BookingUnitId",
                         column: x => x.BookingUnitId,
                         principalTable: "BookingUnit",
-                        principalColumn: "BookingUnitId",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "BookingUnitId");
                     table.ForeignKey(
                         name: "FK_BookingBookingUnit_Bookings_BookingId",
                         column: x => x.BookingId,
-                        principalTable: "BookingIds",
-                        principalColumn: "BookingId",
-                        onDelete: ReferentialAction.NoAction);
+                        principalTable: "Bookings",
+                        principalColumn: "BookingId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -240,7 +249,7 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_UserId",
-                table: "BookingIds",
+                table: "Bookings",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -250,13 +259,18 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Category_UnionId",
-                table: "CategoryId",
+                table: "Category",
                 column: "UnionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Documents_CreatorUserId",
                 table: "Documents",
                 column: "CreatorUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_UnionId",
+                table: "Documents",
+                column: "UnionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRolesHistory_RoleId",
@@ -285,13 +299,13 @@ namespace ForeningsPortalen.DatabaseMigration.Migrations
                 name: "BookingUnit");
 
             migrationBuilder.DropTable(
-                name: "BookingIds");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "CategoryId");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Users");
