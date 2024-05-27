@@ -22,25 +22,65 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<BookingQueryResultDto> GetBooking(Guid id)
         {
-            var result = _queries.GetBookingById(id);
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen bookinger er fundet");
+                var result = _queries.GetBookingById(id);
+                return Ok(result);
 
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookings()
         {
-            var result = _queries.GetAllBookings();
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen bookinger er fundet");
+                var result = _queries.GetAllBookings();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+        [HttpGet("ByAddress/{addressId}")]
+        public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByAddress(Guid addressId)
+        {
+            try
+            {
+                var result = _queries.GetAllBookingsByAddress(addressId);
+                return Ok(result);
 
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+        [HttpGet("ByMember/{memberId}")]
+        public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByMember(Guid memberId)
+        {
+            try
+            {
+                var result = _queries.GetAllBookingsByMember(memberId);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         [HttpPost]
@@ -51,9 +91,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _command.CreateBooking(bookingCreateRequestDto);
                 return Created();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
 

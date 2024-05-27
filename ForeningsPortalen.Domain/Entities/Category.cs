@@ -1,4 +1,6 @@
-﻿using ForeningsPortalen.Domain.Shared;
+﻿using ForeningsPortalen.Domain.DomainServices;
+using ForeningsPortalen.Domain.Shared;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ForeningsPortalen.Domain.Entities
 {
@@ -23,34 +25,41 @@ namespace ForeningsPortalen.Domain.Entities
         public static Category CreateCategory(string name, string durationType,
                                               int maxBookingsOfThisCategory, Union union, IServiceProvider services)
         {
-            //if (services is null) throw new ArgumentNullException(nameof(services));
-            //if (name is null) throw new ArgumentNullException(nameof(name));
+            if (services is null) throw new ArgumentNullException(nameof(services));
+            if (name is null) throw new ArgumentNullException(nameof(name));
 
-            //if (IsMaxBookingOfThisCategoryValid(maxBookingsOfThisCategory))
-            //    throw new InvalidOperationException("Invalid value for MaxBookingOfThisCategory: " + maxBookingsOfThisCategory);
+            if (IsMaxBookingOfThisCategoryValid(maxBookingsOfThisCategory) is false)
+                throw new InvalidOperationException("Invalid value for MaxBookingOfThisCategory: " + maxBookingsOfThisCategory);
 
-            //var domainService = services.GetService<ICategoryDomainService>();
-            //if (domainService is null) throw new ArgumentNullException(nameof(domainService));
-            //if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(Guid.NewGuid()/*To be replaced with unionId*/), name))
-            //    throw new InvalidOperationException("Categrory with that Name already exists");
+            var domainService = services.GetService<ICategoryDomainService>();
+            if (domainService is null) throw new ArgumentNullException(nameof(domainService));
+            if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(union.UnionId), name) is true)
+                throw new InvalidOperationException("Category with that Name already exists");
 
-            //if(durationType == )
-            //var newCategory = new Category(name, durationType, maxBookingsOfThisCategory, union);
-            ////Er der her vi indfører noget if sætning på om metoden DoesCategoryAlreadyExist er true eller false? 
-            ////Ja
-            var testCategory = new Category();
+            //the out parameter contains the bookingDurationType
+            if (IsBookingDurationTypeValid(durationType, out BookingDurationType bookingDurationType) is false)
+                throw new InvalidOperationException("Invalid BookingDurationType" + nameof(durationType));
 
-            return testCategory;
+            var newCategory = new Category(name, bookingDurationType, maxBookingsOfThisCategory, union);
+
+            return newCategory;
         }
 
         private static bool DoesCategoryAlreadyExist(IEnumerable<Category> otherCategories, string newCategoryName)
         {
-            return otherCategories.Any(x => x.Name == newCategoryName);
+            return otherCategories.Any(x => x.Name.ToLower().Trim() == newCategoryName.ToLower().Trim());
         }
 
         private static bool IsMaxBookingOfThisCategoryValid(int maxBookingOfThisCategory)
         {
             return maxBookingOfThisCategory > 0;
+        }
+
+        private static bool IsBookingDurationTypeValid(string durationType, out BookingDurationType bookingDurationType)
+        {
+            //checks if durationType is part of the enum BookingDurationType,
+            //if it is then return true and an out parameter to get the parsed enum value
+            return Enum.TryParse(durationType, true, out bookingDurationType);
         }
 
     }

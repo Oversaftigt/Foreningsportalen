@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Queries;
+using ForeningsPortalen.Application.Features.BookingUnits.Queries.DTOs;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -12,31 +13,51 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             _dbContext = dbContext;
         }
-        List<BookingUnit> IBookingUnitQueries.GetAllBookingUnits()
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetAllBookingUnits()
         {
             var bookingUnits = _dbContext.BookingUnit.AsNoTracking()
-                .Select(b => new BookingUnit
+                .Include(b => b.Bookings)
+                .Select(b => new BookingUnitQueryResultDto
                 {
-                    BookingUnitId = b.BookingUnitId,
-                    Name = b.Name,
-                    IsActive = b.IsActive,
-                    Deposit = b.Deposit,
-                    Price = b.Price,
-                    MaxBookingDuration = b.MaxBookingDuration,
-                    Category = b.Category,
-                    Bookings = b.Bookings,
+                    Id = b.BookingUnitId,
+                    BookingUnitName = b.Name,
+                    IsBookingUnitActive = b.IsActive,
+                    AdvancePayment = b.Deposit,
+                    Fee = b.Price,
+                    ReservationLimit = b.MaxBookingDuration,
+                    CategoryId = b.Category.CategoryId,
+                    BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
+                    RowVersion = b.RowVersion,
                 }).ToList();
             return bookingUnits;
         }
 
-        List<BookingUnit> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
+
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
         {
             throw new NotImplementedException();
         }
 
-        List<BookingUnit> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
         {
-            throw new NotImplementedException();
+            var bookingUnits = _dbContext.BookingUnit.AsNoTracking()
+                .Include(b => b.Bookings)
+                .Select(b => new BookingUnitQueryResultDto
+                {
+                    Id = b.BookingUnitId,
+                    BookingUnitName = b.Name,
+                    IsBookingUnitActive = b.IsActive,
+                    AdvancePayment = b.Deposit,
+                    Fee = b.Price,
+                    ReservationLimit = b.MaxBookingDuration,
+                    CategoryId = b.Category.CategoryId,
+                    BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
+                    RowVersion = b.RowVersion,
+                })
+                .Where(b => b.CategoryId == categoryId)
+                .ToList();
+            return bookingUnits;
         }
+
     }
 }
