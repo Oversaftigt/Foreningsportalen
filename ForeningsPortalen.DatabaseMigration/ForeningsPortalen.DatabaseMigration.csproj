@@ -9,6 +9,10 @@
     <ProjectReference Include="..\ForeningsPortalen.Infrastructure\ForeningsPortalen.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>ForeningsPortalen.DatabaseMigration</RootNamespace>

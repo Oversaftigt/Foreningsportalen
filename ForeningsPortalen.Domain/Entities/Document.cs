@@ -11,7 +11,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         internal Document(Member creator, string fileName, string filePath, byte[] docContent, DateOnly date, string extension)
         {
-            Creator = creator;
+            Member = creator;
             FileName = fileName;
             FilePath = filePath;
             DocContent = docContent;
@@ -20,7 +20,7 @@ namespace ForeningsPortalen.Domain.Entities
         }
 
         public Guid DocumentId { get; set; }
-        public Member Creator { get; set; }
+        public Member Member { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public byte[] DocContent { get; set; }

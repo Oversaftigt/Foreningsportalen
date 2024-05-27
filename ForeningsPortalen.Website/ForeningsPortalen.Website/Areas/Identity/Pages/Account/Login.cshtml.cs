@@ -72,16 +72,22 @@ namespace ForeningsPortalen.Website.Areas.Identity.Pages.Account
                 {
                     var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
 
-                    var claims = await _signInManager.UserManager.GetClaimsAsync(user);
-                    var isAdmin = claims.Any(c => c.Type == "UnionRole" && c.Value == "Administrator");
+                    
+                    //var claims = await _signInManager.UserManager.GetClaimsAsync(user);
+                    //if (claims.Any())
+                    //{
+                    //    var isAdmin = claims.Any(c => c.Type == "UnionRole" && c.Value == "Administrator");
 
-                    if (isAdmin)
-                    {
-                        return RedirectToPage("/Admin/Unions/ChooseUnion"); 
-                    }
-
+                    //    if (isAdmin)
+                    //    {
+                    //        return RedirectToPage("/Admin/Unions/ChooseUnion");
+                    //    }
+                    //}
+                    //else { 
+                    
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
+                    //}
                 }
                 else
                 {

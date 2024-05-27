@@ -20,7 +20,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                     {
                         Id = b.DocumentId,
                         Title = b.FileName,
-                        UploadedBy = b.Creator,
+                        UploadedBy = b.Member,
                         DateOfUpload = b.Date,
                         RowVersion = b.RowVersion
                     }).ToList();
@@ -39,7 +39,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
              {
                  Id = b.DocumentId,
                  Title = b.FileName,
-                 UploadedBy = b.Creator,
+                 UploadedBy = b.Member,
                  DateOfUpload = b.Date,
                  RowVersion = b.RowVersion
              }).FirstOrDefault(b => b.Id == id);
