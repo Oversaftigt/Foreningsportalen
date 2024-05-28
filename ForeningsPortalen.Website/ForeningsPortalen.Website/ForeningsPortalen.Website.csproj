@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Contract\DTOs\Booking\" />
-    <Folder Include="Infrastructure\Contract\DTOs\BookingUnit\" />
-    <Folder Include="Infrastructure\Contract\DTOs\Category\" />
+    <Folder Include="DTOs\BookingUnit\" />
+    <Folder Include="DTOs\Booking\" />
+    <Folder Include="DTOs\Category\" />
     <Folder Include="Infrastructure\Contract\DTOs\Document\" />
   </ItemGroup>
 

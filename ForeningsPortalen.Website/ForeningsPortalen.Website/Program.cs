@@ -23,11 +23,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//DependencyInjection Config
-// Explicitly register IUserEmailStore<IdentityUser>
 builder.Services.AddScoped<IUserEmailStore<IdentityUser>, UserStore<IdentityUser, IdentityRole, ApplicationDbContext>>();
-////builder.Services.AddScoped<IUserStore<IdentityUser>, UserStore<IdentityUser>>();
-//builder.Services.AddScoped<IUserEmailStore<IdentityUser>, UserStore<IdentityUser>>();
+
 
 
 // Dependency Injection Config
@@ -37,6 +34,8 @@ builder.Services.AddScoped<IUserClaimsService, UserClaimsService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 
 builder.Services.AddAuthorization(options =>

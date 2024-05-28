@@ -1,4 +1,4 @@
-﻿namespace ForeningsPortalen.Website.DTOs.Booking
+﻿namespace ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Booking
 {
     public class BookingQueryResultDto
     {

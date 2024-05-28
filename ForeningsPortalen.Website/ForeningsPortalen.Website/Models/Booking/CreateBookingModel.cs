@@ -1,6 +1,6 @@
-﻿namespace ForeningsPortalen.Website.DTOs.BookingUnit
+﻿namespace ForeningsPortalen.Website.Models.Booking
 {
-    public class BookingCreateRequestDto
+    public class CreateBookingModel
     {
         public string Name { get; set; }
         public bool IsActive { get; set; }

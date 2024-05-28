@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ForeningsPortalen.Website.Pages
+namespace ForeningsPortalen.Website.Pages.Members
 {
     public class UserClaimModel : PageModel
     {
