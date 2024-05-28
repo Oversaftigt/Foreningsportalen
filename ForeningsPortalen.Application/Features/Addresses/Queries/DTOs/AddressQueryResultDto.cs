@@ -8,7 +8,7 @@
         public string? Level { get; set; }
         public string? CityName { get; set; }
         public int PostalCode { get; set; }
-        public IEnumerable<Guid> CurrentTenants { get; set; }
+        public IEnumerable<Guid>? CurrentTenants { get; set; }
         public Guid UnionId { get; set; }
         public byte[] RowVersion { get; set; }
 
