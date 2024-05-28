@@ -33,9 +33,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                            })
                            .Where(a => a.UnionId == unionId).ToList();
 
-            if (!addresses.Any())
+            if (addresses is null)
             {
-                throw new Exception("No Addresses were not found");
+                throw new Exception("Error finding addresses on union");
             }
 
             return addresses;
@@ -59,7 +59,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
 
             if (address == null)
             {
-                throw new Exception("Address was not found");
+                throw new Exception("Error finding specific address");
             }
             return address;
         }

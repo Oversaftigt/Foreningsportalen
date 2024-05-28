@@ -37,7 +37,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 var category = _categoryRepository.GetCategory(dto.CategoryId);
                 if (category == null)
                 {
-                    throw new ArgumentNullException("Member not found");
+                    throw new ArgumentNullException("Error finding category when creating booking unit");
                 }
 
 
@@ -46,7 +46,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
 
                 if (newBookingUnit == null)
                 {
-                    throw new ArgumentNullException("BookingUnit not found");
+                    throw new ArgumentNullException("Error creating booking unit");
                 }
                 _bookingUnitRepository.AddBookingUnit(newBookingUnit);
                 _unitOfWork.Commit();

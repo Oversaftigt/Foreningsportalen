@@ -24,9 +24,10 @@ namespace ForeningsPortalen.Infrastructure.Queries
                         DateOfUpload = b.Date,
                         RowVersion = b.RowVersion
                     }).ToList();
-            if (!result.Any())
+
+            if (result is null)
             {
-                throw new Exception("Dokumenter blev ikke fundet");
+                throw new Exception("Error getting all documents");
             }
 
             return result;
@@ -44,9 +45,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                  RowVersion = b.RowVersion
              }).FirstOrDefault(b => b.Id == id);
 
-            if (result == null)
+            if (result is null)
             {
-                throw new Exception("Dokumenter blev ikke fundet");
+                throw new Exception("Error finding specific document");
             }
 
             return result;

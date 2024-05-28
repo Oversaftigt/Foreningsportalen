@@ -25,6 +25,10 @@ namespace ForeningsPortalen.Api.Controllers
             try
             {
                 var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
+                if (addressesInUnion.Any() is false)
+                {
+                    return NoContent();
+                }
                 return Ok(addressesInUnion);
 
             }
@@ -38,12 +42,16 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet("{addressId}")]
         public ActionResult<AddressQueryResultDto> GetByAddress(Guid addressId)
         {
-            var addressesInUnion = _addressQueries.GetAddressById(addressId);
-            if (addressesInUnion == null)
+            try
             {
-                return NotFound();
+                var addressesInUnion = _addressQueries.GetAddressById(addressId);
+                return Ok(addressesInUnion);
             }
-            return Ok(addressesInUnion);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         [HttpPost]
@@ -53,7 +61,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 _addressCommand.CreateAddress(addressCreateRequestDto);
                 return Created();
-
             }
             catch (Exception ex)
             {

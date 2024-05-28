@@ -23,9 +23,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                             Rowversion = a.RowVersion
                         }).ToList();
 
-            if (roles.Any() is false)
+            if (roles is null)
             {
-                throw new Exception("No roles found");
+                throw new Exception("Error finding all roles");
             }
 
             return roles;
