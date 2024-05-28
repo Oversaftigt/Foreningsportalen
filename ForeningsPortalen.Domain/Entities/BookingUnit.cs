@@ -63,12 +63,12 @@ namespace ForeningsPortalen.Domain.Entities
 
         private static bool IsDepositValid(double deposit)
         {
-            return deposit > 0;
+            return deposit >= 0;
         }
 
         private static bool IsPriceValid(double price)
         {
-            return price > 0;
+            return price >= 0;
         }
 
         private static bool IsMaxBookingDurationValid(int duration, BookingDurationType durationType)
