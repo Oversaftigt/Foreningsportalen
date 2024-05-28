@@ -5,11 +5,18 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 {
     public class DawaAddressValidationService : IDawaAddressValidationService
     {
+        private readonly HttpClient _client;
+
+        public DawaAddressValidationService(HttpClient client)
+        {
+            this._client = client;
+            _client.BaseAddress = client.BaseAddress;
+        }
+
         bool IDawaAddressValidationService.AddressIsValid(string fullAddress)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.dataforsyningen.dk/datavask/adresser?betegnelse={Uri.EscapeDataString(fullAddress)}");
-            HttpResponseMessage? response = client.Send(request);
+            var request = new HttpRequestMessage(HttpMethod.Get, $"?betegnelse={Uri.EscapeDataString(fullAddress)}");
+            HttpResponseMessage? response = _client.Send(request);
             response.EnsureSuccessStatusCode();
 
             string responseBody = response.Content.ReadAsStringAsync().Result;
