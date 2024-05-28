@@ -1,10 +1,13 @@
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
+using ForeningsPortalen.Website.Models.Member;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
+    [Authorize(Policy ="AdministratorAccess")]
     public class UserClaimModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -16,7 +19,7 @@ namespace ForeningsPortalen.Website.Pages.Members
         }
 
         [BindProperty]
-        public MemberQueryResultDto Member { get; set; }
+        public UpdateMemberModel Member { get; set; }
         public IEnumerable<string> AllRoles { get; set; }
         public string SelectedRole { get; set; }
         public Guid UserId { get; set; }

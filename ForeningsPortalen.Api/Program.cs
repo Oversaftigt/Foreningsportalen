@@ -1,5 +1,8 @@
 using ForeningsPortalen.Application;
+using ForeningsPortalen.Crosscut.TransactionHandling;
+using ForeningsPortalen.Crosscut.TransactionHandling.Implementations;
 using ForeningsPortalen.Infrastructure;
+using ForeningsPortalen.Infrastructure.Database.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(p =>
+{
+    var db = p.GetService<ForeningsPortalenContext>();
+    return new UnitOfWork(db);
+});
+
 
 var app = builder.Build();
 

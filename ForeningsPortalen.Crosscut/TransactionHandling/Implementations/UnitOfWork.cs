@@ -1,16 +1,15 @@
-﻿using ForeningsPortalen.Website.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
 
-namespace ForeningsPortalen.Website.HelperServices
+namespace ForeningsPortalen.Crosscut.TransactionHandling.Implementations
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _db;
-        private IDbContextTransaction? _transaction;
+        private readonly DbContext _db;
+        private IDbContextTransaction _transaction;
 
-        public UnitOfWork(ApplicationDbContext db)
+        public UnitOfWork(DbContext db)
         {
             _db = db;
         }
@@ -18,7 +17,7 @@ namespace ForeningsPortalen.Website.HelperServices
         void IUnitOfWork.BeginTransaction(IsolationLevel isolationLevel)
         {
             if (_db.Database.CurrentTransaction != null) return;
-            _transaction = _db.Database.BeginTransaction(isolationLevel);
+            _transaction = _db.Database.BeginTransaction();
         }
 
         void IUnitOfWork.Commit()
@@ -34,5 +33,8 @@ namespace ForeningsPortalen.Website.HelperServices
             _transaction.Rollback();
             _transaction.Dispose();
         }
+
+
     }
 }
+

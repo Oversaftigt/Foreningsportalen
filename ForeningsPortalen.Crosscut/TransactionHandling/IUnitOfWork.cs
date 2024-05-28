@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace ForeningsPortalen.Application.Features.Helpers
+namespace ForeningsPortalen.Crosscut.TransactionHandling
 {
     public interface IUnitOfWork
     {

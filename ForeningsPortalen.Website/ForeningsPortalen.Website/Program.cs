@@ -1,12 +1,13 @@
+using ForeningsPortalen.Crosscut.TransactionHandling;
+using ForeningsPortalen.Crosscut.TransactionHandling.Implementations;
 using ForeningsPortalen.Website.Data;
 using ForeningsPortalen.Website.HelperServices;
+using ForeningsPortalen.Website.HelperServices.Implementations;
 using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implementations;
-using ForeningsPortalen.Website.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,16 +26,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services.AddScoped<IUserEmailStore<IdentityUser>, UserStore<IdentityUser, IdentityRole, ApplicationDbContext>>();
 
-
-
 // Dependency Injection Config
 builder.Services.AddScoped<IUnionService, UnionService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IUserClaimsService, UserClaimsService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(p =>
+{
+    var db = p.GetService<ApplicationDbContext>();
+    return new UnitOfWork(db);
+});
 
 
 
