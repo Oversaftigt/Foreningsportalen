@@ -29,6 +29,11 @@ namespace ForeningsPortalen.Infrastructure.Queries
                     BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
                     RowVersion = b.RowVersion,
                 }).ToList();
+            if (bookingUnits is null)
+            {
+                throw new ArgumentNullException("Error finding booking units");
+            }
+
             return bookingUnits;
         }
 
@@ -56,6 +61,12 @@ namespace ForeningsPortalen.Infrastructure.Queries
                 })
                 .Where(b => b.CategoryId == categoryId)
                 .ToList();
+
+            if (bookingUnits is null)
+            {
+                throw new ArgumentNullException("Error finding booking units for this category");
+            }
+
             return bookingUnits;
         }
 

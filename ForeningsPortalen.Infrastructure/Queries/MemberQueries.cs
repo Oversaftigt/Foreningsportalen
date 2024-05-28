@@ -30,9 +30,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
               })
               .FirstOrDefault(a => a.Id == id);
 
-            if (member == null)
+            if (member is null)
             {
-                throw new Exception("No members were found");
+                throw new Exception("Error finding specific member");
             }
 
             return member;
@@ -56,9 +56,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                           })
                           .Where(a => a.UnionId == unionId).ToList();
 
-            if (!members.Any())
+            if (members is null)
             {
-                throw new Exception("No members were found");
+                throw new Exception("Error finding members from union");
             }
 
             return members;

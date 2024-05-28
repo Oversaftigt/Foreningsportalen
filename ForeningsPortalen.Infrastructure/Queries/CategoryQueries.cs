@@ -26,9 +26,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                       RowVersion = c.RowVersion,
                   });
 
-            if (!categories.Any())
+            if (categories is null)
             {
-                throw new ArgumentNullException("No categories found");
+                throw new ArgumentNullException("Error finding categories");
             }
 
             return categories;
@@ -48,9 +48,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                  })
                  .Where(c => c.UnionId == unionId);
 
-            if (!categories.Any())
+            if (categories is null)
             {
-                throw new Exception("No categories found for this union");
+                throw new Exception("Error finding categories for union");
             }
 
             return categories;
@@ -70,9 +70,9 @@ namespace ForeningsPortalen.Infrastructure.Queries
                       RowVersion = c.RowVersion,
                   }).FirstOrDefault(c => c.Id == id);
 
-            if (category == null)
+            if (category is null)
             {
-                throw new ArgumentNullException("No category found for this id");
+                throw new ArgumentNullException("Error finding specific category");
             }
 
             return category;
