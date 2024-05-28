@@ -61,7 +61,7 @@ namespace ForeningsPortalen.Api.Controllers
         //}
 
         // GET api/<UnionMemberController>/5
-        [HttpGet("AllTenants/ByUnion/{unionId}")]
+        [HttpGet("union/{unionId}/member")]
         public ActionResult<IEnumerable<MemberQueryResultDto>> GetMembersByUnionId(Guid unionId)
         {
             var unionMembers = _UnionMemberQueries.GetUnionMembersByUnion(unionId).ToList();
