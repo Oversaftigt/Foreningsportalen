@@ -26,7 +26,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<CategoryQueryResultDto>>($"{_httpClient.BaseAddress}api/category/categories/ByUnion/{unionId}");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<CategoryQueryResultDto>>($"{_httpClient.BaseAddress}api/category/union/{unionId}/categories");
 
             }
             catch (Exception ex)

@@ -38,7 +38,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             try
             {
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/AllTenants/ByUnion/{unionId}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/union/{unionId}/member");
 
                 var response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();

@@ -19,7 +19,7 @@ namespace ForeningsPortalen.Api.Controllers
             _addressCommand = addressCommand;
         }
 
-        [HttpGet("Addresses/ByUnion/{unionId}")]
+        [HttpGet("union/{unionId}/address")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
             try
@@ -36,7 +36,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpGet("{addressId}")]
-        public ActionResult<AddressQueryResultDto> GetByUserId(Guid addressId)
+        public ActionResult<AddressQueryResultDto> GetByAddress(Guid addressId)
         {
             var addressesInUnion = _addressQueries.GetAddressById(addressId);
             if (addressesInUnion == null)
@@ -62,16 +62,5 @@ namespace ForeningsPortalen.Api.Controllers
 
         }
 
-        [HttpPut]
-        void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        void DeleteAddress(Guid addressId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

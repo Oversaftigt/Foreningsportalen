@@ -8,27 +8,36 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
 {
     public class ArchitectureTest
     {
-        private const string DomainNamespace = "ForeningsPortalen.Domain.Entities";
-        private const string ApplicationNamespace = "ForeningsPortalen.Application.Features.Addresses.Commands.Implementations";
-        private const string InfrastructureNamespace = "ForeningsPortalen.Infrastructure.Repositories";
-        private const string ApiNamespace = "ForeningsPortalen.Api.Controllers";
+        private const string DomainNamespace = "ForeningsPortalen.Domain";
+        private const string ApplicationNamespace = "ForeningsPortalen.Application";
+        private const string InfrastructureNamespace = "ForeningsPortalen.Infrastructure";
+        private const string ApiNamespace = "ForeningsPortalen.Api";
+        private const string MigrationNamespace = "ForeningsPortalen.DatabaseMigration";
+        private const string TestNamespace = "ForeningsPortalen.Domain.Test";
+        private const string WebNamespace = "ForeningsPortalen.Website";
 
         [Fact]
         public void Application_Should_Have_Dependency_On_Domain()
         {
             // Arrange
             var assembly = typeof(Application.Features.Addresses.Commands.Implementations.AddressCommands).Assembly;
+            var otherProjects = new[]
+            {
+                InfrastructureNamespace,
+                ApiNamespace,
+                MigrationNamespace,
+                TestNamespace,
+                WebNamespace
+            };
 
             // Act
             var result = Types.InAssembly(assembly)
-                              .That()
-                              .ResideInNamespace(ApplicationNamespace)
-                              .Should()
-                              .HaveDependencyOn(DomainNamespace)
+                              .ShouldNot()
+                              .HaveDependencyOnAny(otherProjects)
                               .GetResult();
 
             // Assert
-            Assert.True(result.IsSuccessful, "The Application layer should have a dependency on the Domain layer.");
+            Assert.True(result.IsSuccessful, "The Application layer should not have a dependency any layer other than the Domain layer.");
         }
 
         [Fact]
@@ -40,35 +49,38 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
             {
                 ApplicationNamespace,
                 InfrastructureNamespace,
-                ApiNamespace
+                ApiNamespace,
+                MigrationNamespace,
+                TestNamespace,
+                WebNamespace
             };
 
             // Act
             var result = Types.InAssembly(assembly)
-                .ShouldNot()
-                .HaveDependencyOnAny(otherProjects)
-                .GetResult();
+                              .ShouldNot()
+                              .HaveDependencyOnAny(otherProjects)
+                              .GetResult();
 
             // Assert
             Assert.True(result.IsSuccessful, "The Domain layer should not have dependencies on other projects");
         }
 
         [Fact]
-        public void Infrastructure_Should_Have_Dependency_On_Application_Domain()
+        public void Infrastructure_Should_OnlyHave_Dependency_On_Application_Domain()
         {
             // Arrange
             var assembly = typeof(Infrastructure.Repositories.AddressRepository).Assembly;
             var otherProjects = new[]
             {
-                DomainNamespace,
-                ApplicationNamespace
+                ApiNamespace,
+                MigrationNamespace,
+                TestNamespace,
+                WebNamespace
             };
 
             // Act
             var result = Types.InAssembly(assembly)
-                              .That()
-                              .ResideInNamespace(InfrastructureNamespace)
-                              .Should()
+                              .ShouldNot()
                               .HaveDependencyOnAny(otherProjects)
                               .GetResult();
 
@@ -76,38 +88,36 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
             Assert.True(result.IsSuccessful, "TheInfrastructure layer should have a dependency on the Domain and Application layer.");
         }
 
-        //[Fact] //APi test kan ikke gå igennem 
-        //public void Api_Should_Have_Dependency_On_Application_Domain_Infrastructure()
-        //{
-        //    // Arrange
-        //    var assembly = typeof(Api.Controllers.AddressController).Assembly;
-        //    var otherProjects = new[]
-        //    {
-        //        DomainNamespace,
-        //        ApplicationNamespace,
-        //        InfrastructureNamespace
-        //    };
+        [Fact]
+        public void Api_Should_OnlyHave_Dependency_On_Application_Domain_Infrastructure()
+        {
+            // Arrange
+            var assembly = typeof(Api.Controllers.AddressController).Assembly;
+            var otherProjects = new[]
+            {
+                MigrationNamespace,
+                TestNamespace,
+                WebNamespace
+            };
 
-        //    // Act
-        //    var result = Types.InAssembly(assembly)
-        //                      .That()
-        //                      .ResideInNamespace(ApiNamespace)
-        //                      .Should()
-        //                      .HaveDependencyOnAny(otherProjects)
-        //                      .GetResult();
+            // Act
+            var result = Types.InAssembly(assembly)
+                              .ShouldNot()
+                              .HaveDependencyOnAny(otherProjects)
+                              .GetResult();
 
-        //    //Assert
-        //    Assert.True(result.IsSuccessful, "The Api layer should have a dependency on the Domain, Application and Infrastructure layer.");
+            //Assert
+            Assert.True(result.IsSuccessful, "The Api layer should have a dependency on the Domain, Application and Infrastructure layer.");
 
-        //}
+        }
 
         [Fact]
-        public void DomainEntities_Should_Have_Protected_Empty_Constructor() //Fejler pga vores Enum klasse
+        public void DomainEntities_Should_Have_Protected_Empty_Constructor()
         {
             // Get all types in the specified namespace
             var entityTypes = Types.InAssembly(Assembly.GetAssembly(typeof(Domain.Entities.Address)))
                                    .That()
-                                   .ResideInNamespace(DomainNamespace)
+                                   .ResideInNamespace(DomainNamespace + ".Entities")
                                    .GetTypes();
 
             foreach (var type in entityTypes)
@@ -135,7 +145,7 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                 .GetResult();
 
             //Assert
-            Assert.True(result.IsSuccessful);                
+            Assert.True(result.IsSuccessful);
         }
     }
 }

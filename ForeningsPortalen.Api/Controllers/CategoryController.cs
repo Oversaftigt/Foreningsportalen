@@ -20,7 +20,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
         
 
-        [HttpGet("categories/ByUnion/{unionId}")]
+        [HttpGet("union/{unionId}/categories")]
         public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategoriesByUnionId(Guid unionId)
         {
             try
