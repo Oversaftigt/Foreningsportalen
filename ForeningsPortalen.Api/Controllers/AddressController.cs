@@ -19,7 +19,7 @@ namespace ForeningsPortalen.Api.Controllers
             _addressCommand = addressCommand;
         }
 
-        [HttpGet("Union/{unionId}/address")]
+        [HttpGet("union/{unionId}/address")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
             try
