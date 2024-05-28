@@ -37,7 +37,7 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                               .GetResult();
 
             // Assert
-            Assert.True(result.IsSuccessful, "The Application layer should have a dependency on the Domain layer.");
+            Assert.True(result.IsSuccessful, "The Application layer should not have a dependency any layer other than the Domain layer.");
         }
 
         [Fact]
