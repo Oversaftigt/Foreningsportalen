@@ -1,15 +1,24 @@
 ﻿using ForeningsPortalen.Domain.Validation;
+using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
 namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 {
     public class DawaAddressValidationService : IDawaAddressValidationService
     {
-        bool IDawaAddressValidationService.AddressIsValid(string fullAddress)
+        private readonly HttpClient _client;
+        private readonly string _baseAddress;
+
+        public DawaAddressValidationService(HttpClient client, IConfiguration configuration)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.dataforsyningen.dk/datavask/adresser?betegnelse={Uri.EscapeDataString(fullAddress)}");
-            HttpResponseMessage? response = client.Send(request);
+            this._client = client;
+            _baseAddress = configuration["DawaBaseUri"];
+        }
+
+        public bool AddressIsValid(string fullAddress)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, _baseAddress+$"?betegnelse={Uri.EscapeDataString(fullAddress)}");
+            HttpResponseMessage? response = _client.Send(request);
             response.EnsureSuccessStatusCode();
 
             string responseBody = response.Content.ReadAsStringAsync().Result;
@@ -22,7 +31,7 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 
             if (category == "A" || category == "B")
             {
-                return true;
+            return true;
             }
             else
             {

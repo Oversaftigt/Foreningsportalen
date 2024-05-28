@@ -77,6 +77,7 @@ namespace ForeningsPortalen.Domain.Entities
         }
 
         //Possible values that floor can be according to dawa's documentation: numbers from 1 to 99, st, kl, k2 up to k9
+        //May be interpreted wrong and thus the validation logic is wrong
         protected static bool IsFloorValid(string Floor)
         {
             if (Floor == "st" || Floor == "kl" ||
@@ -90,6 +91,7 @@ namespace ForeningsPortalen.Domain.Entities
 
         //Possible values that door can be according to dawa's documentation:
         //Numbers from 1 to 9999, small letters as well as the symbols / and -
+        //May be interpreted wrong and thus the validation logic is wrong
         protected static bool IsDoorValid(string Door)
         {
             string NumAndLetterpattern = @"^[1-9][0-9]{0,3}[a-zA-Z/-]*$"; //Door numbers are assumed to have numbers before letters/symbols
