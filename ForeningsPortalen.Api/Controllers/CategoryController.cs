@@ -18,20 +18,7 @@ namespace ForeningsPortalen.Api.Controllers
             _command = command;
             _queries = queries;
         }
-
-        [HttpGet]
-        public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategories()
-        {
-            try
-            {
-                var result = _queries.GetCategories();
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
+        
 
         [HttpGet("categories/ByUnion/{unionId}")]
         public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategoriesByUnionId(Guid unionId)

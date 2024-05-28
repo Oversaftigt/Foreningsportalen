@@ -14,7 +14,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
 
         async Task<IEnumerable<UnionQueryResultDto>> IUnionService.GetAllUnionsAsync()
         {
-            var url = $"{(_httpClient.BaseAddress.ToString())}/api/union";
             var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/union");
             var response = await _httpClient.SendAsync(request);
 

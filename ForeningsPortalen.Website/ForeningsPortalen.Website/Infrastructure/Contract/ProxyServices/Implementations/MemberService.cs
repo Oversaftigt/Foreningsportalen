@@ -7,10 +7,17 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
     public class MemberService : IMemberService
     {
         private readonly HttpClient _httpClient;
+        private readonly ILogger<MemberService> _logger;
 
-        public MemberService(IHttpClientFactory httpClientFactory)
+        public MemberService(IHttpClientFactory httpClientFactory, ILogger<MemberService> logger)
         {
             _httpClient = httpClientFactory.CreateClient("ApiClient");
+            _logger = logger;
+        }
+
+        async Task IMemberService.PutMemberAsync(MemberUpdateRequestDto memberUpdateRequest)
+        {
+            throw new NotImplementedException();
         }
         async Task IMemberService.PostMemberAsync(MemberCreateRequestDto memberCreateRequest)
         {
@@ -21,11 +28,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             var message = await response.Content.ReadAsStringAsync();
             throw new Exception(message);
         }
-
-        async Task IMemberService.PutMemberAsync(MemberUpdateRequestDto memberUpdateRequest)
-        {
-            throw new NotImplementedException();
-        }
         async Task<MemberQueryResultDto?> IMemberService.GetMemberAsync(int id, string identityName)
         {
             throw new NotImplementedException();
@@ -33,13 +35,23 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
 
         async Task<IEnumerable<MemberQueryResultDto>?> IMemberService.GetAllMembersAsync(Guid unionId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/AllTenants/ByUnion/{unionId}");
+            try
+            {
 
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            var addresses = await response.Content.ReadFromJsonAsync<IEnumerable<MemberQueryResultDto>>();
+                var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/AllTenants/ByUnion/{unionId}");
 
-            return addresses;
+                var response = await _httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                var addresses = await response.Content.ReadFromJsonAsync<IEnumerable<MemberQueryResultDto>>();
+
+                return addresses;
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex.Message);
+                return null;
+            }
+
         }
 
 

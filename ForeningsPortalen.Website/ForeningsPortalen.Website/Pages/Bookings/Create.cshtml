@@ -14,24 +14,19 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BookingIndexModel.CreatedOndate" class="control-label"></label>
-                <input asp-for="BookingIndexModel.CreatedOndate" class="form-control" />
-                <span asp-validation-for="BookingIndexModel.CreatedOndate" class="text-danger"></span>
+                <label asp-for="BookingIndexModel.CreationDate" class="control-label"></label>
+                <input asp-for="BookingIndexModel.CreationDate" class="form-control" />
+                <span asp-validation-for="BookingIndexModel.CreationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BookingIndexModel.StartTime" class="control-label"></label>
-                <input asp-for="BookingIndexModel.StartTime" class="form-control" />
-                <span asp-validation-for="BookingIndexModel.StartTime" class="text-danger"></span>
+                <label asp-for="BookingIndexModel.BookingStart" class="control-label"></label>
+                <input asp-for="BookingIndexModel.BookingStart" class="form-control" />
+                <span asp-validation-for="BookingIndexModel.BookingStart" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BookingIndexModel.EndTime" class="control-label"></label>
-                <input asp-for="BookingIndexModel.EndTime" class="form-control" />
-                <span asp-validation-for="BookingIndexModel.EndTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookingIndexModel.CategoryName" class="control-label"></label>
-                <input asp-for="BookingIndexModel.CategoryName" class="form-control" />
-                <span asp-validation-for="BookingIndexModel.CategoryName" class="text-danger"></span>
+                <label asp-for="BookingIndexModel.BookingEnd" class="control-label"></label>
+                <input asp-for="BookingIndexModel.BookingEnd" class="form-control" />
+                <span asp-validation-for="BookingIndexModel.BookingEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BookingIndexModel.BookingUnits" class="control-label"></label>
@@ -42,11 +37,6 @@
                 <label asp-for="BookingIndexModel.UserId" class="control-label"></label>
                 <input asp-for="BookingIndexModel.UserId" class="form-control" />
                 <span asp-validation-for="BookingIndexModel.UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookingIndexModel.Rowversion" class="control-label"></label>
-                <input asp-for="BookingIndexModel.Rowversion" class="form-control" />
-                <span asp-validation-for="BookingIndexModel.Rowversion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

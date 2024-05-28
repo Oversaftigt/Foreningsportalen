@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Website.Models.Address;
 using Microsoft.EntityFrameworkCore;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Union;
+using ForeningsPortalen.Website.Models.Category;
 
 namespace ForeningsPortalen.Website.Models
 {
@@ -18,5 +19,6 @@ namespace ForeningsPortalen.Website.Models
         public DbSet<ForeningsPortalen.Website.Models.Document> Document { get; set; } = default!;
         public DbSet<ForeningsPortalen.Website.Models.Booking.BookingIndexModel> BookingIndexModel { get; set; } = default!;
         public DbSet<ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Union.UnionQueryResultDto> UnionQueryResultDto { get; set; } = default!;
+        public DbSet<IndexCategoryModel> IndexCategoryModel { get; set; } = default!;
     }
 }

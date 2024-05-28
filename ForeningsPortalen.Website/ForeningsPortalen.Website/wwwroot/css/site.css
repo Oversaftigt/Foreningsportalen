@@ -24,3 +24,17 @@ body {
 button {
     color: steelblue;
 }
+
+.nav ul {
+    margin: 0;
+}
+
+.nav li {
+    display:inline;
+}
+
+.nav a {
+    display: inline-block;
+    padding: .5em;
+}
+

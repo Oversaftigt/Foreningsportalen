@@ -13,26 +13,16 @@
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].CreatedOndate)
+                
+                @Html.DisplayNameFor(model => model.BookingIndexModel[0].CreationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].StartTime)
+                @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingStart)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingUnits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].Rowversion)
+                @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingEnd)
             </th>
             <th></th>
         </tr>
@@ -41,27 +31,16 @@
 @foreach (var item in Model.BookingIndexModel) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedOndate)
+                @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
+                @Html.DisplayFor(modelItem => item.BookingStart)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
+                @Html.DisplayFor(modelItem => item.BookingEnd)
+               <input type="hidden" name="itemId" value="@item.Id" />
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingUnits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rowversion)
-            </td>
-            <td>
+                <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
