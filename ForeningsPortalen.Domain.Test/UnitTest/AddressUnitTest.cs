@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Domain.Validation;
 using ForeningsPortalen.Infrastructure.ThirdPartyIntegrations;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +12,27 @@ namespace ForeningsPortalen.Domain.Test.UnitTest
 {
     public class AddressUnitTest
     {
-        private readonly IDawaAddressValidationService dawa;
 
-        public AddressUnitTest(IDawaAddressValidationService dawa)
+        private readonly IConfigurationRoot _config;
+
+        public AddressUnitTest()
         {
-            this.dawa = dawa;
+
+            _config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
         }
 
         [Fact]
         public void AddressIsValid_ValidAddress_IsValidAddressConfirmedByDawa()
         {
             //Arrange
-
+            DawaAddressValidationService dawaValidationService = new(new HttpClient(), _config);
             string address = "Boulevarden 25, 7100 Vejle";
             string address2 = "Borger gade 4, STTV, 6000 Kolding";
 
             //Act
-            bool addressResult = dawa.AddressIsValid(address);
-            bool address2Result = dawa.AddressIsValid(address2);
+            bool addressResult = dawaValidationService.AddressIsValid(address);
+            bool address2Result = dawaValidationService.AddressIsValid(address2);
 
             //Assert
             Assert.True(addressResult);

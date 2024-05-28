@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddHttpClient<IDawaAddressValidationService, DawaAddressValidationService>(client =>
-client.BaseAddress = new Uri(builder.Configuration["DawaBaseUri"]));
-
+//builder.Services.AddHttpClient<IDawaAddressValidationService, DawaAddressValidationService>(client =>
+//client.BaseAddress = new Uri(builder.Configuration["DawaBaseUri"]));
+builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,4 +1,5 @@
 ﻿using ForeningsPortalen.Domain.Validation;
+using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
 namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
@@ -6,16 +7,17 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
     public class DawaAddressValidationService : IDawaAddressValidationService
     {
         private readonly HttpClient _client;
+        private readonly string _baseAddress;
 
-        public DawaAddressValidationService(HttpClient client)
+        public DawaAddressValidationService(HttpClient client, IConfiguration configuration)
         {
             this._client = client;
-            _client.BaseAddress = client.BaseAddress;
+            _baseAddress = configuration["DawaBaseUri"];
         }
 
-        bool IDawaAddressValidationService.AddressIsValid(string fullAddress)
+        public bool AddressIsValid(string fullAddress)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"?betegnelse={Uri.EscapeDataString(fullAddress)}");
+            var request = new HttpRequestMessage(HttpMethod.Get, _baseAddress+$"?betegnelse={Uri.EscapeDataString(fullAddress)}");
             HttpResponseMessage? response = _client.Send(request);
             response.EnsureSuccessStatusCode();
 
@@ -29,7 +31,7 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 
             if (category == "A" || category == "B")
             {
-                return true;
+            return true;
             }
             else
             {
