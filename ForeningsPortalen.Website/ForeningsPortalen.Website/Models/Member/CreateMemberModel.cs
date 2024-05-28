@@ -10,7 +10,7 @@ namespace ForeningsPortalen.Website.Models.Member
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} Skal være mindst {2} og højst {1} karaktere lang.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Kodeord")]
         public string Password { get; set; }
@@ -22,7 +22,7 @@ namespace ForeningsPortalen.Website.Models.Member
 
 
         [Required]
-        [StringLength(25, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+        [StringLength(25, ErrorMessage = "{0} Skal være mindst {2} og højst {1} karaktere lang.", MinimumLength = 2)]
         [Display(Name = "Fornavn")]
         public string FirstName { get; set; }
 
@@ -39,9 +39,9 @@ namespace ForeningsPortalen.Website.Models.Member
         [DataType(DataType.Date)]
         [Display(Name = "Indflytningsdato")]
         public DateTime MoveInDate { get; set; }
-        
+
         [Required]
-        [Display(Name = "Rolle")]
+        [Display(Name = "Vælg rolle")]
         public Guid RoleId { get; set; }
 
         [Required]
