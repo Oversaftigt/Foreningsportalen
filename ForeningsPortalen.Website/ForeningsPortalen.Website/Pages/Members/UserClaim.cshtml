@@ -7,7 +7,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <h/>
-@* <form asp-action="AddClaimAndRole" method="post">
+<form asp-action="ChangeRoleOnUser" method="post">
     <div class="form-group">
         <label asp-for="UserEmail" class="control-label"></label>
         <input asp-for="UserEmail" class="form-control" />
@@ -35,4 +35,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-} *@
+}

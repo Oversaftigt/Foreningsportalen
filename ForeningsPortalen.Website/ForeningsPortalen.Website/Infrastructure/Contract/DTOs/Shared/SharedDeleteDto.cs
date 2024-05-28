@@ -1,4 +1,4 @@
-﻿namespace ForeningsPortalen.Website.DTOs.Shared
+﻿namespace ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Shared
 {
     public class SharedDeleteDto
     {

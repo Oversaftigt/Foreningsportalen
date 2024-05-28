@@ -1,7 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
