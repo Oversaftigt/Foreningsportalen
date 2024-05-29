@@ -1,10 +1,13 @@
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
+
+    [Authorize(Policy = "AdministratorAccess")]
     public class UserClaimModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
