@@ -29,9 +29,9 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Imp
                 _UnitOfWork.BeginTransaction();
 
                 var union = _UnionRepository.GetUnion(createRequestDto.UnionId);
-                if (union is null) throw new Exception("Union not found");
+                if (union is null) throw new Exception("Union not found when trying to create member");
                 var address = _AddressRepository.GetAddress(createRequestDto.AddressId);
-                if (address is null) throw new Exception("Address not found");
+                if (address is null) throw new Exception("Address not found when trying to create member");
 
                 var newUnionMember = Domain.Entities.Member.Create(createRequestDto.FirstName,
                                                                         createRequestDto.LastName,
@@ -54,6 +54,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Imp
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

@@ -1,10 +1,13 @@
 ﻿using ForeningsPortalen.Website.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Website.Pages.BookingUnits
 {
+    [Authorize(Policy = "AdministratorAccess")]
+
     public class DeleteModel : PageModel
     {
         private readonly ForeningsPortalen.Website.Models.MyDbContext _context;

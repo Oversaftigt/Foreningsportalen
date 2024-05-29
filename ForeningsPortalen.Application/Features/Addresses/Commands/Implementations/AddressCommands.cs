@@ -28,7 +28,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 _unitOfWork.BeginTransaction();
 
                 var union = _unionRepository.GetUnion(addressCreateRequestDto.UnionId);
-                if (union is null) throw new Exception("Union not found");
+                if (union is null) throw new Exception("Error finding union when creating address");
 
                 var address = Address.Create(addressCreateRequestDto.Street, addressCreateRequestDto.Number,
                                                  addressCreateRequestDto.Level, addressCreateRequestDto.Door,

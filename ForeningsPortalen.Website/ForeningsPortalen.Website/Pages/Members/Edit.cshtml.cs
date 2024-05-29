@@ -3,6 +3,7 @@ using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Models;
 using ForeningsPortalen.Website.Models.Address;
 using ForeningsPortalen.Website.Models.Member;
+using Microsoft.AspNetCore.Authorization;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
+    [Authorize(Policy = "AdministratorAccess")]
+
     public class EditModel : PageModel
     {
         private readonly ILogger _logger;

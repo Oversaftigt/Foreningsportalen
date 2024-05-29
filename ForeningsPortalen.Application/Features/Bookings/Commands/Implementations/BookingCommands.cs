@@ -42,11 +42,11 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                     var bookingUnit = (_bookingUnitRepository.GetBookingUnit(bookingUnitGuid));
                     bookingUnits.Add(bookingUnit);
                 }
-                if (bookingUnits == null) throw new ArgumentNullException("List of booking units not found");
+                if (bookingUnits == null) throw new ArgumentNullException("Error finding list of booking units not found when creating booking");
 
                 //then create member
                 var member = _member.GetUnionMember(dto.UserId);
-                if (member == null) throw new ArgumentNullException("member not found");
+                if (member == null) throw new ArgumentNullException("Error finding member when creating booking");
 
 
                 //then the booking
