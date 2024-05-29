@@ -24,7 +24,7 @@ namespace ForeningsPortalen.Website.Pages.Members
         public string SelectedRole { get; set; }
         public Guid UserId { get; set; }
 
-        public void OnGet()
+        public void OnGet(Guid memberId)
         {
             //_API get roles
             //Roles equals a claim

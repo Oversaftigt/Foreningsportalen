@@ -6,8 +6,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
     {
         Task PostMemberAsync(MemberCreateRequestDto memberCreateRequest);
         Task PutMemberAsync(MemberUpdateRequestDto memberUpdateRequest);
-        Task<MemberQueryResultDto?> GetMemberAsync(int id, string identityName);
+        Task<MemberQueryResultDto> GetMemberAsync(Guid memberId);
         Task<IEnumerable<MemberQueryResultDto>?> GetAllMembersAsync(Guid unionId);
-
     }
 }

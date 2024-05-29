@@ -1,64 +1,70 @@
-﻿using ForeningsPortalen.Website.Models;
+﻿using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using ForeningsPortalen.Website.Models;
+using ForeningsPortalen.Website.Models.Address;
 using ForeningsPortalen.Website.Models.Member;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
     public class EditModel : PageModel
     {
+        private readonly ILogger _logger;
+        private readonly IMemberService _memberService;
 
-
-        public EditModel()
+        public EditModel(ILogger logger, IMemberService memberService)
         {
+            _logger = logger;
+            _memberService = memberService;
         }
 
         [BindProperty]
         public UpdateMemberModel Member { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task OnGetAsync(Guid id)
         {
-            if (id == null)
+            if (id == default) return;
+
+            var dto = await _memberService.GetMemberAsync(id);
+
+            if (dto != null)
             {
-                return NotFound();
+                Member = new UpdateMemberModel()
+                { Id = dto.Id, RowVersion = dto.RowVersion, FirstName = dto.FirstName, 
+                 LastName = dto.LastName, Phone = dto.PhoneNumber, RoleId = dto.RoleId};
             }
 
-            //var member = await _context.Member.FirstOrDefaultAsync(m => m.Id == id);
-            //if (member == null)
-            //{
-            //    return NotFound();
-            //}
-            //Member = member;
-            return Page();
+            _logger.LogError($"Could not find member with ID: {id}");
+            return;
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) return Page();
+
+            try
             {
+                await _memberService.PutMemberAsync(new MemberUpdateRequestDto
+                {
+                    Id = Member.Id,
+                    RowVersion = Member.RowVersion,
+                    FirstName = Member.FirstName,
+                    LastName = Member.LastName,
+                    PhoneNumber = Member.Phone ?? "",
+                    RoleId = Member.RoleId
+                }); 
+                
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
                 return Page();
             }
 
-            //_context.Attach(Member).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    //if (!MemberExists(Member.Id))
-            //    //{
-            //    //    return NotFound();
-            //    //}
-            //    //else
-            //    //{
-            //    //    throw;
-            //    //}
-            //}
 
             return RedirectToPage("./Index");
         }
