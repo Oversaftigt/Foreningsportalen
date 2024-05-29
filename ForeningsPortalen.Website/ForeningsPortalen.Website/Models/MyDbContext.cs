@@ -15,7 +15,7 @@ namespace ForeningsPortalen.Website.Models
         {
             optionsBuilder.UseSqlServer("TESTtilscafolding");
         }
-        public DbSet<ForeningsPortalen.Website.Models.BookingUnit> BookingUnit { get; set; } = default!;
+        public DbSet<BookingUnit.IndexBookingUnitModel> BookingUnit { get; set; } = default!;
         public DbSet<ForeningsPortalen.Website.Models.Document> Document { get; set; } = default!;
         public DbSet<ForeningsPortalen.Website.Models.Booking.BookingIndexModel> BookingIndexModel { get; set; } = default!;
         public DbSet<ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Union.UnionQueryResultDto> UnionQueryResultDto { get; set; } = default!;

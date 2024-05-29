@@ -37,6 +37,42 @@ namespace ForeningsPortalen.Infrastructure.Queries
             return bookingUnits;
         }
 
+        //Hardcoded til at finde tidspunkter for en uge frem. Dette virker kun lige for dagsbooking og ikke timebookings. 
+        List<DateTime> IBookingUnitQueries.GetAvailableTimesForBookingUnit(Guid bookingUnitId)
+        {
+            DateTime startDate = DateTime.Now.Date;
+            DateTime endDate = startDate.AddDays(7);
+
+            var bookingUnit = _dbContext.BookingUnit
+                                        .Include(bu => bu.Category)
+                                        .FirstOrDefault(bu => bu.BookingUnitId == bookingUnitId) ?? throw new Exception("BookingUnit not found");
+
+            var bookingsWithThisBookingUnit = _dbContext.Bookings
+                                                        .Where(b => b.BookingUnits.Any(bu => bu.BookingUnitId == bookingUnitId) &&
+                                                        b.BookingStart < endDate &&
+                                                        b.BookingEnd > startDate).ToList();
+
+            List<DateTime> availableDates = new();
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                bool IsDateAvailable = true;
+
+                foreach (var booking in bookingsWithThisBookingUnit)
+                {
+                    if (date >= booking.BookingStart && date < booking.BookingEnd)
+                    {
+                        IsDateAvailable = false;
+                        break;
+                    }
+                }
+                if (IsDateAvailable is true)
+                    availableDates.Add(date);
+            }
+
+            return availableDates;
+
+        }
 
         List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
         {

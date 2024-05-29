@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Website.Models;
+﻿using ForeningsPortalen.Website.Models.BookingUnit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
             _context = context;
         }
 
-        public BookingUnit BookingUnit { get; set; } = default!;
+        public IndexBookingUnitModel BookingUnit { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
