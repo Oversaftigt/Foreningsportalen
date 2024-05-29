@@ -14,8 +14,10 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
             _bookingUnitService = bookingUnitService;
         }
 
+
+
         [BindProperty]
-        public IList<IndexBookingUnitModel> BookingUnits { get; set; } = default!;
+        public List<IndexBookingUnitModel> BookingUnits { get; set; } = new();
 
         public async Task OnGetAsync(Guid categoryId)
         {
@@ -27,6 +29,7 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
             }
             else
             {
+
                 foreach (var bookingUnit in bookingUnitsDto)
                 {
                     BookingUnits.Add(new IndexBookingUnitModel
@@ -43,7 +46,13 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
                     });
                 }
             }
-
+            //categories?.ToList().ForEach(dto => IndexCategoryModel.Add(new IndexCategoryModel
+            //{
+            //    Name = dto.CategoryName,
+            //    DurationType = dto.ReservationLimitType,
+            //    MaxBookingsOfThisCategory = dto.MaxBookings,
+            //    Id = dto.Id
+            //}));
         }
     }
 }

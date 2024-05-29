@@ -1,4 +1,6 @@
 ﻿using ForeningsPortalen.Website.Models;
+using ForeningsPortalen.Website.Models.BookingUnit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

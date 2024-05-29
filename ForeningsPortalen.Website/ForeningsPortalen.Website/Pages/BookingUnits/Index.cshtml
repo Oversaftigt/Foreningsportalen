@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model ForeningsPortalen.Website.Pages.BookingUnits.IndexModel
 
 @{
@@ -38,6 +38,7 @@
 @foreach (var item in Model.BookingUnits) {
         <tr>
             <td>
+                <input type="hidden" name="itemId" value="@item.Id" />
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -57,7 +58,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Se ledige datoer for 7 dage fremad</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

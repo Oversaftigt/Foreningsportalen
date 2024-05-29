@@ -19,8 +19,8 @@ namespace ForeningsPortalen.Api.Controllers
             _bookingUnitQueries = bookingUnitQueries;
         }
 
-        [HttpGet("/category/{categoryId}/bookingUnit")]
-        public ActionResult<IEnumerable<BookingUnitQueryResultDto>> GetBookingUnitsOfUnion(Guid categoryId)
+        [HttpGet("category/{categoryId}/bookingUnit")]
+        public ActionResult<IEnumerable<BookingUnitQueryResultDto>> GetBookingUnitsOfCategory(Guid categoryId)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
-        [HttpGet("/bookingUnit/{bookingUnitId}/availableTimes")] //only works with bookingunits that can be booked by days currently
+        [HttpGet("bookingUnit/{bookingUnitId}/availableTimes")] //only works with bookingunits that can be booked by days currently
         public ActionResult<IEnumerable<DateTime>> GetAvailableDatesOfBookingUnit(Guid bookingUnitId)
         {
             try

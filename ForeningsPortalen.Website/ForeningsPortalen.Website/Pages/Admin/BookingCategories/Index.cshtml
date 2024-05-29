@@ -36,22 +36,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.IndexCategoryModel) {
-        <tr>
-            <td>
-                <input type="hidden" name="itemId" value="@item.Id" />
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxBookingsOfThisCategory)
-            </td>
-            <td>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.IndexCategoryModel)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" name="itemId" value="@item.Id" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxBookingsOfThisCategory)
+                </td>
+                <td>
+                    <a asp-page="/BookingUnits/Index" asp-route-categoryId="@item.Id">Se bookingenheder for kategori</a> |
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
