@@ -3,7 +3,7 @@ using ForeningsPortalen.Website.Pages.Admin.Unions;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace ForeningsPortalen.Website.HelperServices
+namespace ForeningsPortalen.Website.HelperServices.Implementations
 {
     public class UserClaimsService : IUserClaimsService
     {
@@ -12,7 +12,6 @@ namespace ForeningsPortalen.Website.HelperServices
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-
         public UserClaimsService(ILogger<ChooseUnionModel> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IUnionService unionService)
         {
             _unionService = unionService;
@@ -20,7 +19,7 @@ namespace ForeningsPortalen.Website.HelperServices
             _userManager = userManager;
             _signInManager = signInManager;
         }
-       
+
         public async Task<bool> ReplaceClaimOnUserByEmail(string userEmail, string claimType, string claimValue)
         {
             var user = await _userManager.FindByEmailAsync(userEmail);
@@ -29,7 +28,7 @@ namespace ForeningsPortalen.Website.HelperServices
                 _logger.LogError($"Unable to find a user with email: '{userEmail}'.");
                 return false;
             }
-            
+
             var userClaims = await _userManager.GetClaimsAsync(user);
             if (userClaims is null)
             {
@@ -37,15 +36,15 @@ namespace ForeningsPortalen.Website.HelperServices
                 return false;
             }
 
-            var oldClaim = (await _userManager.GetClaimsAsync(user)).FirstOrDefault(x => x.ValueType == claimType);
-            if (oldClaim != null)
+            var oldClaims = userClaims.Where(x => x.Type == claimType);
+            if (oldClaims.Any())
             {
-                var removeClaimResult = await _userManager.RemoveClaimAsync(user, oldClaim);
+                var removeClaimResult = await _userManager.RemoveClaimsAsync(user, oldClaims);
                 if (!removeClaimResult.Succeeded)
                 {
-                    _logger.LogError($"Unable to remove claim '{oldClaim.ToString}'.");
+                    _logger.LogError($"Unable to remove claim '{oldClaims.ToString}'.");
                     return false;
-                }   
+                }
             }
 
             var newClaim = new Claim(claimType, claimValue);

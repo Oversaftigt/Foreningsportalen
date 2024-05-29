@@ -1,11 +1,14 @@
 ﻿using ForeningsPortalen.Website.Models;
 using ForeningsPortalen.Website.Models.Member;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
+    [Authorize(Policy = "AdministratorAccess")]
+
     public class EditModel : PageModel
     {
 

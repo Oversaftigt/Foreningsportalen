@@ -1,8 +1,9 @@
 ﻿using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
-using ForeningsPortalen.Application.Features.Helpers;
+
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementations

@@ -3,7 +3,6 @@ using ForeningsPortalen.Application.Features.Bookings.Queries;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
 using ForeningsPortalen.Application.Features.Categories.Queries;
 using ForeningsPortalen.Application.Features.Documents.Queries;
-using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Features.Roles.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Queries;
@@ -72,10 +71,6 @@ namespace ForeningsPortalen.Infrastructure
 
             //Third party integration
             services.AddScoped<IDawaAddressValidationService, DawaAddressValidationService>();
-
-            //Unit of work
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
 
             return services;

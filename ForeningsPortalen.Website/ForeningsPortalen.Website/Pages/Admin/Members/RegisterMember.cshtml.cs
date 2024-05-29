@@ -1,3 +1,4 @@
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Website.HelperServices;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Address;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Member;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 
@@ -53,7 +55,6 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
             _roleService = roleService;
 
         }
-
         [BindProperty]
         public CreateMemberModel CreateMember { get; set; } = new();
         public List<AddressIndexModel> UnionAddresses { get; set; } = new List<AddressIndexModel>();
@@ -62,21 +63,16 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
         [BindProperty]
         public Guid UnionId { get; set; }
 
-        //public string ReturnUrl { get; set; }
-
-        public async Task OnGetAsync(/*string returnUrl = null*/)
+        public async Task OnGetAsync()
         {
             var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
             if (activeUnionId != null)
             {
-
                 UnionId = Guid.Parse(activeUnionId);
-
                 var allAddresses = await _addressService.GetAllAddressesAsync(UnionId);
 
                 if (allAddresses != null)
                 {
-                    //Address = new List<AddressIndexModel>();
                     allAddresses?.ToList().ForEach(dto => UnionAddresses.Add(new AddressIndexModel
                     { Street = dto.Street, StreetNumber = dto.Number, ZipCode = dto.PostalCode, City = dto.CityName, Id = dto.Id }));
                 }
@@ -85,51 +81,36 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                 if (allRoles != null)
                 {
                     Roles.AddRange(allRoles.Select(dto => new Dictionary<Guid, string>
-    {
-        { dto.Id, dto.RoleName }
-    }));
+                    {{ dto.Id, dto.RoleName } }));
                 }
-            var password = CreateInitialPassword();
-            CreateMember.Password = password;
-            CreateMember.ConfirmPassword = CreateMember.Password;
+                var password = CreateInitialPassword();
+                CreateMember.Password = password;
+                CreateMember.ConfirmPassword = CreateMember.Password;
             }
-
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task OnPostAsync()
         {
-            //returnUrl ??= Url.Content("~/");
-
             if (ModelState.IsValid)
             {
                 _unitOfWork.BeginTransaction();
 
-
-                await CreateDetailedUnionMember();
                 var user = await CreateIdentityUser();
-
-                if (_userStore == null)
-                {
-                    throw new InvalidOperationException("User store is not initialized.");
-                }
-
-                if (CreateMember == null)
-                {
-                    throw new InvalidOperationException("CreateMember is not initialized.");
-                }
-
-                if (string.IsNullOrEmpty(CreateMember.Email))
-                {
-                    throw new InvalidOperationException("CreateMember.Email is not initialized or empty.");
-                }
-
-
                 await _userStore.SetUserNameAsync(user, CreateMember.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, CreateMember.Password);
 
-                if (result.Succeeded)
+                var claimAdd = AddClaimsToUser(user);
+                if (result.Succeeded && claimAdd.IsCompletedSuccessfully)
                 {
-                    //_logger.LogInformation($"User created a new account with generated {CreateMember.Password}.");
+                    var memberCreated = await CreateDetailedUnionMember();
+
+                    if (!await CreateDetailedUnionMember())
+                    {
+                        _unitOfWork.Rollback();
+                        return;
+                    }
+                    
+                    await _signInManager.RefreshSignInAsync(user);
 
                     //var userId = await _userManager.GetUserIdAsync(user);
                     //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -145,44 +126,72 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                     //   $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     _unitOfWork.Commit();
+                    _logger.LogInformation($"Member with {CreateMember.Email} has been successfully created");
                 }
                 else
                 {
                     _unitOfWork.Rollback();
                     foreach (var error in result.Errors)
                     {
-
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-
             }
-            return Page();
+            return;
         }
 
-        private async Task CreateDetailedUnionMember()
+        private async Task<bool> AddClaimsToUser(IdentityUser user)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+             (new Claim("UnionId", UnionId.ToString()))
+            };
+
+            foreach (var role in Roles)
+            {
+                if (role.TryGetValue(CreateMember.RoleId, out var roleName))
+                {
+                    claims.Add(new Claim("UnionRole", roleName));
+                    break;
+                }
+                else
+                {
+                    _logger.LogError($"Failed to create UnionRole claim");
+                    return false;
+                }
+            }
+
+            var addClaimResult = await _userManager.AddClaimsAsync(user, claims);
+            if (!addClaimResult.Succeeded)
+            {
+                _logger.LogError($"Unable to add claims to new user");
+                foreach (var error in addClaimResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return false;
+            }
+            return true;
+        }
+
+        private async Task<bool> CreateDetailedUnionMember()
         {
             try
             {
-
                 var dto = new MemberCreateRequestDto
                 {
-                    FirstName = CreateMember.FirstName,
-                    LastName = CreateMember.LastName,
-                    Email = CreateMember.Email,
-                    PhoneNumber = CreateMember.Phone ?? "",
-                    RoleId = CreateMember.RoleId,
-                    MoveInDate = CreateMember.MoveInDate,
-                    UnionId = UnionId,
-                    AddressId = CreateMember.AddressId
+                    FirstName = CreateMember.FirstName, LastName = CreateMember.LastName,
+                    Email = CreateMember.Email, PhoneNumber = CreateMember.Phone ?? "",
+                    RoleId = CreateMember.RoleId, MoveInDate = CreateMember.MoveInDate,
+                    UnionId = UnionId,AddressId = CreateMember.AddressId
                 };
                 await _memberService.PostMemberAsync(dto);
+                return true;
             }
             catch
             {
-                throw new InvalidOperationException($"Something went wrong and the Request " +
-                    $"                              to Post an instance of a member " +
-                    $"                              on ForeningsPortalen api failed.");
+                _logger.LogError("Something went wrong and the Request to Post an instance of a member on ForeningsPortalen api failed.");
+                return false;
             }
         }
 
@@ -190,7 +199,6 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
         {
             try
             {
-
                 return Activator.CreateInstance<IdentityUser>();
             }
             catch
