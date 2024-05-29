@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Union;
 using ForeningsPortalen.Website.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForeningsPortalen.Website.Pages.Admin.Unions
 {
+    [Authorize(Policy = "AdministratorAccess")]
+
     public class DeleteModel : PageModel
     {
         private readonly ForeningsPortalen.Website.Models.MyDbContext _context;

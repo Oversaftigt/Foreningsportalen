@@ -9,9 +9,12 @@ using ForeningsPortalen.Website.Models;
 using ForeningsPortalen.Website.Models.Category;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Category;
 using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForeningsPortalen.Website.Pages.Admin.BookingCategories
 {
+    [Authorize(Policy = "AdministratorAccess")]
+
     public class CreateModel : PageModel
     {
         private readonly ICategoryService _categoryService;
