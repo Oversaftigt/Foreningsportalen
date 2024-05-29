@@ -36,7 +36,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
-        [HttpGet("ByUnion/{unionId}")]
+        [HttpGet("union/{unionId}/user")]
         public ActionResult<IEnumerable<UserQueryResultDto>> GetAllUsers(Guid unionId)
         {
             try

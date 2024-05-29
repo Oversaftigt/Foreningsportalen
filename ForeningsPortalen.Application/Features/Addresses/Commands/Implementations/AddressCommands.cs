@@ -1,7 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementations
@@ -28,7 +28,7 @@ namespace ForeningsPortalen.Application.Features.Addresses.Commands.Implementati
                 _unitOfWork.BeginTransaction();
 
                 var union = _unionRepository.GetUnion(addressCreateRequestDto.UnionId);
-                if (union is null) throw new Exception("Union not found");
+                if (union is null) throw new Exception("Error finding union when creating address");
 
                 var address = Address.Create(addressCreateRequestDto.Street, addressCreateRequestDto.Number,
                                                  addressCreateRequestDto.Level, addressCreateRequestDto.Door,

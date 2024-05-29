@@ -3,7 +3,6 @@ using ForeningsPortalen.Application.Features.Unions.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Unions.Queries;
 using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
 using ForeningsPortalen.Application.Shared.DTOs;
-using ForeningsPortalen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -20,7 +19,7 @@ namespace ForeningsPortalen.Api.Controllers
             _Commands = commands;
         }
         [HttpGet("{id}")]
-        public ActionResult<Union> GetUnion(Guid id)
+        public ActionResult<UnionQueryResultDto> GetUnion(Guid id)
         {
             var result = _Queries.GetUnionById(id);
             if (result == null)

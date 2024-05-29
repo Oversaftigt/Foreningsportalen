@@ -1,7 +1,8 @@
 ﻿using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
+
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementations
@@ -44,6 +45,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
 
         }

@@ -1,8 +1,9 @@
 ﻿using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.BookingUnits.Queries;
-using ForeningsPortalen.Application.Features.Helpers;
+
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementations
@@ -41,11 +42,11 @@ namespace ForeningsPortalen.Application.Features.Bookings.Commands.Implementatio
                     var bookingUnit = (_bookingUnitRepository.GetBookingUnit(bookingUnitGuid));
                     bookingUnits.Add(bookingUnit);
                 }
-                if (bookingUnits == null) throw new ArgumentNullException("List of booking units not found");
+                if (bookingUnits == null) throw new ArgumentNullException("Error finding list of booking units not found when creating booking");
 
                 //then create member
                 var member = _member.GetUnionMember(dto.UserId);
-                if (member == null) throw new ArgumentNullException("member not found");
+                if (member == null) throw new ArgumentNullException("Error finding member when creating booking");
 
 
                 //then the booking

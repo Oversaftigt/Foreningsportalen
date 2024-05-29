@@ -7,22 +7,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\ForeningsPortalen.Crosscut\ForeningsPortalen.Crosscut.csproj" />
 		<ProjectReference Include="..\ForeningsPortalen.Domain\ForeningsPortalen.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Features\Helpers\" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-		<Compile Update="AssemblyInfo1.cs">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Compile>
 	</ItemGroup>
 
 	<PropertyGroup>

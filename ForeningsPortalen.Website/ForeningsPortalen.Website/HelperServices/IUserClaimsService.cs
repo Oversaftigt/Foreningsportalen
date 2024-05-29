@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+
 namespace ForeningsPortalen.Website.HelperServices
 {
     public interface IUserClaimsService

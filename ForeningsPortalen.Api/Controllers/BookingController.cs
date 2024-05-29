@@ -52,7 +52,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         }
 
-        [HttpGet("ByAddress/{addressId}")]
+        [HttpGet("address/{addressId}/booking")]
         public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByAddress(Guid addressId)
         {
             try
@@ -68,7 +68,7 @@ namespace ForeningsPortalen.Api.Controllers
 
         }
 
-        [HttpGet("ByMember/{memberId}")]
+        [HttpGet("member/{memberId}/booking")]
         public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByMember(Guid memberId)
         {
             try
@@ -98,7 +98,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{dto.Id}")]
         public ActionResult DeleteBooking(SharedEntityDeleteDto dto)
         {
             try
