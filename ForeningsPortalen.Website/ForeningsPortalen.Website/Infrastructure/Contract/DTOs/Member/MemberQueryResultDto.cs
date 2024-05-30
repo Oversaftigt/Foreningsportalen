@@ -2,14 +2,14 @@
 {
     public class MemberQueryResultDto
     {
-        public required Guid Id { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required string Email { get; set; }
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public  string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public required DateOnly MoveInDate { get; set; }
+        public  DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
-        public required Guid RoleId { get; set; }
-        public required byte[] RowVersion { get; set; }
+        public Guid RoleId { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

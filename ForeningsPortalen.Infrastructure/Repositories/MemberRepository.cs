@@ -29,6 +29,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
                             .Include(m => m.Address)
                             .ThenInclude(a => a.Union)
                             .FirstOrDefault(m => m.UserId == unionMemberId);
+                         
             if (member == null) throw new ArgumentNullException("Error finding member");
             return member;
         }

@@ -1,4 +1,8 @@
-﻿using System.Data;
+﻿using ForeningsPortalen.Domain.DomainServices;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.RegularExpressions;
+
+using System.Data;
 using System.Text.RegularExpressions;
 
 namespace ForeningsPortalen.Domain.Entities
@@ -23,47 +27,55 @@ namespace ForeningsPortalen.Domain.Entities
         public DateOnly MoveInDate { get; init; }
         public DateOnly? MoveOutDate { get; set; }
         public Address Address { get; init; }
+        public  IEnumerable<Role> Roles { get; protected set; }
         public IEnumerable<Booking>? Bookings { get; protected set; }
 
-        public static Member Create(string firstName, string lastName, DateTime moveInDate, Union union,
+        public static Member Create(string firstName, string lastName, DateTime moveInDate,Union union,
                                     Address address, string email, string phoneNumber)
         {
             if (firstName == null) throw new ArgumentNullException(nameof(firstName));
             if (lastName == null) throw new ArgumentNullException(nameof(lastName));
-            if (moveInDate != default) throw new ArgumentNullException(nameof(moveInDate));
+            if (moveInDate != default) throw new ArgumentNullException(nameof(moveInDate));  
             if (union == null) throw new ArgumentNullException(nameof(union));
             if (address == null) throw new ArgumentNullException(nameof(address));
             if (email == null) throw new ArgumentNullException(nameof(email));
-            if (!IsPhoneNumberValid(phoneNumber)) throw new InvalidOperationException(nameof(phoneNumber));
-
+            if(!IsPhoneNumberValid(phoneNumber)) throw new InvalidOperationException(nameof(phoneNumber));
+            
             var dateOfMoveIn = DateOnly.FromDateTime(moveInDate);
 
             var newUnionMember = new Member(firstName, lastName, dateOfMoveIn, address, email, phoneNumber);
             return newUnionMember;
         }
 
-        public void Update(string firstName, string lastName, DateTime? moveOutDate, string phoneNumber, Role newRole)
+        public void Update(string firstName, string lastName, DateTime moveOutDate, string phoneNumber, Guid roleId)
         {
             if (firstName == null) throw new ArgumentNullException(nameof(firstName));
             if (lastName == null) throw new ArgumentNullException(nameof(lastName));
 
             if (!IsPhoneNumberValid(phoneNumber)) throw new InvalidOperationException(nameof(phoneNumber));
-
-            if (moveOutDate.HasValue)
+            if (moveOutDate != default)
             {
-                if (!IsMoveOutDateValid(moveOutDate.Value)) throw new InvalidOperationException(nameof(moveOutDate));
-                MoveOutDate = DateOnly.FromDateTime(moveOutDate.Value);
+                if (!IsMoveOutDateValid(moveOutDate)) throw new InvalidOperationException(nameof(moveOutDate));
+                MoveOutDate = DateOnly.FromDateTime(moveOutDate);
             }
 
-            var existingRole = Roles.Last();
-            if (existingRole != newRole)
+            var currentRole = RoleHistories.FirstOrDefault(x => x.ToDate == null);
+
+            if (roleId != currentRole.RoleId)
             {
-                Roles.Add(newRole);
-            };
+                RoleHistories.Add(new RoleHistory
+                {
+                    UserId = UserId, 
+                    RoleId = roleId,
+                    FromDate = DateTime.Now,
+                    ToDate = null 
+                });
 
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
+            
+
         }
 
         private static bool IsPhoneNumberValid(string phoneNumber)

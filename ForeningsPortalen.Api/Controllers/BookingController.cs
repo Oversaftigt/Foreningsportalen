@@ -33,8 +33,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
-
         }
 
         [HttpGet]

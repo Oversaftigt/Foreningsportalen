@@ -59,7 +59,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
 
         // POST api/<UnionMemberController>

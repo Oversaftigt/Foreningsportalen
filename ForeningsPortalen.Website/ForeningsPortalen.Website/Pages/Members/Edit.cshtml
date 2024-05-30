@@ -5,16 +5,19 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Opdater Medlems Oplysninger</h1>
 
-<h4>Member</h4>
+<h4>Ret de værdier der ønskes ændret</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
             <input type="hidden" asp-for="Member.Id" />
+            <span asp-validation-for="Member.Id" type="hidden" class="text-danger"></span>
             <input type="hidden" asp-for="Member.RowVersion" />
+            <span asp-validation-for="Member.RowVersion" type="hidden" class="text-danger"></span>
             <div class="form-group">
                 <label asp-for="Member.FirstName" class="control-label"></label>
                 <input asp-for="Member.FirstName" class="form-control" />
@@ -30,14 +33,35 @@
                 <input asp-for="Member.Phone" class="form-control" />
                 <span asp-validation-for="Member.Phone" class="text-danger"></span>
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label asp-for="Member.MoveOutDate" class="control-label"></label>
                 <input asp-for="Member.MoveOutDate" class="form-control" />
                 <span asp-validation-for="Member.MoveOutDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <h2 class="mb-4">Rolle</h2>
+                <label asp-for="CurrentRole" class="control-label"></label>
+                <input asp-for="CurrentRole" class="form-control" />
+                <span asp-validation-for="CurrentRole" class="text-danger"></span>
             </div>
+             <div class="form-group">
+                <div class="container">
+                    <label for="SelectRole">Vælg ny rolle:</label>
+                    <select id="SelectRole" name="CreateMember.RoleId" class="form-control" placeholder="@Model.CurrentRole">
+                        <option value="">-- Vælg Rolle --</option>
+                    @foreach (var role in Model.Roles)
+                    {
+                        foreach (var keyValuePair in role)
+                        {
+                                <option value="@keyValuePair.Key">@keyValuePair.Value</option>
+                        }
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+            <input type="submit" value="Gem" class="btn btn-primary" />
+           </div>
         </form>
     </div>
 </div>
@@ -46,6 +70,8 @@
     <a asp-page="./Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }

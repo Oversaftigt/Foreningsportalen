@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.CodeAnalysis.CSharp;
+using NuGet.Packaging;
 
 namespace ForeningsPortalen.Website.Pages.Members
 {
@@ -18,31 +20,51 @@ namespace ForeningsPortalen.Website.Pages.Members
     {
         private readonly ILogger _logger;
         private readonly IMemberService _memberService;
+        private readonly IRoleService _roleService;
 
-        public EditModel(ILogger logger, IMemberService memberService)
+        public EditModel(ILogger logger, IMemberService memberService, IRoleService roleService)
         {
             _logger = logger;
             _memberService = memberService;
+            _roleService = roleService;
         }
 
         [BindProperty]
         public UpdateMemberModel Member { get; set; } = default!;
+        public List<Dictionary<Guid, string>> Roles { get; set; } = new();
+        [BindProperty]
+        public Dictionary<Guid, string> CurrentRole { get; set; } = new();
 
         public async Task OnGetAsync(Guid id)
         {
             if (id == default) return;
 
             var dto = await _memberService.GetMemberAsync(id);
-
-            if (dto != null)
+            if (dto == null)
             {
-                Member = new UpdateMemberModel()
-                { Id = dto.Id, RowVersion = dto.RowVersion, FirstName = dto.FirstName, 
-                 LastName = dto.LastName, Phone = dto.PhoneNumber, RoleId = dto.RoleId};
+                _logger.LogError($"Could not find member with ID: {id}");
+                return;
             }
+            Member = new UpdateMemberModel()
+            {
+                Id = dto.Id,
+                RowVersion = dto.RowVersion,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Phone = dto.PhoneNumber,
+                RoleId = dto.RoleId
+            };
 
-            _logger.LogError($"Could not find member with ID: {id}");
-            return;
+            var allRoles = await _roleService.GetAllRolesAsync();
+            if (!allRoles.Any())
+            {
+                _logger.LogError($"Could not find any roles in the union");
+                return;
+            }
+            Roles.AddRange(allRoles.Select(dto => new Dictionary<Guid, string>
+            {{ dto.Id, dto.RoleName}}));
+
+            CurrentRole = Roles.FirstOrDefault(x => x.ContainsKey(dto.RoleId));
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -59,8 +81,7 @@ namespace ForeningsPortalen.Website.Pages.Members
                     LastName = Member.LastName,
                     PhoneNumber = Member.Phone ?? "",
                     RoleId = Member.RoleId
-                }); 
-                
+                });
             }
             catch (Exception e)
             {
@@ -68,13 +89,7 @@ namespace ForeningsPortalen.Website.Pages.Members
                 return Page();
             }
 
-
             return RedirectToPage("./Index");
         }
-
-        //private bool MemberExists(Guid id)
-        //{
-        //    return _context.Member.Any(e => e.Id == id);
-        //}
     }
 }

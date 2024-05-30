@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
 using ForeningsPortalen.Crosscut.TransactionHandling;
+using System.Diagnostics.Contracts;
 
 namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Implementations
 {
@@ -65,7 +66,20 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands.Imp
 
         void IMemberCommands.UpdateUnionMember(MemberUpdateRequestDto updateRequestDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _UnitOfWork.BeginTransaction();
+
+                var unionMember = _UnionMemberRepository.GetUnionMember(updateRequestDto.Id);
+                if (unionMember is null) throw new Exception("Member not found");
+
+                unionMember.Update(updateRequestDto.);
+                
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception(""); 
+            }
         }
 
     }
