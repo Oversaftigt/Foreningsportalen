@@ -38,7 +38,7 @@ namespace ForeningsPortalen.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{unionCommandUpdateDto.Id}")]
         public ActionResult UpdateUnion([FromBody] UnionCommandUpdateDto unionCommandUpdateDto)
         {
             try
@@ -68,7 +68,7 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteUnion(SharedEntityDeleteDto deleteDto)
+        public ActionResult DeleteUnion([FromBody]SharedEntityDeleteDto deleteDto)
         {
             try
             {

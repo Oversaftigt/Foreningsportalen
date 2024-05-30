@@ -34,7 +34,7 @@ namespace ForeningsPortalen.Domain.Entities
 
             var domainService = services.GetService<ICategoryDomainService>();
             if (domainService is null) throw new ArgumentNullException(nameof(domainService));
-            if (DoesCategoryAlreadyExist(domainService.OtherCategoriesFromUnion(union.UnionId), name) is true)
+            if (IsCategoryNameTaken(domainService.OtherCategoriesFromUnion(union.UnionId), name) is true)
                 throw new InvalidOperationException("Category with that Name already exists");
 
             //the out parameter contains the bookingDurationType
@@ -46,7 +46,7 @@ namespace ForeningsPortalen.Domain.Entities
             return newCategory;
         }
 
-        private static bool DoesCategoryAlreadyExist(IEnumerable<Category> otherCategories, string newCategoryName)
+        private static bool IsCategoryNameTaken(IEnumerable<Category> otherCategories, string newCategoryName)
         {
             return otherCategories.Any(x => x.Name.ToLower().Trim() == newCategoryName.ToLower().Trim());
         }
