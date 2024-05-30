@@ -5,12 +5,31 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Vælg en ledig dato, hvor du vil booke @Model.BookingUnitName</h1>
 
-<div>
-    <h4>BookingUnit</h4>
-    <hr />
+<div class="container text-center" style="max-height: 75vh; overflow-y:scroll">
+    <table class="table mx-auto">
+        <thead style="position:sticky; top:0; background-color: white;">
+            <tr>
+                <th>
+                    <h5>Ledige datoer</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AvailableDates)
+            {
+                <tr>
+                    <td>
+                        @* <a asp-page="/Bookings/Create"> *@
+                            @item.ToString("dddd, MM/dd/yyyy")
+                        @* </a> *@
+                        <button>Book</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div>
-    
 </div>

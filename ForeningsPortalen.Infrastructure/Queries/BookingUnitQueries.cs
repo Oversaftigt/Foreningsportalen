@@ -37,11 +37,11 @@ namespace ForeningsPortalen.Infrastructure.Queries
             return bookingUnits;
         }
 
-        //Hardcoded til at finde tidspunkter for en uge frem. Dette virker kun lige for dagsbooking og ikke timebookings. 
+        //Hardcoded til at finde tidspunkter for x antal dage frem. Dette virker kun lige for dagsbooking og ikke timebookings. 
         List<DateTime> IBookingUnitQueries.GetAvailableTimesForBookingUnit(Guid bookingUnitId)
         {
             DateTime startDate = DateTime.Now.Date;
-            DateTime endDate = startDate.AddDays(7);
+            DateTime endDate = startDate.AddDays(30);
 
             var bookingUnit = _dbContext.BookingUnit
                                         .Include(bu => bu.Category)

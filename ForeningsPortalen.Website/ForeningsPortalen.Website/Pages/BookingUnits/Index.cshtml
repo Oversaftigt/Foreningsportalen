@@ -57,9 +57,9 @@
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Se ledige datoer for 7 dage fremad</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @* <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | *@
+                <a asp-page="./Details" asp-route-id="@item.Id" asp-route-bookingUnitName="@item.Name">Se ledige datoer de næste 30 dage</a> |
+                @* <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> *@
             </td>
         </tr>
 }

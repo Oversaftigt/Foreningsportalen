@@ -17,10 +17,14 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
         }
 
         [BindProperty]
+        public string BookingUnitName { get; set; }
+
+        [BindProperty]
         public IEnumerable<DateTime> AvailableDates { get; set; } = new List<DateTime>();
 
-        public async Task OnGetAsync(Guid id)
+        public async Task OnGetAsync(Guid id, string bookingUnitName)
         {
+            BookingUnitName = bookingUnitName;
             var dates = await _bookingUnitService.GetAvailableDatesForBookingUnit(id);
 
             if (dates is not null)
