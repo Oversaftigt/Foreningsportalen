@@ -6,3 +6,14 @@ services:
     build:
       context: .
       dockerfile: ForeningsPortalen.Api/Dockerfile
+
+  foreningsportalen.website:
+    image: ${DOCKER_REGISTRY-}foreningsportalenwebsite
+    build:
+      context: .
+      dockerfile: ForeningsPortalen.Website/ForeningsPortalen.Website/Dockerfile
+    environment:
+        ForeningsPortalenBaseUrl: "http://foreningsportalen.api:8080"
+    depends_on:
+        - foreningsportalen.api
+
