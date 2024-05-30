@@ -33,5 +33,10 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
             }
             
         }
+
+        public string test()
+        {
+            return "Du har booket nu";
+        }
     }
 }

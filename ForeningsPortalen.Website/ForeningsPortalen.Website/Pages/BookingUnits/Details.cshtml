@@ -22,9 +22,16 @@
                 <tr>
                     <td>
                         @* <a asp-page="/Bookings/Create"> *@
-                            @item.ToString("dddd, MM/dd/yyyy")
+                        @item.ToString("dddd, MM/dd/yyyy")
                         @* </a> *@
-                        <button>Book</button>
+                        <details>
+                            <summary>
+                                Vis mere
+                                </summary>
+                                <button onclick="alert('Du har nu booket @Model.test() d. @item.ToString("MM/dd/yyyy")')">
+                                    Book
+                                </button>
+                        </details>
                     </td>
                 </tr>
             }
