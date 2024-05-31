@@ -37,7 +37,6 @@ namespace ForeningsPortalen.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
-
             }
         }
 
@@ -53,7 +52,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
 
         [HttpPost]
@@ -68,8 +66,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
-
     }
 }

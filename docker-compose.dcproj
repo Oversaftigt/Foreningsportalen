@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>48d13a63-df4b-4ca8-b66f-eb2df0b34eb5</ProjectGuid>
+    <ProjectGuid>7943d005-91a5-434c-b1b9-1657f1b968ad</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>foreningsportalen.api</DockerServiceName>
