@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace ForeningsPortalen.Website.Models
+namespace ForeningsPortalen.Website.Models.BookingUnit
 {
-    public class BookingUnit
+    public class IndexBookingUnitModel
     {
         [Required]
         public Guid Id { get; set; }
@@ -30,7 +30,7 @@ namespace ForeningsPortalen.Website.Models
         public int MaxBookingDuration { get; set; }
 
         [Required]
-        [Display(Name ="Booking Kategori")]
+        [Display(Name = "Booking Kategori")]
         public Guid Category { get; set; }
 
         [Required]

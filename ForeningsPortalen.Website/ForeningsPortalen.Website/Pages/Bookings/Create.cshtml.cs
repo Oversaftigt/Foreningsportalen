@@ -4,41 +4,55 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ForeningsPortalen.Website.Models;
-using ForeningsPortalen.Website.Models.Booking;
+using ForeningsPortalen.Website.Models.Category;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implementations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ForeningsPortalen.Website.Pages.Bookings
 {
     public class CreateModel : PageModel
     {
-        private readonly ForeningsPortalen.Website.Models.MyDbContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CreateModel(ForeningsPortalen.Website.Models.MyDbContext context)
+        public CreateModel(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
-
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
-
         [BindProperty]
-        public BookingIndexModel BookingIndexModel { get; set; } = default!;
+        public IList<IndexCategoryModel> IndexCategoryModel { get; set; } = new List<IndexCategoryModel>();
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task OnGetAsync()
         {
-            if (!ModelState.IsValid)
+
+
+            var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
+            if (activeUnionId != null)
             {
-                return Page();
+                var GuidUnionId = Guid.Parse(activeUnionId);
+                var categories = await _categoryService.GetCategoriesAsync(GuidUnionId);
+
+                if (categories != null)
+                {
+                    categories?.ToList().ForEach(dto => IndexCategoryModel.Add(new IndexCategoryModel
+                    {
+                        Name = dto.CategoryName,
+                        DurationType = dto.ReservationLimitType,
+                        MaxBookingsOfThisCategory = dto.MaxBookings,
+                        Id = dto.Id
+                    }));
+                }
+                else
+                {
+                    Redirect("/error");
+                    throw new Exception("There were no categories created in this union");
+
+                }
+
+
             }
-
-            _context.BookingIndexModel.Add(BookingIndexModel);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
         }
     }
 }

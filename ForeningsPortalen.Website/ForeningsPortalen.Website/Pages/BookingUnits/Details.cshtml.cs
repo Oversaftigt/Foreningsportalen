@@ -1,4 +1,6 @@
-﻿using ForeningsPortalen.Website.Models;
+﻿using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implementations;
+using ForeningsPortalen.Website.Models.BookingUnit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,32 +9,34 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
 {
     public class DetailsModel : PageModel
     {
-        private readonly ForeningsPortalen.Website.Models.MyDbContext _context;
+        private readonly IBookingUnitService _bookingUnitService;
 
-        public DetailsModel(ForeningsPortalen.Website.Models.MyDbContext context)
+        public DetailsModel(IBookingUnitService bookingUnitService)
         {
-            _context = context;
+            _bookingUnitService = bookingUnitService;
         }
 
-        public BookingUnit BookingUnit { get; set; } = default!;
+        [BindProperty]
+        public string BookingUnitName { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        [BindProperty]
+        public IEnumerable<DateTime> AvailableDates { get; set; } = new List<DateTime>();
+
+        public async Task OnGetAsync(Guid id, string bookingUnitName)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            BookingUnitName = bookingUnitName;
+            var dates = await _bookingUnitService.GetAvailableDatesForBookingUnit(id);
 
-            var bookingunit = await _context.BookingUnit.FirstOrDefaultAsync(m => m.Id == id);
-            if (bookingunit == null)
+            if (dates is not null)
             {
-                return NotFound();
+                AvailableDates = dates;
             }
-            else
-            {
-                BookingUnit = bookingunit;
-            }
-            return Page();
+            
+        }
+
+        public string test()
+        {
+            return "Du har booket nu";
         }
     }
 }

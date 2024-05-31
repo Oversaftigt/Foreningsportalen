@@ -43,6 +43,7 @@ namespace ForeningsPortalen.Infrastructure
             services.AddScoped<IBookingDomainService, BookingDomainService>();
             services.AddScoped<ICategoryDomainService, CategoryDomainService>();
             services.AddScoped<IBookingUnitDomainService, BookingUnitDomainService>();
+            services.AddScoped<IUnionDomainService, UnionDomainService>();
 
             //Queries
             services.AddScoped<IUserQueries, UserQueries>();

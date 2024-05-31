@@ -33,6 +33,7 @@ builder.Services.AddScoped<IUserClaimsService, UserClaimsService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IBookingUnitService, BookingUnitService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(p =>
 {

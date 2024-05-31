@@ -8,5 +8,6 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Queries
         List<BookingUnitQueryResultDto> GetAllBookingUnits();
         List<BookingUnitQueryResultDto> GetBookingUnitsByCategoryId(Guid categoryId);
         List<BookingUnitQueryResultDto> GetBookingUnitsByBookingId(Guid bookingId);
+        List<DateTime> GetAvailableTimesForBookingUnit(Guid bookingUnitId);
     }
 }
