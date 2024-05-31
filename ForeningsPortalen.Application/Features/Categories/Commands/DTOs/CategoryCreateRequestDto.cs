@@ -1,11 +1,10 @@
-﻿using ForeningsPortalen.Domain.Entities;
-
-namespace ForeningsPortalen.Application.Features.Categories.Commands.DTOs
+﻿namespace ForeningsPortalen.Application.Features.Categories.Commands.DTOs
 {
     public class CategoryCreateRequestDto
     {
-        public string Name { get; set; }
-        public BookingDurationType DurationType { get; set; }
-        public int MaxBookingsOfThisCategory { get; set; }
+        public string CategoryName { get; set; }
+        public string ReservationLimitType { get; set; }
+        public int MaxBookings { get; set; }
+        public Guid UnionId { get; set; }
     }
 }

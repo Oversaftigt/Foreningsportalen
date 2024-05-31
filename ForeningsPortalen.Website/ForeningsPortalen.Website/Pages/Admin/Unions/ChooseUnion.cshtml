@@ -1,0 +1,33 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Admin.Unions.ChooseUnionModel
+
+@{
+    ViewData["Title"] = "Foreningsportaler";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Gå til Foreningsportal</h2>
+            <form id="ChooseUnion" method="post">
+                <div class="form-group">
+                    <label for="SelectUnions">Select Union:</label>
+                    <select id="SelectUnions" name="SelectedUnion.Id" class="form-control">
+                        <option value="">-- Vælg Forening --</option>
+                        @foreach (var union in Model.Unions)
+                        {
+                            <option value="@union.Id">@union.Name</option>
+                        }
+                    </select>
+                </div>
+                <h></h>
+                <div class="text-center">
+                    <button id="SetUnion" type="submit" class="btn btn-primary">Gå til Bolig Forening</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr />

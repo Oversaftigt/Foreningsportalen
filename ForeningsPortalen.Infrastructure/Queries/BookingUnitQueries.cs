@@ -13,31 +13,98 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             _dbContext = dbContext;
         }
-        List<BookingUnit> IBookingUnitQueries.GetAllBookingUnits()
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetAllBookingUnits()
         {
             var bookingUnits = _dbContext.BookingUnit.AsNoTracking()
-                .Select(b => new BookingUnit
+                .Include(b => b.Bookings)
+                .Select(b => new BookingUnitQueryResultDto
                 {
-                    BookingUnitId = b.BookingUnitId,
-                    Name = b.Name,
-                    IsActive = b.IsActive,
-                    Deposit = b.Deposit,
-                    Price = b.Price,
-                    MaxBookingDuration = b.MaxBookingDuration,
-                    Category = b.Category,
-                    Bookings = b.Bookings,
-            }).ToList();
+                    Id = b.BookingUnitId,
+                    BookingUnitName = b.Name,
+                    IsBookingUnitActive = b.IsActive,
+                    AdvancePayment = b.Deposit,
+                    Fee = b.Price,
+                    ReservationLimit = b.MaxBookingDuration,
+                    CategoryId = b.Category.CategoryId,
+                    BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
+                    RowVersion = b.RowVersion,
+                }).ToList();
+            if (bookingUnits is null)
+            {
+                throw new ArgumentNullException("Error finding booking units");
+            }
+
             return bookingUnits;
         }
 
-        List<BookingUnit> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
+        //Hardcoded til at finde tidspunkter for x antal dage frem. Dette virker kun lige for dagsbooking og ikke timebookings. 
+        List<DateTime> IBookingUnitQueries.GetAvailableTimesForBookingUnit(Guid bookingUnitId)
+        {
+            DateTime startDate = DateTime.Now.Date;
+            DateTime endDate = startDate.AddDays(30);
+
+            var bookingUnit = _dbContext.BookingUnit
+                                        .Include(bu => bu.Category)
+                                        .FirstOrDefault(bu => bu.BookingUnitId == bookingUnitId) ?? throw new Exception("BookingUnit not found");
+
+            var bookingsWithThisBookingUnit = _dbContext.Bookings
+                                                        .Where(b => b.BookingUnits.Any(bu => bu.BookingUnitId == bookingUnitId) &&
+                                                        b.BookingStart < endDate &&
+                                                        b.BookingEnd > startDate).ToList();
+
+            List<DateTime> availableDates = new();
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                bool IsDateAvailable = true;
+
+                foreach (var booking in bookingsWithThisBookingUnit)
+                {
+                    if (date >= booking.BookingStart && date < booking.BookingEnd)
+                    {
+                        IsDateAvailable = false;
+                        break;
+                    }
+                }
+                if (IsDateAvailable is true)
+                    availableDates.Add(date);
+            }
+
+            return availableDates;
+
+        }
+
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByBookingId(Guid bookingId)
         {
             throw new NotImplementedException();
         }
 
-        List<BookingUnit> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
+        List<BookingUnitQueryResultDto> IBookingUnitQueries.GetBookingUnitsByCategoryId(Guid categoryId)
         {
-            throw new NotImplementedException();
+            var bookingUnits = _dbContext.BookingUnit.AsNoTracking()
+                .Include(b => b.Bookings)
+                .Select(b => new BookingUnitQueryResultDto
+                {
+                    Id = b.BookingUnitId,
+                    BookingUnitName = b.Name,
+                    IsBookingUnitActive = b.IsActive,
+                    AdvancePayment = b.Deposit,
+                    Fee = b.Price,
+                    ReservationLimit = b.MaxBookingDuration,
+                    CategoryId = b.Category.CategoryId,
+                    BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
+                    RowVersion = b.RowVersion,
+                })
+                .Where(b => b.CategoryId == categoryId)
+                .ToList();
+
+            if (bookingUnits is null)
+            {
+                throw new ArgumentNullException("Error finding booking units for this category");
+            }
+
+            return bookingUnits;
         }
+
     }
 }

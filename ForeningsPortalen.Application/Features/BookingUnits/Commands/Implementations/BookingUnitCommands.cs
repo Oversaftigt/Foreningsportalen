@@ -1,9 +1,9 @@
 ﻿using ForeningsPortalen.Application.Features.BookingUnits.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Categories.Queries;
-using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
+
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implementations
@@ -14,10 +14,11 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ICategoryQueries _categoryQueries;
 
         public BookingUnitCommands(IBookingUnitRepository bookingUnitRepository, IUnitOfWork unitOfWork,
-            ICategoryRepository categoryRepository, IBookingRepository bookingRepository, ICategoryQueries categoryQueries)
+            ICategoryRepository categoryRepository, IBookingRepository bookingRepository, ICategoryQueries categoryQueries, IServiceProvider serviceProvider)
         {
             _bookingUnitRepository = bookingUnitRepository;
             _unitOfWork = unitOfWork;
@@ -25,6 +26,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
             _bookingRepository = bookingRepository;
             _categoryQueries = categoryQueries;
 
+            _serviceProvider = serviceProvider;
         }
 
         void IBookingUnitCommands.CreateBookingUnit(BookingUnitCreateRequestDto dto)
@@ -36,16 +38,17 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 var category = _categoryRepository.GetCategory(dto.CategoryId);
                 if (category == null)
                 {
-                    throw new ArgumentNullException("Member not found");
+                    throw new ArgumentNullException("Error finding category when creating booking unit");
                 }
 
-                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.Name, dto.IsActive, dto.Deposit,
-                                        dto.Price, dto.MaxBookingDuration, category); 
+
+                var newBookingUnit = BookingUnit.CreateBookingUnit(dto.BookingUnitName, dto.IsBookingUnitActive, dto.AdvancePayment,
+                                        dto.Fee, dto.ReservationLimit, category, _serviceProvider);
+
                 if (newBookingUnit == null)
                 {
-                    throw new ArgumentNullException("BookingUnit not found");
+                    throw new ArgumentNullException("Error creating booking unit");
                 }
-
                 _bookingUnitRepository.AddBookingUnit(newBookingUnit);
                 _unitOfWork.Commit();
             }
@@ -59,6 +62,7 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Commands.Implement
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

@@ -1,7 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Commands;
 using ForeningsPortalen.Application.Features.Addresses.Commands.Implementations;
-using ForeningsPortalen.Application.Features.Boards.Commands;
-using ForeningsPortalen.Application.Features.Boards.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Bookings.Commands;
 using ForeningsPortalen.Application.Features.Bookings.Commands.Implementations;
 using ForeningsPortalen.Application.Features.BookingUnits.Commands;
@@ -16,8 +14,6 @@ using ForeningsPortalen.Application.Features.Unions.Commands;
 using ForeningsPortalen.Application.Features.Unions.Commands.Implementations;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Commands;
 using ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Implementaions;
-using ForeningsPortalen.Application.Features.UserRoles.Commands;
-using ForeningsPortalen.Application.Features.UserRoles.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands;
 using ForeningsPortalen.Application.Features.Users.BaseUsers.Commands.Implementations;
 using ForeningsPortalen.Application.Features.Users.UnionMembers.Commands;
@@ -34,14 +30,12 @@ namespace ForeningsPortalen.Application
             services.AddScoped<IAddressCommands, AddressCommands>();
             services.AddScoped<IUnionCommands, UnionCommand>();
             services.AddScoped<IMemberCommands, MemberCommands>();
-            services.AddScoped<IBoardCommands, BoardCommands>();
             services.AddScoped<IBookingCommands, BookingCommands>();
             services.AddScoped<IBookingUnitCommands, BookingUnitCommands>();
             services.AddScoped<ICategoryCommands, CategoryCommands>();
             services.AddScoped<IDocumentCommands, DocumentCommands>();
             services.AddScoped<IRoleCommands, RoleCommands>();
             services.AddScoped<IUserRoleHistoryCommands, UserRoleHistoryCommands>();
-            services.AddScoped<IUserRoleCommands, UserRoleCommands>();
             services.AddScoped<IBookingUnitCommands, BookingUnitCommands>();
 
             return services;

@@ -12,24 +12,46 @@ namespace ForeningsPortalen.Api.Controllers
     {
         private readonly IAddressQueries _addressQueries;
         private readonly IAddressCommands _addressCommand;
+        private readonly ILogger<AddressController> _logger;
 
-        public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand)
+        public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand, ILogger<AddressController> logger)
         {
             _addressQueries = addressQueries;
             _addressCommand = addressCommand;
+            _logger = logger;
         }
 
-        [HttpGet("{unionId}")]
+        [HttpGet("union/{unionId}/address")]
         public ActionResult<IEnumerable<AddressQueryResultDto>> GetAddressesByUnionId(Guid unionId)
         {
-            var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
-            return Ok(addressesInUnion);
+            try
+            {
+                var addressesInUnion = _addressQueries.GetAddressesByUnion(unionId);
+                if (addressesInUnion.Any() is false)
+                {
+                    return NoContent();
+                }
+                return Ok(addressesInUnion);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        [HttpGet]
-        public AddressQueryResultDto GetByUserId(Guid userId)
+        [HttpGet("{addressId}")]
+        public ActionResult<AddressQueryResultDto> GetByAddress(Guid addressId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var addressesInUnion = _addressQueries.GetAddressById(addressId);
+                return Ok(addressesInUnion);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -39,25 +61,11 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 _addressCommand.CreateAddress(addressCreateRequestDto);
                 return Created();
-
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
-            
-        }
-
-        [HttpPut]
-        void UpdateAddress([FromBody] AddressUpdateRequestDto addressUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        void DeleteAddress(Guid addressId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

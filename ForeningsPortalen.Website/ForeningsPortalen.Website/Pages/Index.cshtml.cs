@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Http;
 
 namespace ForeningsPortalen.Website.Pages
 {
@@ -13,14 +12,18 @@ namespace ForeningsPortalen.Website.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet(string unionName)
         {
-
+            
+            
+            
+            
+            return Page();
         }
 
         public void OnPost()
         {
-            Redirect("~/ChooseUnion");
+            RedirectToPage("/Account/Manage/login");
         }
 
     }

@@ -1,11 +1,6 @@
 ﻿using ForeningsPortalen.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigurations
 {
@@ -13,7 +8,7 @@ namespace ForeningsPortalen.Infrastructure.Database.Configuration.EntityConfigur
     {
         public void Configure(EntityTypeBuilder<UserRoleHistory> builder)
         {
-            
+
             builder.HasKey(urh => new { urh.UserId, urh.RoleId, urh.FromDate });
 
             builder.HasOne(x => x.User)

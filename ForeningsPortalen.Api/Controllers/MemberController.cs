@@ -31,7 +31,7 @@ namespace ForeningsPortalen.Api.Controllers
 
                 if (unionMember == null)
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Member not found" });
                 }
                 return Ok(unionMember);
             }
@@ -41,17 +41,44 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
+        //[HttpGet("byEmail/{email}")]
+        //public ActionResult<MemberQueryResultDto> GetMemberById(string email)
+        //{
+        //    try
+        //    {
+        //        var unionMember = _UnionMemberQueries.GetUnionMemberByUserId(unionMemberId);
+
+        //        if (unionMember == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        return Ok(unionMember);
+        //    }
+        //    catch
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
         // GET api/<UnionMemberController>/5
-        [HttpGet("/ByUnion/{unionId}")]
+        [HttpGet("union/{unionId}/member")]
         public ActionResult<IEnumerable<MemberQueryResultDto>> GetMembersByUnionId(Guid unionId)
         {
-            var unionMembers = _UnionMemberQueries.GetUnionMembersByUnion(unionId).ToList();
-
-            if (!unionMembers.Any())
+            try
             {
-                return BadRequest();
+                var unionMembers = _UnionMemberQueries.GetUnionMembersByUnion(unionId).ToList();
+
+                if (!unionMembers.Any())
+                {
+                    return NoContent();
+                }
+                return Ok(unionMembers.ToList());
             }
-            return Ok(unionMembers.ToList());
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         // POST api/<UnionMemberController>
@@ -63,9 +90,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _UnionMemberCommands.CreateUnionMember(createRequestDto);
                 return Created();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -78,9 +105,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _UnionMemberCommands.UpdateUnionMember(UpdateRequestDto);
                 return NoContent();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -93,9 +120,9 @@ namespace ForeningsPortalen.Api.Controllers
                 _UnionMemberCommands.DeleteUnionMember(deleteRequestDto);
                 return NoContent();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

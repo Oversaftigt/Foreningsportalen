@@ -1,11 +1,6 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
@@ -17,9 +12,9 @@ namespace ForeningsPortalen.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        void IDocumentRepository.AddDocument(Document doocument)
+        void IDocumentRepository.AddDocument(Document document)
         {
-            _dbContext.Add(doocument);
+            _dbContext.Add(document);
             _dbContext.SaveChanges();
         }
 

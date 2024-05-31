@@ -1,13 +1,8 @@
-﻿using ForeningsPortalen.Application.Features.Helpers;
-using ForeningsPortalen.Application.Features.Roles.Commands.DTOs;
+﻿using ForeningsPortalen.Application.Features.Roles.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Roles.Commands.Implementations
 {
@@ -42,6 +37,7 @@ namespace ForeningsPortalen.Application.Features.Roles.Commands.Implementations
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
         }
 

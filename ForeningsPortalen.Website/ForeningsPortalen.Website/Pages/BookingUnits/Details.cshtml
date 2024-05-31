@@ -1,0 +1,42 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.BookingUnits.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Vælg en ledig dato, hvor du vil booke @Model.BookingUnitName</h1>
+
+<div class="container text-center" style="max-height: 75vh; overflow-y:scroll">
+    <table class="table mx-auto">
+        <thead style="position:sticky; top:0; background-color: white;">
+            <tr>
+                <th>
+                    <h5>Ledige datoer</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AvailableDates)
+            {
+                <tr>
+                    <td>
+                        @* <a asp-page="/Bookings/Create"> *@
+                        @item.ToString("dddd, MM/dd/yyyy")
+                        @* </a> *@
+                        <details>
+                            <summary>
+                                Vis mere
+                                </summary>
+                                <button onclick="alert('Du har nu booket @Model.test() d. @item.ToString("MM/dd/yyyy")')">
+                                    Book
+                                </button>
+                        </details>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+</div>

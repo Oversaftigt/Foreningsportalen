@@ -1,21 +1,24 @@
-﻿using ForeningsPortalen.Application.Features.Addresses.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
+﻿using ForeningsPortalen.Application.Features.Categories.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
 
 namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementations
 {
     public class CategoryCommands : ICategoryCommands
     {
-        private readonly ICategoryRepository _repository;
+        private readonly ICategoryRepository _categoriRepo;
+        private readonly IUnionRepository _unionRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceProvider _serviceProvider;
 
-        public CategoryCommands(ICategoryRepository repository, IUnitOfWork unitOfWork)
+        public CategoryCommands(ICategoryRepository repository, IUnitOfWork unitOfWork, IServiceProvider serviceProvider, IUnionRepository unionRepo)
         {
-            _repository = repository;
+            _categoriRepo = repository;
             _unitOfWork = unitOfWork;
+            _serviceProvider = serviceProvider;
+            _unionRepo = unionRepo;
         }
 
         void ICategoryCommands.CreateCategory(CategoryCreateRequestDto categoryCreateRequestDto)
@@ -23,11 +26,12 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
             try
             {
                 _unitOfWork.BeginTransaction();
+                var union = _unionRepo.GetUnion(categoryCreateRequestDto.UnionId);
 
-                var newCategory = Category.CreateCategory(categoryCreateRequestDto.Name, categoryCreateRequestDto.DurationType, 
-                    categoryCreateRequestDto.MaxBookingsOfThisCategory);
+                var newCategory = Category.CreateCategory(categoryCreateRequestDto.CategoryName, categoryCreateRequestDto.ReservationLimitType,
+                    categoryCreateRequestDto.MaxBookings, union, _serviceProvider);
 
-                _repository.AddCategory(newCategory);
+                _categoriRepo.AddCategory(newCategory);
                 _unitOfWork.Commit();
             }
             catch
@@ -40,6 +44,7 @@ namespace ForeningsPortalen.Application.Features.Categories.Commands.Implementat
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
 
         }

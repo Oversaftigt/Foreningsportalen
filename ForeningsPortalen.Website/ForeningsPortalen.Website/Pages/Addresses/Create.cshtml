@@ -1,0 +1,57 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Addresses.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Address</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Address.Street" class="control-label"></label>
+                <input asp-for="Address.Street" class="form-control" />
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.StreetNumber" class="control-label"></label>
+                <input asp-for="Address.StreetNumber" class="form-control" />
+                <span asp-validation-for="Address.StreetNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Floor" class="control-label"></label>
+                <input asp-for="Address.Floor" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Door" class="control-label"></label>
+                <input asp-for="Address.Door" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.ZipCode" class="control-label"></label>
+                <input asp-for="Address.ZipCode" class="form-control" />
+                <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Tilbage til oversigt</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

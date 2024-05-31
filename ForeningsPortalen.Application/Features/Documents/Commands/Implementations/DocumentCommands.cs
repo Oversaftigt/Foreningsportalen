@@ -1,13 +1,9 @@
 ﻿using ForeningsPortalen.Application.Features.Documents.Commands.DTOs;
-using ForeningsPortalen.Application.Features.Helpers;
+
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementations
 {
@@ -34,7 +30,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
                     throw new ArgumentNullException("Member not found");
                 }
 
-                var newDocument = Document.CreateDocument(documentCreateRequestDto.Title, member, documentCreateRequestDto.Date);
+                var newDocument = Document.CreateDocument(member, documentCreateRequestDto.DocumentName,documentCreateRequestDto.DocumentPath);
 
                 _documentRepository.AddDocument(newDocument);
                 _unitOfWork.Commit();
@@ -49,6 +45,7 @@ namespace ForeningsPortalen.Application.Features.Documents.Commands.Implementati
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
+                throw;
             }
 
         }

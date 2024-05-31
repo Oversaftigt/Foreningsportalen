@@ -1,10 +1,4 @@
 ﻿using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.Bookings.Queries
 {
@@ -12,6 +6,9 @@ namespace ForeningsPortalen.Application.Features.Bookings.Queries
     {
 
         BookingQueryResultDto GetBookingById(Guid id);
-        List<BookingQueryResultDto> GetAllBookings();
+
+        IEnumerable<BookingQueryResultDto> GetAllBookings();
+        IEnumerable<BookingQueryResultDto> GetAllFutureBookingsByMember(Guid memberId);
+        IEnumerable<BookingQueryResultDto> GetAllFutureBookingsByAddress(Guid addressId);
     }
 }

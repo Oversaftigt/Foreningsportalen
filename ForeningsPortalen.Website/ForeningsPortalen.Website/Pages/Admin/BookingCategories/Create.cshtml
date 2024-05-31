@@ -1,0 +1,63 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Admin.BookingCategories.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>IndexCategoryModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <h5>Restriktioner på kategorier</h5>
+        <ul>
+            <li><strong>Reservationstype:</strong> Her angives, om bookingenhederne reserveres i timer eller dage.</li>
+            <li><strong>Maximum Bookinger:</strong> Her angives antallet af bookinger, en foreningsmedlem kan have med denne kategori.</li>
+        </ul>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CreateCategoryModel.Name" class="control-label"></label>
+                <input asp-for="CreateCategoryModel.Name" class="form-control" />
+                <span asp-validation-for="CreateCategoryModel.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="SelectCategoryType">Vælg kategoriens reservations type:</label>
+                    <select id="SelectCategoryType" name="CreateCategoryModel.DurationType" class="form-control">
+                        @foreach (var type in Model.ReservationType)
+                        {
+                            foreach (var kvp in type)
+                            {
+                                <option value="@kvp.Value">@kvp.Key</option>
+                            }
+                        }
+                    </select>
+            <div class="form-group">
+                <label asp-for="CreateCategoryModel.MaxBookingsOfThisCategory" class="control-label"></label>
+                <input asp-for="CreateCategoryModel.MaxBookingsOfThisCategory" class="form-control" />
+                <span asp-validation-for="CreateCategoryModel.MaxBookingsOfThisCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,6 +1,13 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@inject SignInManager<IdentityUser> _signInManager
+
+@using Microsoft.AspNetCore.Identity
 @using ForeningsPortalen.Website
 @using ForeningsPortalen.Website.Data
-@namespace ForeningsPortalen.Website.Pages.Admin
+@using ForeningsPortalen.Website.Areas.Identity
+@using ForeningsPortalen.Website.Areas.Identity.Pages
+@using ForeningsPortalen.Website.Pages.Admin.Members
+@using ForeningsPortalen.Website.Pages.Admin.Unions
+
+@namespace ForeningsPortalen.Website.Pages
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

@@ -1,0 +1,61 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Admin.BookingCategories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Opret ny kategori</a>
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Restriktioner på kategorier</h5>
+        <ul>
+            <li><strong>Reservationstype:</strong> Her angives, om bookingenhederne reserveres i timer eller dage.</li>
+            <li><strong>Maximum Bookinger:</strong> Her angives antallet af bookinger, en foreningsmedlem kan have med denne kategori.</li>
+        </ul>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexCategoryModel[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexCategoryModel[0].DurationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexCategoryModel[0].MaxBookingsOfThisCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.IndexCategoryModel)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" name="itemId" value="@item.Id" />
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxBookingsOfThisCategory)
+                </td>
+                <td>
+                    <a asp-page="/BookingUnits/Index" asp-route-categoryId="@item.Id">Se bookingenheder for kategori</a> |
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

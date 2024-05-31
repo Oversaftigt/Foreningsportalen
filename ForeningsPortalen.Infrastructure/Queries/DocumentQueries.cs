@@ -1,13 +1,7 @@
 ﻿using ForeningsPortalen.Application.Features.Documents.Queries;
 using ForeningsPortalen.Application.Features.Documents.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Unions.Queries.DTOs;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Infrastructure.Queries
 {
@@ -21,18 +15,19 @@ namespace ForeningsPortalen.Infrastructure.Queries
 
         IEnumerable<DocumentQueryResultDto> IDocumentQueries.GetAllDocuments()
         {
-           var result = _dbContext.Documents.AsNoTracking()
-                   .Select(b => new DocumentQueryResultDto
-                   {
-                       Id = b.DocumentId,
-                       Title = b.Title,
-                       UploadedBy = b.UploadedBy,
-                       Date = b.Date,
-                       RowVersion = b.RowVersion
-                   }).ToList();
-            if (!result.Any())
+            var result = _dbContext.Documents.AsNoTracking()
+                    .Select(b => new DocumentQueryResultDto
+                    {
+                        Id = b.DocumentId,
+                        Title = b.FileName,
+                        UploadedBy = b.Member,
+                        DateOfUpload = b.Date,
+                        RowVersion = b.RowVersion
+                    }).ToList();
+
+            if (result is null)
             {
-                throw new Exception("Dokumenter blev ikke fundet");
+                throw new Exception("Error getting all documents");
             }
 
             return result;
@@ -42,17 +37,17 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             var result = _dbContext.Documents.AsNoTracking()
              .Select(b => new DocumentQueryResultDto
-        {
-            Id = b.DocumentId,
-            Title = b.Title,
-            UploadedBy = b.UploadedBy,
-            Date = b.Date,
-            RowVersion = b.RowVersion
-             }).FirstOrDefault(b => b.Id ==id);
-           
-            if (result == null)
+             {
+                 Id = b.DocumentId,
+                 Title = b.FileName,
+                 UploadedBy = b.Member,
+                 DateOfUpload = b.Date,
+                 RowVersion = b.RowVersion
+             }).FirstOrDefault(b => b.Id == id);
+
+            if (result is null)
             {
-                throw new Exception("Dokumenter blev ikke fundet");
+                throw new Exception("Error finding specific document");
             }
 
             return result;

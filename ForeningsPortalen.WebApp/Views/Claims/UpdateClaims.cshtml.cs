@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ForeningsPortalen.WebApp.Views.Claims
@@ -10,7 +9,7 @@ namespace ForeningsPortalen.WebApp.Views.Claims
         {
         }
 
-        
+
 
 
     }

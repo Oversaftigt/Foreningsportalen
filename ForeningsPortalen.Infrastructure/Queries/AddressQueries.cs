@@ -1,7 +1,5 @@
 ﻿using ForeningsPortalen.Application.Features.Addresses.Queries;
 using ForeningsPortalen.Application.Features.Addresses.Queries.DTOs;
-using ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs;
-using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,18 +24,18 @@ namespace ForeningsPortalen.Infrastructure.Queries
                            {
                                Id = a.AddressId,
                                Street = a.StreetName,
-                               StreetNumber = a.StreetNumber,
-                               City = a.City,
-                               ZipCode = a.ZipCode,
+                               Number = a.StreetNumber,
+                               CityName = a.City,
+                               PostalCode = a.ZipCode,
                                UnionId = a.Union.UnionId,
-                               Members = a.Members.Select(m => m.UserId).ToList(),
+                               CurrentTenants = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery).Select(m => m.UserId),
                                RowVersion = a.RowVersion,
-                           }) 
+                           })
                            .Where(a => a.UnionId == unionId).ToList();
 
-            if (!addresses.Any())
+            if (addresses is null)
             {
-                throw new Exception("No Addresses were not found");
+                throw new Exception("Error finding addresses on union");
             }
 
             return addresses;
@@ -51,18 +49,17 @@ namespace ForeningsPortalen.Infrastructure.Queries
                          {
                              Id = a.AddressId,
                              Street = a.StreetName,
-                             StreetNumber = a.StreetNumber,
-                             City = a.City,
-                             ZipCode = a.ZipCode,
-                             Members = a.Members.Select(m => m.UserId).ToList(),
-                             CurrentMember = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery),
+                             Number = a.StreetNumber,
+                             CityName = a.City,
+                             PostalCode = a.ZipCode,
+                             CurrentTenants = a.Members.Where(m => m.MoveOutDate == null || m.MoveOutDate >= dateOfQuery).Select(m => m.UserId),
                              RowVersion = a.RowVersion,
                          })
                          .First(a => a.Id == addressId);
-            
+
             if (address == null)
             {
-                throw new Exception("Address was not found");
+                throw new Exception("Error finding specific address");
             }
             return address;
         }

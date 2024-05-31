@@ -2,6 +2,7 @@
 using ForeningsPortalen.Application.Features.Bookings.Commands.DTOs;
 using ForeningsPortalen.Application.Features.Bookings.Queries;
 using ForeningsPortalen.Application.Features.Bookings.Queries.DTOs;
+using ForeningsPortalen.Application.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForeningsPortalen.Api.Controllers
@@ -22,31 +23,65 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<BookingQueryResultDto> GetBooking(Guid id)
         {
-            var result = _queries.GetBookingById(id);
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen bookinger er fundet");
+                var result = _queries.GetBookingById(id);
+                return Ok(result);
 
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookings()
         {
-           var result = _queries.GetAllBookings();
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen bookinger er fundet");
-
+                var result = _queries.GetAllBookings();
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
-        [HttpPut]
-        public ActionResult UpdateBooking([FromBody] BookingUpdateRequestDto bookingUpdateRequestDto)
+        [HttpGet("address/{addressId}/booking")]
+        public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByAddress(Guid addressId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = _queries.GetAllFutureBookingsByAddress(addressId);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+        [HttpGet("member/{memberId}/booking")]
+        public ActionResult<IEnumerable<BookingQueryResultDto>> GetAllBookingsByMember(Guid memberId)
+        {
+            try
+            {
+                var result = _queries.GetAllFutureBookingsByMember(memberId);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         [HttpPost]
@@ -57,16 +92,24 @@ namespace ForeningsPortalen.Api.Controllers
                 _command.CreateBooking(bookingCreateRequestDto);
                 return Created();
             }
-            catch
+            catch (Exception ex)
             {
-               return BadRequest();
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-        [HttpDelete]
-        public ActionResult DeleteBooking(Guid id)
+        [HttpDelete("{dto.Id}")]
+        public ActionResult DeleteBooking(SharedEntityDeleteDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _command.DeleteBooking(dto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
     }

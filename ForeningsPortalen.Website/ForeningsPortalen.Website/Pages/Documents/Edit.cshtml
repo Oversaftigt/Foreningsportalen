@@ -1,0 +1,45 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Documents.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Document</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Document.Id" />
+            <div class="form-group">
+                <label asp-for="Document.Title" class="control-label"></label>
+                <input asp-for="Document.Title" class="form-control" />
+                <span asp-validation-for="Document.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document.Date" class="control-label"></label>
+                <input asp-for="Document.Date" class="form-control" />
+                <span asp-validation-for="Document.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Document.RowVersion" class="control-label"></label>
+                <input asp-for="Document.RowVersion" class="form-control" />
+                <span asp-validation-for="Document.RowVersion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

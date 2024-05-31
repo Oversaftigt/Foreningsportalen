@@ -18,16 +18,21 @@ namespace ForeningsPortalen.Api.Controllers
             _command = command;
             _queries = queries;
         }
+        
 
-        [HttpGet]
-        public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategories()
+        [HttpGet("union/{unionId}/categories")]
+        public ActionResult<IEnumerable<CategoryQueryResultDto>> GetCategoriesByUnionId(Guid unionId)
         {
-            var result = _queries.GetCategories();
-            if (result == null)
+            try
             {
-                return BadRequest("Ingen Kategorier er fundet");
+                var result = _queries.GetCategoriesByUnionId(unionId);
+                return Ok(result);
+
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -38,22 +43,10 @@ namespace ForeningsPortalen.Api.Controllers
                 _command.CreateCategory(categoryCreateRequestDto);
                 return Created();
             }
-            catch
+            catch(Exception ex) 
             {
-                return BadRequest();
+                return BadRequest(new {message = ex.Message});
             }
-        }
-
-        [HttpPut]
-        public ActionResult PutCategory([FromBody] CategoryUpdateRequestDto categoryUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteCategory(Guid id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -20,15 +20,15 @@ namespace ForeningsPortalen.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<DocumentQueryResultDto>> GetAllDocuments() 
+        public ActionResult<IEnumerable<DocumentQueryResultDto>> GetAllDocuments()
         {
             var result = _queries.GetAllDocuments();
-            if(result == null)
+            if (result == null)
             {
-                return BadRequest( "Ingen dokumenter er fundet");
+                return BadRequest("Ingen dokumenter er fundet");
             }
             return Ok(result);
-          
+
         }
 
         [HttpGet("{id}")]
@@ -55,18 +55,5 @@ namespace ForeningsPortalen.Api.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpPut]
-        public ActionResult PutDocument([FromBody] DocumentUpdateRequestDto documentUpdateRequestDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete]
-        public ActionResult DeleteDocument(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

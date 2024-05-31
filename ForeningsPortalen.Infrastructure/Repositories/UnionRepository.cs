@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         readonly ForeningsPortalenContext _db;
         public UnionRepository(ForeningsPortalenContext dbContext)
         {
-            _db= dbContext;
+            _db = dbContext;
         }
 
         void IUnionRepository.AddUnion(Union union)
@@ -19,19 +19,22 @@ namespace ForeningsPortalen.Infrastructure.Repositories
         }
         void IUnionRepository.DeleteUnion(Union union, byte[] rowversion)
         {
-            throw new NotImplementedException();
+            _db.Entry(union).Property(p => p.RowVersion).OriginalValue = rowversion;
+            _db.Unions.Remove(union);
+            _db.SaveChanges();
         }
 
         Union IUnionRepository.GetUnion(Guid id)
         {
             var union = _db.Unions.Find(id);
-            if (union is null) throw new Exception("Address not found");
+            if (union is null) throw new Exception("Union not found");
             return union;
         }
 
         void IUnionRepository.UpdateUnion(Union union, byte[] rowversion)
         {
-            throw new NotImplementedException();
+            _db.Entry(union).Property(p => p.RowVersion).OriginalValue = rowversion;
+            _db.SaveChanges();
         }
     }
 }

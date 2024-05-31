@@ -1,13 +1,8 @@
-﻿using ForeningsPortalen.Application.Features.Helpers;
-using ForeningsPortalen.Application.Features.UserRoles.Commands.DTOs;
+﻿using ForeningsPortalen.Application.Features.UserRoleHistories.Commands.DTOs;
 using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Application.Shared.DTOs;
+using ForeningsPortalen.Crosscut.TransactionHandling;
 using ForeningsPortalen.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Implementaions
 {
@@ -15,21 +10,37 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Impl
     {
         private readonly IUserRoleHistoryRepository _userRoleHistoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _RoleRepository;
 
-        public UserRoleHistoryCommands(IUserRoleHistoryRepository userRoleHistoryRepository, IUnitOfWork unitOfWork)
+        public UserRoleHistoryCommands(IUserRoleHistoryRepository userRoleHistoryRepository, IUnitOfWork unitOfWork, IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _userRoleHistoryRepository = userRoleHistoryRepository;
             _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
+            _RoleRepository = roleRepository;
         }
 
-        void IUserRoleHistoryCommands.CreateUserRoleHistory(UserRoleCreateRequestDto userRoleCreateRequestDto)
+        void IUserRoleHistoryCommands.CreateUserRoleHistory(UserRoleHistoryCreateRequestDto userRoleHistoryCreateRequestDto)
         {
             try
             {
                 _unitOfWork.BeginTransaction();
+                var user = _userRepository.GetUser(userRoleHistoryCreateRequestDto.UserId);
+                if (user == null)
+                {
+                    throw new ArgumentNullException();
+                }
 
-                var newUserRoleHistory = UserRoleHistory.CreateUserRoleHistory(userRoleCreateRequestDto.UserId, userRoleCreateRequestDto.RoleId, 
-                    userRoleCreateRequestDto.RoleAssigned, userRoleCreateRequestDto.RoleUnassigned);
+                var role = _RoleRepository.GetRole(userRoleHistoryCreateRequestDto.RoleId);
+                if (role == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+
+                var newUserRoleHistory = UserRoleHistory.CreateUserRoleHistory(user, role,
+                    userRoleHistoryCreateRequestDto.RoleAssigned);
 
                 _userRoleHistoryRepository.AddUserRoleHistory(newUserRoleHistory);
                 _unitOfWork.Commit();
@@ -40,7 +51,7 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Impl
                 {
                     _unitOfWork.Rollback();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new Exception($"Rollback has failed: {ex.Message}");
                 }
@@ -52,7 +63,7 @@ namespace ForeningsPortalen.Application.Features.UserRoleHistories.Commands.Impl
             throw new NotImplementedException();
         }
 
-        void IUserRoleHistoryCommands.UpdateUserRoleHistory(UserRoleUpdateRequestDto userRoleUpdateRequestDto)
+        void IUserRoleHistoryCommands.UpdateUserRoleHistory(UserRoleHistoryUpdateRequestDto userRoleHistoryUpdateRequestDto)
         {
             throw new NotImplementedException();
         }

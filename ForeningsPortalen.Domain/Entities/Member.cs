@@ -2,7 +2,7 @@
 {
     public class Member : User
     {
-        public Member() { }
+        protected Member() { }
 
         internal Member(string firstName,
                              string lastName,
@@ -20,25 +20,21 @@
         public DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
         public Address Address { get; set; }
-        
-        private Guid UnionId { set
-            {
-                UnionId = Address.Union.UnionId;
-            }
-           
-}
-        //public List<Booking>? Bookings { get; set; }
+        public IEnumerable<Booking>? Bookings { get; set; }
 
         public static Member Create(string firstName,
                                          string lastName,
-                                         DateOnly moveInDate,
+                                         DateTime moveInDate,
                                          Union union,
                                          Address address,
                                          string email,
                                          string phoneNumber
                                          )
         {
-            var newUnionMember = new Member(firstName, lastName, moveInDate, address, email, phoneNumber);
+
+            var dateOfMoveIn = DateOnly.FromDateTime( moveInDate );
+
+            var newUnionMember = new Member(firstName, lastName, dateOfMoveIn , address, email, phoneNumber);
             return newUnionMember;
         }
     }

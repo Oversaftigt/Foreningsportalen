@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ForeningsPortalen.Application\ForeningsPortalen.Application.csproj" />
+    <ProjectReference Include="..\ForeningsPortalen.Crosscut\ForeningsPortalen.Crosscut.csproj" />
     <ProjectReference Include="..\ForeningsPortalen.DatabaseMigration\ForeningsPortalen.DatabaseMigration.csproj" />
     <ProjectReference Include="..\ForeningsPortalen.Domain\ForeningsPortalen.Domain.csproj" />
     <ProjectReference Include="..\ForeningsPortalen.Infrastructure\ForeningsPortalen.Infrastructure.csproj" />
