@@ -11,6 +11,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ForeningsPortalen.Api/ForeningsPortalen.Api.csproj", "ForeningsPortalen.Api/"]
 COPY ["ForeningsPortalen.Application/ForeningsPortalen.Application.csproj", "ForeningsPortalen.Application/"]
+COPY ["ForeningsPortalen.Crosscut/ForeningsPortalen.Crosscut.csproj", "ForeningsPortalen.Crosscut/"]
 COPY ["ForeningsPortalen.Domain/ForeningsPortalen.Domain.csproj", "ForeningsPortalen.Domain/"]
 COPY ["ForeningsPortalen.DatabaseMigration/ForeningsPortalen.DatabaseMigration.csproj", "ForeningsPortalen.DatabaseMigration/"]
 COPY ["ForeningsPortalen.Infrastructure/ForeningsPortalen.Infrastructure.csproj", "ForeningsPortalen.Infrastructure/"]

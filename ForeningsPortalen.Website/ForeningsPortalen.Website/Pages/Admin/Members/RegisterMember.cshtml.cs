@@ -99,17 +99,16 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                 await _userStore.SetUserNameAsync(user, CreateMember.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, CreateMember.Password);
 
-                var claimAdd = AddClaimsToUser(user);
-                if (result.Succeeded && claimAdd.IsCompletedSuccessfully)
+                if (result.Succeeded)
                 {
                     var memberCreated = await CreateDetailedUnionMember();
-
-                    if (!await CreateDetailedUnionMember())
+                    
+                    if (!memberCreated)
                     {
                         _unitOfWork.Rollback();
                         return;
                     }
-                    
+
                     await _signInManager.RefreshSignInAsync(user);
 
                     //var userId = await _userManager.GetUserIdAsync(user);
@@ -126,7 +125,9 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                     //   $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     _unitOfWork.Commit();
-                    _logger.LogInformation($"Member with {CreateMember.Email} has been successfully created");
+                var claimAdd = AddClaimsToUser(user);
+                    Console.WriteLine("Email: " + CreateMember.Email +" Password: " + CreateMember.Password);
+                    _logger.LogInformation($"Member with {CreateMember.Email} and password: {CreateMember.Password} has been successfully created");
                 }
                 else
                 {

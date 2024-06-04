@@ -2,7 +2,7 @@
 {
     public class UnionCommandUpdateDto
     {
-        public Guid id { get; }
+        public Guid id { get; set; }
         public string UnionName { get; set; }
         public byte[] RowVersion { get; set; }
     }

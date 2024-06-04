@@ -56,7 +56,7 @@ namespace ForeningsPortalen.Domain.Entities
                                                            newBookingStart, newBookingEnd, bookingUnits) is true)
                 throw new InvalidOperationException("Booking overlaps with another existing booking");
 
-            if (IsBookingWithinAllowedDuration(newBookingStart, newBookingEnd, bookingUnits.Select(x => x.MaxBookingDuration)) is false)
+            if (IsBookingWithinAllowedDuration(newBookingStart, newBookingEnd, bookingUnits) is false)
                 throw new InvalidOperationException("Booking duration exceeds the allowed amount for at least one of the bookingunits");
 
             var newBooking = new Booking(creationDate, newBookingStart, newBookingEnd, bookingUnits, user);
@@ -73,7 +73,7 @@ namespace ForeningsPortalen.Domain.Entities
             return true;
         }
 
-       
+
         // Check if booking is overlapping with other bookings that have at least one of the same bookingunit
         private static bool IsBookingOverlapping(IEnumerable<Booking> otherBookings, DateTime bookingStart,
                                                  DateTime bookingEnd, IEnumerable<BookingUnit> bookingUnits)
@@ -109,14 +109,23 @@ namespace ForeningsPortalen.Domain.Entities
             return currentNumberOfBookingsOfCategory >= maxBookingsOfCategory;
         }
 
-        private static bool IsBookingWithinAllowedDuration(DateTime start, DateTime end, IEnumerable<int> maxDurations)
+        private static bool IsBookingWithinAllowedDuration(DateTime start, DateTime end, List<BookingUnit> bookingUnits)
         {
-            TimeSpan duration = end - start;
-            return maxDurations.All(maxDuration => duration.TotalHours <= maxDuration);
+            if (bookingUnits[0].Category.DurationType is Helpers.BookingDurationType.Hours)
+            {
+                TimeSpan duration = end - start;
+                return bookingUnits.All(bookingUnit => duration.TotalHours <= bookingUnit.MaxBookingDuration);
+            }
+            if (bookingUnits[0].Category.DurationType is Helpers.BookingDurationType.Days)
+            {
+                TimeSpan duration = end - start;
+                return bookingUnits.All(bookingUnit => duration.Days <= bookingUnit.MaxBookingDuration);
+            }
+            throw new Exception("Error validating if booking duration is allowed");
         }
 
         //method to have seconds equal 0 in datetime
-        private static DateTime SetDatetimeSecondsToZero (DateTime dateTime)
+        private static DateTime SetDatetimeSecondsToZero(DateTime dateTime)
         {
             return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day,
                                 dateTime.Hour, dateTime.Minute, 0);

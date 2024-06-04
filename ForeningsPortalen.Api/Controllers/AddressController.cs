@@ -12,11 +12,13 @@ namespace ForeningsPortalen.Api.Controllers
     {
         private readonly IAddressQueries _addressQueries;
         private readonly IAddressCommands _addressCommand;
+        private readonly ILogger<AddressController> _logger;
 
-        public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand)
+        public AddressController(IAddressQueries addressQueries, IAddressCommands addressCommand, ILogger<AddressController> logger)
         {
             _addressQueries = addressQueries;
             _addressCommand = addressCommand;
+            _logger = logger;
         }
 
         [HttpGet("union/{unionId}/address")]
@@ -35,7 +37,6 @@ namespace ForeningsPortalen.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
-
             }
         }
 
@@ -51,7 +52,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
 
         [HttpPost]
@@ -66,8 +66,6 @@ namespace ForeningsPortalen.Api.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-
         }
-
     }
 }

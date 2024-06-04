@@ -1,4 +1,4 @@
-﻿using ForeningsPortalen.Website.Models;
+﻿using ForeningsPortalen.Website.Models.BookingUnit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,7 +21,7 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
         }
 
         [BindProperty]
-        public BookingUnit BookingUnit { get; set; } = default!;
+        public IndexBookingUnitModel BookingUnit { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

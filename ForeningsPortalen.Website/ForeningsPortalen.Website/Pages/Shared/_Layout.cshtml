@@ -28,7 +28,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bestyrelsenDropdown">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Board/Index">Bestyrelsesmedlemmer</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li>
+                                        @* <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li> *@
                                     @if (User.Claims.Any(x => x.Value == "BoardMember" || x.Value == "Administrator" || x.Value == "Chairman" || x.Value == "Tresurer"))
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Create">Opret Dokument</a></li>
@@ -41,7 +41,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bookingDropdown">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Create">Ny Booking</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine bookinger</a></li>
+                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine bookinger</a></li> *@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -49,9 +49,9 @@
                                     Personlig
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="personligDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li>
+                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li> *@
+                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li> *@
+                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li> *@
                                 </ul>
                             </li>
                             @if (User.Claims.Any(x => x.Value == "Administrator"))
@@ -70,7 +70,7 @@
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Create">Registrer Ny Adresse</a></li>
                                         <li class="border-top my-3">Medlemmer</li>
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Members/Index">Medlemsoversigt</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/">Medlemsoversigt</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/RegisterMember"> Opret nyt medlem </a></li>
                                         <li class="border-top my-3">Booking</li>
                                         <li><a class="dropdown-item" asp-area="" asp-page="Admin/BookingCategories/Index">Oversigt over Bookingkategorier</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-page="Admin/BookingCategories/Create">Opret Bookingkategori</a></li>

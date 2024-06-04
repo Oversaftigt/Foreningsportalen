@@ -62,11 +62,12 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                               .GetResult();
 
             // Assert
-            Assert.True(result.IsSuccessful, "The Domain layer should not have dependencies on other projects");
+            Assert.True(result.IsSuccessful, "The Domain layer should not have " +
+                "dependencies on other projects");
         }
 
         [Fact]
-        public void Infrastructure_Should_OnlyHave_Dependency_On_Application_Domain()
+        public void Infrastructure_Should_Only_Have_Dependency_On_Application_Domain()
         {
             // Arrange
             var assembly = typeof(Infrastructure.Repositories.AddressRepository).Assembly;
@@ -85,7 +86,8 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                               .GetResult();
 
             // Assert
-            Assert.True(result.IsSuccessful, "TheInfrastructure layer should have a dependency on the Domain and Application layer.");
+            Assert.True(result.IsSuccessful, "The Infrastructure layer should have a dependency " +
+                "on the Domain and Application layer.");
         }
 
         [Fact]
@@ -125,7 +127,8 @@ namespace ForeningsPortalen.Domain.Test.ArchitectureTest
                 var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
                 var hasProtectedParameterlessConstructor = constructors.Any(c => c.IsFamily && c.GetParameters().Length == 0);
 
-                Assert.True(hasProtectedParameterlessConstructor, $"Type {type.FullName} does not have a protected parameterless constructor.");
+                Assert.True(hasProtectedParameterlessConstructor, $"Type " +
+                    $"{type.FullName} does not have a protected parameterless constructor.");
             }
 
         }
