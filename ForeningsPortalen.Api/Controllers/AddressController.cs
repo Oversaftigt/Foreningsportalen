@@ -36,6 +36,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error occured while getting addresses by union id: {unionId}", ex);
                 return BadRequest(new { message = ex.Message });
             }
         }

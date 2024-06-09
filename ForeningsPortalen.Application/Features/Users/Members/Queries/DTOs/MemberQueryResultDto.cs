@@ -11,7 +11,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Queries.DTOs
         public string PhoneNumber { get; set; }
         public DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
-        public Address CurrentAddress { get; set; }
+        public Guid CurrentAddress { get; set; }
         public Guid UnionId { get; set; }
         public byte[] RowVersion { get; set; }
     }

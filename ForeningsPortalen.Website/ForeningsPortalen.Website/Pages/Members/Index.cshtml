@@ -22,15 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Members[0].EmailAddress)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Members[0].Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Members[0].MoveInDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Members[0].MoveOutDate)
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -46,20 +37,12 @@
                 @Html.DisplayFor(modelItem => item.EmailAddress)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.MoveInDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoveOutDate)
                     <input type="hidden" name="itemId" value="@item.Id" />
                     <input type="hidden" name="itemId" value="@item.RowVersion" />
             </td>
             <td>
-                @* <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | *@
-                @* <a asp-page="./Details" asp-route-id="@item.Id">Details</a> | *@
-                @* <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> *@
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | 
+                    <a asp-page="./Details" asp-route-email="@item.EmailAddress">Details</a> |
             </td>
         </tr>
 }

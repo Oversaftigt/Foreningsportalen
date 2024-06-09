@@ -7,6 +7,6 @@ public class MemberUpdateRequestDto
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
     public DateOnly? MoveOutDate { get; set; }
-    public string Role { get; set; }
+    public Guid RoleId { get; set; }
     public byte[] RowVersion { get; set; } = [];
 }
