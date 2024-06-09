@@ -32,7 +32,19 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
         /// <param name="unionId"></param>
         /// <returns></returns>
         Task<MemberQueryResultDto> GetMemberByIdAsync(Guid memberId);
+
+        /// <summary>
+        /// Get a specific member by its email, using memberEmail
+        /// </summary>
+        /// <param name="memberEmail"></param>
+        /// <returns></returns>
         Task<MemberQueryResultDto> GetMemberByEmailAsync(string memberEmail);
+
+        /// <summary>
+        /// Get a list of all members in a specific union, using union ID
+        /// </summary>
+        /// <param name="unionId"></param>
+        /// <returns></returns>
         Task<IEnumerable<MemberQueryResultDto>?> GetAllMembersAsync(Guid unionId);
     }
 }
