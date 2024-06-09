@@ -12,6 +12,33 @@ namespace ForeningsPortalen.Infrastructure.Queries
         {
             _db = foreningsPortalenContext;
         }
+
+        MemberQueryResultDto IMemberQueries.GetUnionMemberByEmail(string unionMemberEmail)
+        {
+            var member = _db.Members.AsNoTracking()
+                .Select(a => new MemberQueryResultDto()
+                {
+                    Id = a.UserId,
+                    UnionId = a.Address.Union.UnionId,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    Email = a.Email,
+                    PhoneNumber = a.PhoneNumber,
+                    MoveInDate = a.MoveInDate,
+                    MoveOutDate = a.MoveOutDate,
+                    CurrentAddress = a.Address.AddressId,
+                    RowVersion = a.RowVersion,
+                })
+                .FirstOrDefault(a => a.Email == unionMemberEmail);
+
+            if (member is null)
+            {
+                throw new Exception($"Could not find member with email: {unionMemberEmail}");
+            }
+
+            return member;
+        }
+
         MemberQueryResultDto IMemberQueries.GetUnionMemberByUserId(Guid id)
         {
             var member = _db.Members.AsNoTracking()
@@ -25,7 +52,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                   PhoneNumber = a.PhoneNumber,
                   MoveInDate = a.MoveInDate,
                   MoveOutDate = a.MoveOutDate,
-                  CurrentAddress = a.Address,
+                  CurrentAddress = a.Address.AddressId,
                   RowVersion = a.RowVersion,
               })
               .FirstOrDefault(a => a.Id == id);
@@ -51,7 +78,7 @@ namespace ForeningsPortalen.Infrastructure.Queries
                               PhoneNumber = a.PhoneNumber,
                               MoveInDate = a.MoveInDate,
                               MoveOutDate = a.MoveOutDate,
-                              CurrentAddress = a.Address,
+                              CurrentAddress = a.Address.AddressId,
                               RowVersion = a.RowVersion,
                           })
                           .Where(a => a.UnionId == unionId).ToList();

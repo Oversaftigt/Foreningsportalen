@@ -29,11 +29,11 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             {
                 Address = new AddressIndexModel()
                 { Street = dto.Street, StreetNumber = dto.Number, ZipCode = dto.PostalCode, City = dto.CityName, Id = dto.Id };
+                return Page();
             }
 
             return NotFound();
 
-            return Page();
         }
     }
 }

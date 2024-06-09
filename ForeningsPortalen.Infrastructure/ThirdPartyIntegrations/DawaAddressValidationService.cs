@@ -29,14 +29,12 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 
             string category = root.GetProperty("kategori").GetString();
 
-            if (category == "A" || category == "B")
+            if (category is "A" or "B")
             {
-            return true;
-            }
-            else
-            {
-                return false;
-            }
+                return true;
+            } 
+            return false;
+            
         }
     }
 }

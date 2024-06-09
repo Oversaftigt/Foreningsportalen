@@ -32,13 +32,13 @@ namespace ForeningsPortalen.Website.Pages.Members
         {
             if (id == default) return;
 
-            var dto = await _memberService.GetMemberAsync(id);
+            var dto = await _memberService.GetMemberByIdAsync(id);
 
             if (dto != null)
             {
                 Member = new UpdateMemberModel()
                 { Id = dto.Id, RowVersion = dto.RowVersion, FirstName = dto.FirstName, 
-                 LastName = dto.LastName, Phone = dto.PhoneNumber, RoleId = dto.RoleId};
+                 LastName = dto.LastName, Phone = dto.PhoneNumber};
             }
 
             _logger.LogError($"Could not find member with ID: {id}");
@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Website.Pages.Members
                     RowVersion = Member.RowVersion,
                     FirstName = Member.FirstName,
                     LastName = Member.LastName,
-                    PhoneNumber = Member.Phone ?? "",
+                    PhoneNumber = Member.Phone, //TODO test this
                     RoleId = Member.RoleId
                 }); 
                 
@@ -67,8 +67,6 @@ namespace ForeningsPortalen.Website.Pages.Members
                 ModelState.AddModelError(string.Empty, e.Message);
                 return Page();
             }
-
-
             return RedirectToPage("./Index");
         }
 

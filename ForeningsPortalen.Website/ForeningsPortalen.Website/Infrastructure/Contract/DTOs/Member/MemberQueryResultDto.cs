@@ -9,7 +9,7 @@
         public string PhoneNumber { get; set; }
         public required DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
-        public required Guid RoleId { get; set; }
+        public Guid CurrentAddress { get; set; }
         public required byte[] RowVersion { get; set; }
     }
 }

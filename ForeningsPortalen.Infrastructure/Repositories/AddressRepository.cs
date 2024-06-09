@@ -1,6 +1,7 @@
 ﻿using ForeningsPortalen.Application.Repositories;
 using ForeningsPortalen.Domain.Entities;
 using ForeningsPortalen.Infrastructure.Database.Configuration;
+using Microsoft.VisualBasic;
 
 namespace ForeningsPortalen.Infrastructure.Repositories
 {
@@ -28,7 +29,8 @@ namespace ForeningsPortalen.Infrastructure.Repositories
 
         void IAddressRepository.UpdateAddress(Address address, byte[] rowVersion)
         {
-            throw new NotImplementedException();
+            _db.Entry(address).Property(p => p.RowVersion).OriginalValue = rowVersion;
+            _db.SaveChanges();
         }
         void IAddressRepository.DeleteAddress(Address address, byte[] rowVersion)
         {

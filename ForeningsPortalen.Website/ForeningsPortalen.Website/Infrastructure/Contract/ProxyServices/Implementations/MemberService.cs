@@ -35,11 +35,29 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             throw new Exception(message);
         }
 
-        async Task<MemberQueryResultDto> IMemberService.GetMemberAsync(Guid id)
+        async Task<MemberQueryResultDto> IMemberService.GetMemberByIdAsync(Guid id)
         {
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/{id}");
+
+                var response = await _httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                var member = await response.Content.ReadFromJsonAsync<MemberQueryResultDto>();
+                return member;
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex.Message);
+                return null;
+            }
+        }
+
+        async Task<MemberQueryResultDto> IMemberService.GetMemberByEmailAsync(string memberEmail)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/{memberEmail}");
 
                 var response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();

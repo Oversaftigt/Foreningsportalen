@@ -45,8 +45,9 @@
             <button id="MemberDetails" asp-page="/Members/Details" asp-route-id="@Model.Address.CurrentMember"> Se beboer detaljer </button>
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Address.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+    <div>
+        <a asp-page="./Edit" asp-route-id="Address.Id">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </div>
 </div>
