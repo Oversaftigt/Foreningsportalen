@@ -4,8 +4,10 @@ namespace ForeningsPortalen.Application.Features.Roles.Queries
 {
     public interface IRoleQueries
     {
-        //(Indeholder query-metoder. Metoder skal bruge FeatureQueryResultDto som returtype. 
-        //Dette interface implementeres af FeatureQueries i infrastruktur)
+        /// <summary>
+        /// Get a list of all roles
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<RoleQueryResultDto> GetAllRoles();
     }
 }
