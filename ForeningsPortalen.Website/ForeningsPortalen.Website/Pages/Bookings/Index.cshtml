@@ -10,42 +10,56 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingEnd)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.BookingIndexModel) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingEnd)
-               <input type="hidden" name="itemId" value="@item.Id" />
-            </td>
-                <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (!Model.BookingIndexModel.Any())
+{
+    <h1>Du har ingen fremtidige bookinger lige nu!</h1>
 }
-    </tbody>
-</table>
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+
+                    @Html.DisplayNameFor(model => model.BookingIndexModel[0].CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingIndexModel[0].BookingEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingIndexModel[0].Category)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BookingIndexModel)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingEnd)
+                        <input type="hidden" name="itemId" value="@item.Id" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    @* <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}

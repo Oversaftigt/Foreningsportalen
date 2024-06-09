@@ -10,17 +10,21 @@ using ForeningsPortalen.Website.Models.Booking;
 using ForeningsPortalen.Website.Models.BookingUnit;
 using Newtonsoft.Json;
 using System.Net;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
+using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Booking;
 
 namespace ForeningsPortalen.Website.Pages.Bookings
 {
     public class ConfirmationModel : PageModel
     {
-        public ConfirmationModel()
-        {
+        private readonly IBookingService _bookingService;
+        private readonly IMemberService _memberService;
 
+        public ConfirmationModel(IBookingService bookingService, IMemberService memberService)
+        {
+            _bookingService = bookingService;
+            _memberService = memberService;
         }
-        [BindProperty]
-        public string teststring { get; set; } = "Test";
 
         [BindProperty]
         public IndexBookingUnitModel BookingUnit { get; set; }
@@ -45,9 +49,40 @@ namespace ForeningsPortalen.Website.Pages.Bookings
 
         }
 
-        public void test()
+        public async Task<IActionResult> OnPostAsync()
         {
-            teststring = "fjweigjef";
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
+            try
+            {
+
+                var currentMemberEmail = User.Identity.Name;
+                if (currentMemberEmail != null)
+                {
+                    var member = await _memberService.GetMemberByEmailAsync(currentMemberEmail.ToString());
+
+                    BookingCreateRequestDto booking = new BookingCreateRequestDto()
+                    {
+                        DateOfCreation = DateTime.Now,
+                        StartTime = BookingStartTime.Date,
+                        EndTime = BookingStartTime.Date.AddDays(1),
+                        BookingUnitsID = new List<Guid>{ BookingUnit.Id },
+                        UserId = member.Id,
+                    };
+
+                    await _bookingService.PostBookingAsync(booking);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "Kan ikke oprette booking");
+                return Page();
+                
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }
