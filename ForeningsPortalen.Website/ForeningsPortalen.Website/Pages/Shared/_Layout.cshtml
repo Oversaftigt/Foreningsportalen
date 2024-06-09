@@ -28,7 +28,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="bestyrelsenDropdown">
                                     <li><a class="dropdown-item" asp-area="" asp-page="/Board/Index">Bestyrelsesmedlemmer</a></li>
-                                        @* <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li> *@
+                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Index">Dokumenter</a></li> *@
                                     @if (User.Claims.Any(x => x.Value == "BoardMember" || x.Value == "Administrator" || x.Value == "Chairman" || x.Value == "Tresurer"))
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Documents/Create">Opret Dokument</a></li>
@@ -50,11 +50,11 @@
                                     Personlig
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="personligDropdown">
-                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details">Mine Oplysninger</a></li> *@
-                                    @* <li><a class="dropdown-item" asp-area="" asp-page="/Addresses/Details">Min Bolig</a></li> *@
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Members/Details" asp-route-email="@User.Identity.Name">Mine Oplysninger</a></li>
                                     @* <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li> *@
                                 </ul>
                             </li>
+
                             @if (User.Claims.Any(x => x.Value == "Administrator"))
                             {
                                 <li class="nav-item dropdown">
@@ -79,12 +79,12 @@
                                     </ul>
                                 </li>
                             }
-                                <partial name="_LoginPartial" />
                         }
+                            <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
-                           
+
         </nav>
     </header>
 

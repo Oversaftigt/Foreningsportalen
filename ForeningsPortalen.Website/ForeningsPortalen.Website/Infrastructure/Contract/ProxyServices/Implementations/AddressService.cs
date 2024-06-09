@@ -13,7 +13,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
 
         async Task<AddressQueryResultDto> IAddressService.GetAddressAsync(Guid addressId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/address{addressId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/address/{addressId}");
 
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
@@ -22,14 +22,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             return address;
         }
 
-        //async Task<BmiQueryResultDto?> ILevSundtService.Get(int id, string userId)
-        //{
-        //}
-
-        //async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
-        //{
-        //    return await _httpClient.GetFromJsonAsync<IEnumerable<BmiQueryResultDto>>($"api/Bmi/{userId}");
-        //}
         async Task<IEnumerable<AddressQueryResultDto>> IAddressService.GetAllAddressesAsync(Guid unionId)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/address/union/{unionId}/address");

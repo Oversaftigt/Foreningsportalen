@@ -193,7 +193,7 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
             {
                 _logger.LogError("Something went wrong and the Request to Post an instance of a member on ForeningsPortalen api failed.");
                 return false;
-            }
+            } 
         }
 
         private async Task<IdentityUser> CreateIdentityUser()

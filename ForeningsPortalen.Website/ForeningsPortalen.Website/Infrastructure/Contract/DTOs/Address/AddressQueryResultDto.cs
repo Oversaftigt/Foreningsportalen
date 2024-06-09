@@ -6,6 +6,7 @@
         public string Street { get; set; }
         public int Number { get; set; }
         public string? Level { get; set; }
+        public string? Door { get; set; }
         public string? CityName { get; set; }
         public int PostalCode { get; set; }
         public IEnumerable<Guid>? CurrentTenants { get; set; }

@@ -1,50 +1,115 @@
-﻿@page
+﻿@page "{email}"
 @model ForeningsPortalen.Website.Pages.Members.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.Claims.Any(c => c is { Type: "UnionRole", Value: "Administrator" }))
+        {
+            ViewData["Title"] = "Medlemsoplysninger";
+        }
+        else
+        {
+            ViewData["Title"] = "Min Side";
+        }
+    }
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Member.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Member.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Member.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Member.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Member.EmailAddress)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Member.EmailAddress)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Member.Phone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Member.Phone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Member.MoveOutDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Member.MoveOutDate)
-        </dd>
-        
-    </dl>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Oplysninger</h4>
+                <hr />
+                <dl class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" name="RowVersion" value="@Model.Member.RowVersion" />
+                        <input type="hidden" name="Id" value="@Model.Member.Id" />
+                        <input type="hidden" name="Id" value="@Model.Member.AddressId" />
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Member.FirstName)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Member.FirstName)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Member.LastName)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Member.LastName)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Member.EmailAddress)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Member.EmailAddress)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Member.Phone)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Member.Phone)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Member.MoveOutDate)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Member.MoveOutDate)
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Adresse</h4>
+                <hr />
+                <dl class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" name="Id" value="@Model.Address.Id" />
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Address.Street)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Address.Street)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Address.StreetNumber)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Address.StreetNumber)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Address.City)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Address.City)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Address.ZipCode)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Address.ZipCode)
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Member.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+<div class="mt-3">
+    <div>
+        @if (User.Claims.Any(x => x.Value == "Administrator"))
+        {
+            <a asp-page="./Edit" asp-route-id="@Model.Member.Id">Edit</a>
+            <a asp-page="./Edit" asp-route-id="@Model.Address.Id">Edit</a>
+            <a asp-page="./Index"> Back to List</a>
+        }
+    </div>
 </div>
