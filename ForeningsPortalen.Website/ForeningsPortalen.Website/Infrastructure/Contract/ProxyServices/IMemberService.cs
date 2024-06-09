@@ -31,7 +31,8 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
         /// </summary>
         /// <param name="unionId"></param>
         /// <returns></returns>
+        Task<MemberQueryResultDto> GetMemberByIdAsync(Guid memberId);
+        Task<MemberQueryResultDto> GetMemberByEmailAsync(string memberEmail);
         Task<IEnumerable<MemberQueryResultDto>?> GetAllMembersAsync(Guid unionId);
-
     }
 }

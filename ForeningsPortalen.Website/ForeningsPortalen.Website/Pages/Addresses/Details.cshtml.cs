@@ -18,11 +18,10 @@ namespace ForeningsPortalen.Website.Pages.Addresses
 
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (id == null)
+            if (id == default)
             {
                 return NotFound();
             }
-
 
             var dto = await _addressService.GetAddressAsync(id);
 
@@ -30,16 +29,11 @@ namespace ForeningsPortalen.Website.Pages.Addresses
             {
                 Address = new AddressIndexModel()
                 { Street = dto.Street, StreetNumber = dto.Number, ZipCode = dto.PostalCode, City = dto.CityName, Id = dto.Id };
+                return Page();
             }
-            //if (address == null)
-            //{
-            //    return NotFound();
-            //}
-            //else
-            //{
-            //    Address = address;
-            //}
-            return Page();
+
+            return NotFound();
+
         }
     }
 }

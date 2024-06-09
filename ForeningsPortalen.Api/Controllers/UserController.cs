@@ -11,15 +11,13 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserQueries _UserQueries;
-        private readonly IUserCommands _UserCommands;
-
-        private List<UserQueryResultDto> _QueryResult = new List<UserQueryResultDto>();
+        private readonly IUserQueries _userQueries;
+        private readonly IUserCommands _userCommands;
 
         public UserController(IUserQueries userQuery, IUserCommands userCommands)
         {
-            _UserQueries = userQuery;
-            _UserCommands = userCommands;
+            _userQueries = userQuery;
+            _userCommands = userCommands;
         }
 
         [HttpGet("{userId}")]
@@ -27,7 +25,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                var result = _UserQueries.GetUserById(userId);
+                var result = _userQueries.GetUserById(userId);
                 return Ok(result);
             }
             catch
@@ -41,7 +39,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                var result = _UserQueries.GetUserByUnionId(unionId);
+                var result = _userQueries.GetUserByUnionId(unionId);
                 return Ok(result);
             }
             catch
@@ -56,7 +54,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _UserCommands.CreateUser(request);
+                _userCommands.CreateUser(request);
                 return Created();
             }
             catch
@@ -70,7 +68,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _UserCommands.UpdateUser(request);
+                _userCommands.UpdateUser(request);
                 return NoContent();
             }
             catch
@@ -84,7 +82,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _UserCommands.DeleteUser(deleteRequestDto);
+                _userCommands.DeleteUser(deleteRequestDto);
                 return NoContent();
             }
             catch

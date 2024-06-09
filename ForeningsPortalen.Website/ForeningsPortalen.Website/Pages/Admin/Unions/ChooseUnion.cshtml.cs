@@ -37,17 +37,15 @@ namespace ForeningsPortalen.Website.Pages.Admin.Unions
         public async Task<IActionResult> OnGet()
         {
             var allUnions = await _unionService.GetAllUnionsAsync();
-            if (allUnions == null)
-            {
-                return RedirectToPage("./Create");
-            }
-            else
-            {
-                allUnions?.ToList().ForEach(dto => Unions.Add(new IndexUnion
-                { Name = dto.Name, Id = dto.Id }));
+            //if (!allUnions.Any())
+            //{
+            //    return RedirectToPage("./Create");
+            //} //todo check dette virker
 
-                return Page();
-            }
+            allUnions?.ToList().ForEach(dto => Unions.Add(new IndexUnion
+            { Name = dto.Name, Id = dto.Id }));
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

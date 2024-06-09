@@ -16,6 +16,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Queries
         /// </summary>
         /// <param name="unionId"></param>
         /// <returns></returns>
+        MemberQueryResultDto GetUnionMemberByEmail(string unionMemberEmail);
         IEnumerable<MemberQueryResultDto> GetUnionMembersByUnion(Guid unionId);
     }
 }

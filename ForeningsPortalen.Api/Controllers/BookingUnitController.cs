@@ -35,7 +35,7 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
-        [HttpGet("bookingUnit/{bookingUnitId}/availableTimes")] //only works with bookingunits that can be booked by days currently
+        [HttpGet("bookingUnit/{bookingUnitId}/availableTimes")] //only works with booking units that can be booked by days currently
         public ActionResult<IEnumerable<DateTime>> GetAvailableDatesOfBookingUnit(Guid bookingUnitId)
         {
             try
