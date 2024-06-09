@@ -1,0 +1,16 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Bookings.ConfirmationModel
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+<h1>@Model.teststring</h1>
+<h1>Er du sikker på du vil booke @Model.BookingUnit.Name, @Model.BookingStartTime ?</h1>
+
+<div class="container text-center">
+
+    <a onclick="@Model.test" style="font-size:250px">JA, JEG ER</a>
+    <p>(Der skulle så have været noget logik som booker)</p>
+
+</div>
+

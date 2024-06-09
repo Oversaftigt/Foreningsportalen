@@ -18,7 +18,7 @@ namespace ForeningsPortalen.Website.Pages.Bookings
 
         }
 
-        public IList<BookingIndexModel> BookingIndexModel { get;set; } = default!;
+        public List<BookingIndexModel> BookingIndexModel { get;set; } = new();
 
         public async Task OnGetAsync()
         {

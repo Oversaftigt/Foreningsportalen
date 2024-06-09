@@ -4,6 +4,7 @@ using ForeningsPortalen.Website.Models.BookingUnit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ForeningsPortalen.Website.Pages.BookingUnits
 {
@@ -17,14 +18,15 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
         }
 
         [BindProperty]
-        public string BookingUnitName { get; set; }
+        public IndexBookingUnitModel BookingUnit { get; set; }
 
         [BindProperty]
         public IEnumerable<DateTime> AvailableDates { get; set; } = new List<DateTime>();
 
-        public async Task OnGetAsync(Guid id, string bookingUnitName)
+        public async Task OnGetAsync(Guid id, string bookingUnit)
         {
-            BookingUnitName = bookingUnitName;
+            //BookingUnit = bookingUnit;
+            BookingUnit = JsonConvert.DeserializeObject<IndexBookingUnitModel>(System.Net.WebUtility.UrlDecode(bookingUnit));
             var dates = await _bookingUnitService.GetAvailableDatesForBookingUnit(id);
 
             if (dates is not null)
