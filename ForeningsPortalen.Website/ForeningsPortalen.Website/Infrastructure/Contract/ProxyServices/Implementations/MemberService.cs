@@ -90,26 +90,5 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             }
 
         }
-
-
-        //async Task ILevSundtService.Edit(BmiEditRequestDto bmiEditRequestDto)
-        //{
-        //    var response = await _httpClient.PutAsJsonAsync("api/Bmi", bmiEditRequestDto);
-
-        //    if (response.IsSuccessStatusCode) return;
-
-        //    var messages = await response.Content.ReadAsStringAsync();
-        //    throw new Exception(messages);
-        //}
-
-        //async Task<BmiQueryResultDto?> ILevSundtService.Get(int id, string userId)
-        //{
-        //    return await _httpClient.GetFromJsonAsync<BmiQueryResultDto>($"api/Bmi/{id}/{userId}");
-        //}
-
-        //async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
-        //{
-        //    return await _httpClient.GetFromJsonAsync<IEnumerable<BmiQueryResultDto>>($"api/Bmi/{userId}");
-        //}
     }
 }

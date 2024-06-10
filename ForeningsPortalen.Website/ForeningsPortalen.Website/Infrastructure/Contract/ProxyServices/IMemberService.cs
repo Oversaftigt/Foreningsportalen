@@ -19,14 +19,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
         Task PutMemberAsync(MemberUpdateRequestDto memberUpdateRequest);
 
         /// <summary>
-        /// Get a specific member using its id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="identityName"></param>
-        /// <returns></returns>
-        Task<MemberQueryResultDto?> GetMemberAsync(int id, string identityName);
-
-        /// <summary>
         /// Get a list of all members in a union, using union Id
         /// </summary>
         /// <param name="unionId"></param>
