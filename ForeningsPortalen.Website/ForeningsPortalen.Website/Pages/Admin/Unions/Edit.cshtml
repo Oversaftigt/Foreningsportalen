@@ -1,0 +1,24 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Admin.Unions.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1>Edit</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CurrentUnion.Id" />
+            <input type="hidden" asp-for="CurrentUnion.RowVersion" />
+            <div class="form-group">
+                <label asp-for="CurrentUnion.Name" class="control-label"></label>
+                <input asp-for="CurrentUnion.Name" class="form-control" />
+                <span asp-validation-for="CurrentUnion.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

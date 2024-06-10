@@ -35,6 +35,20 @@ namespace ForeningsPortalen.Api.Controllers
             }
         }
 
+        [HttpGet("{categoryId}")]
+        public ActionResult<CategoryQueryResultDto> GetCategoryById(Guid categoryId)
+        {
+            try
+            {
+                var result = _queries.GetCategory(categoryId);
+                return Ok(result);
+            }
+            catch (Exception ex )
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public ActionResult PostCategory([FromBody] CategoryCreateRequestDto categoryCreateRequestDto)
         {

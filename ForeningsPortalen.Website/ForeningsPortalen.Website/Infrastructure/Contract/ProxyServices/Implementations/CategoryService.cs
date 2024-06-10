@@ -45,5 +45,18 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
 
             //return categories;
         }
+
+        async Task<CategoryQueryResultDto> ICategoryService.GetCategoriesById(Guid categoryId)
+        {
+            try
+            {
+                return await _httpClient.GetFromJsonAsync<CategoryQueryResultDto>($"{_httpClient.BaseAddress}api/category/{categoryId}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return null;
+            }
+        }
     }
 }

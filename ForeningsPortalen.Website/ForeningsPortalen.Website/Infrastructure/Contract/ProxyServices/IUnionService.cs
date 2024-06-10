@@ -16,5 +16,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
         /// <param name="unionCreateRequest"></param>
         /// <returns></returns>
         Task PostUnionAsync(UnionCreateRequestDto unionCreateRequest);
+        Task<UnionQueryResultDto> GetUnionByIdAsync(Guid id);
+        Task PutUnionAsync(UnionUpdateRequestDto unionUpdateRequest);
     }
 }
