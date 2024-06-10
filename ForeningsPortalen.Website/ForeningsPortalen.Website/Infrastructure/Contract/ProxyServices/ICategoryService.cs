@@ -8,6 +8,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
 
         Task<IEnumerable<CategoryQueryResultDto>> GetCategoriesAsync(Guid unionId);
 
-
+        Task<CategoryQueryResultDto> GetCategoriesById(Guid categoryId);
     }
 }

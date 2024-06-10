@@ -28,8 +28,6 @@ namespace ForeningsPortalen.Website.Pages.Admin.BookingCategories
         
         public async Task OnGetAsync()
         {
-          
-
             var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
             if (activeUnionId != null)
             {

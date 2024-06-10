@@ -32,8 +32,10 @@ namespace ForeningsPortalen.Website.Pages.Bookings
         [BindProperty]
         public DateTime BookingStartTime { get; set; }
 
+        [BindProperty]
+        public DateTime BookingEndTime { get; set; }
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task OnGetAsync(string bookingUnit, string startTime)
+        public async Task OnGetAsync(string bookingUnit, string startTime, string endTime)
         {
             BookingUnit = new();
             if (bookingUnit != null)
@@ -41,11 +43,15 @@ namespace ForeningsPortalen.Website.Pages.Bookings
                 BookingUnit = JsonConvert.DeserializeObject<IndexBookingUnitModel>(System.Net.WebUtility.UrlDecode(bookingUnit));
             }
             BookingStartTime = DateTime.Now;
+
             if (DateTime.TryParse(WebUtility.UrlDecode(startTime), out DateTime parsedStartTime))
             {
                 BookingStartTime = parsedStartTime;
             }
-
+            if (DateTime.TryParse(WebUtility.UrlDecode(endTime), out DateTime parsedEndTime))
+            {
+                BookingEndTime = parsedEndTime;
+            }
 
         }
 
@@ -66,8 +72,8 @@ namespace ForeningsPortalen.Website.Pages.Bookings
                     BookingCreateRequestDto booking = new BookingCreateRequestDto()
                     {
                         DateOfCreation = DateTime.Now,
-                        StartTime = BookingStartTime.Date,
-                        EndTime = BookingStartTime.Date.AddDays(1),
+                        StartTime = BookingStartTime,
+                        EndTime = BookingEndTime,
                         BookingUnitsID = new List<Guid>{ BookingUnit.Id },
                         UserId = member.Id,
                     };

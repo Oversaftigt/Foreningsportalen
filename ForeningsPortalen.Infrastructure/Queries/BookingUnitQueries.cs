@@ -105,6 +105,12 @@ namespace ForeningsPortalen.Infrastructure.Queries
                         break;
                     }
                 }
+                //excludes times that overlap with the actual current time
+                if (dateTime <= DateTime.Now)
+                {
+                    isTimeAvailable = false;
+                    
+                }
 
                 if (isTimeAvailable)
                     availableTimes.Add(dateTime);
