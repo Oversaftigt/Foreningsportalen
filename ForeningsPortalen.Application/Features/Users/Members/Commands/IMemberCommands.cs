@@ -9,7 +9,7 @@ namespace ForeningsPortalen.Application.Features.Users.UnionMembers.Commands
         /// Create a new member
         /// </summary>
         /// <param name="createRequestDto"></param>
-        void CreateUnionMember(MemberCreateRequestDto createRequestDto);,
+        void CreateUnionMember(MemberCreateRequestDto createRequestDto);
 
         /// <summary>
         /// Update an existing member
