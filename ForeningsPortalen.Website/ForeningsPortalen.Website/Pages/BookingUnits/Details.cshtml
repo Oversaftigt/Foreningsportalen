@@ -37,11 +37,11 @@
                         @* <a asp-page="/Bookings/Create"> *@
                         @if (bookingDurationType == "Hours")
                         {
-                            @item.ToString("dddd, MM/dd/yyyy HH:mm - ") @endTime.ToString("HH:mm")
+                            @item.ToString("dddd, dd/MM/yyyy HH:mm - ") @endTime.ToString("HH:mm")
                         }
                         else if (bookingDurationType == "Days")
                         {
-                            @item.ToString("dddd, MM/dd/yyyy - ") @endTime.ToString("dddd, MM/dd/yyyy")
+                            @item.ToString("dddd, dd/MM/yyyy - ") @endTime.ToString("dddd, dd/MM/yyyy")
                         }
                         @* </a> *@
                         <details>
