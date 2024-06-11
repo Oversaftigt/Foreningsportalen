@@ -150,5 +150,31 @@ namespace ForeningsPortalen.Infrastructure.Queries
             return bookingUnits;
         }
 
+        BookingUnitQueryResultDto IBookingUnitQueries.GetBookingUnitById(Guid id)
+        {
+            var bookingUnit = _dbContext.BookingUnit.AsNoTracking()
+                .Include(b => b.Bookings)
+                .Select(b => new BookingUnitQueryResultDto
+                {
+                    Id = b.BookingUnitId,
+                    BookingUnitName = b.Name,
+                    IsBookingUnitActive = b.IsActive,
+                    AdvancePayment = b.Deposit,
+                    Fee = b.Price,
+                    ReservationLimit = b.MaxBookingDuration,
+                    CategoryId = b.Category.CategoryId,
+                    BookingIds = b.Bookings.Select(x => x.BookingId).ToList(),
+                    RowVersion = b.RowVersion,
+                })
+                .Where(b => b.Id == id)
+                .FirstOrDefault();
+
+            if (bookingUnit is null)
+            {
+                throw new ArgumentNullException("Error finding booking unit");
+            }
+
+            return bookingUnit;
+        }
     }
 }

@@ -17,5 +17,7 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices
         /// <param name="bookingUnitId"></param>
         /// <returns></returns>
         Task<IEnumerable<DateTime>> GetAvailableDatesForBookingUnit(Guid bookingUnitId);
+
+        Task<BookingUnitQueryResultDto> GetBookingUnitById(Guid id);
     }
 }

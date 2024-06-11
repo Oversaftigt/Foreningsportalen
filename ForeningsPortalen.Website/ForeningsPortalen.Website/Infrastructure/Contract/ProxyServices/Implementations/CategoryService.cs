@@ -35,15 +35,6 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
                 return null;
             }
 
-            ////var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/category/categories/ByUnion/{unionId}");
-
-            //var response = await _httpClient.SendAsync(request);
-            //response.EnsureSuccessStatusCode();
-
-
-            //var categories = await response.Content.ReadFromJsonAsync<IEnumerable<CategoryQueryResultDto>>();
-
-            //return categories;
         }
 
         async Task<CategoryQueryResultDto> ICategoryService.GetCategoriesById(Guid categoryId)
