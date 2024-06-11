@@ -15,11 +15,11 @@ namespace ForeningsPortalen.Domain.Entities
             this.Name = name;
         }
 
-        public Guid UnionId { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<Address>? Addresses { get; set; }
-        public IEnumerable<Document>? Documents { get; set; }
-        //public IEnumerable<User> Users { get; set; }
+        public Guid UnionId { get; private set; }
+        public string Name { get; private set; }
+        public IEnumerable<Address>? Addresses { get; private set; }
+        public IEnumerable<Document>? Documents { get; private set; }
+        //public IEnumerable<User> Users { get; private set; }
 
         public static Union Create(string unionName, IServiceProvider services)
         {

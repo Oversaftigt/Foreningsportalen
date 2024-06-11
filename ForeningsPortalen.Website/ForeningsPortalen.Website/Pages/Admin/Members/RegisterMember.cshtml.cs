@@ -109,7 +109,7 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                         return;
                     }
 
-                    await _signInManager.RefreshSignInAsync(user);
+                    //await _signInManager.RefreshSignInAsync(user);
 
                     //var userId = await _userManager.GetUserIdAsync(user);
                     //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -127,7 +127,7 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
                     _unitOfWork.Commit();
                     Console.WriteLine("Email: " + CreateMember.Email +" Password: " + CreateMember.Password);
                     _logger.LogInformation($"Member with {CreateMember.Email} and password: {CreateMember.Password} has been successfully created");
-                    var claimAdd = AddClaimsToUser(user);
+                    //var claimAdd = AddClaimsToUser(user);
                 }
                 else
                 {
@@ -143,26 +143,25 @@ namespace ForeningsPortalen.Website.Pages.Admin.Members
 
         private async Task<bool> AddClaimsToUser(IdentityUser user)
         {
-            List<Claim> claims = new List<Claim>()
-            {
-             (new Claim("UnionId", UnionId.ToString()))
-            };
 
-            foreach (var role in Roles)
-            {
-                if (role.TryGetValue(CreateMember.RoleId, out var roleName))
-                {
-                    claims.Add(new Claim("UnionRole", roleName));
-                    break;
-                }
-                else
-                {
-                    _logger.LogError($"Failed to create UnionRole claim");
-                    return false;
-                }
-            }
+            Claim claim = new Claim("UnionId", UnionId.ToString());
+            
 
-            var addClaimResult = await _userManager.AddClaimsAsync(user, claims);
+            //foreach (var role in Roles)
+            //{
+            //    if (role.TryGetValue(CreateMember.RoleId, out var roleName))
+            //    {
+            //        claims.Add(new Claim("UnionRole", roleName));
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        _logger.LogError($"Failed to create UnionRole claim");
+            //        return false;
+            //    }
+            //}
+
+            var addClaimResult = await _userManager.AddClaimAsync(user, claim);
             if (!addClaimResult.Succeeded)
             {
                 _logger.LogError($"Unable to add claims to new user");

@@ -35,6 +35,9 @@
                                     }
                                 </ul>
                             </li>
+                            @if (!User.Claims.Any(x => x.Value == "Administrator"))
+                            {
+                                
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Booking
@@ -54,6 +57,7 @@
                                     @* <li><a class="dropdown-item" asp-area="" asp-page="/Bookings/Index">Mine Bookinger</a></li> *@
                                 </ul>
                             </li>
+                            }
 
                             @if (User.Claims.Any(x => x.Value == "Administrator"))
                             {
@@ -73,8 +77,8 @@
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Members/Index">Medlemsoversigt</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-page="/Admin/Members/RegisterMember"> Opret nyt medlem </a></li>
                                         <li class="border-top my-3">Booking</li>
-                                        <li><a class="dropdown-item" asp-area="" asp-page="Admin/BookingCategories/Index">Oversigt over Bookingkategorier</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-page="Admin/BookingCategories/Create">Opret Bookingkategori</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-page="/Admin/BookingCategories/Index">Oversigt over Bookingkategorier</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-page="/Admin/BookingCategories/Create">Opret Bookingkategori</a></li>
                                         <li><a class="dropdown-item" asp-area="" asp-page="/BookingUnits/Index">Oversigt over Bookingenheder</a></li>
                                     </ul>
                                 </li>

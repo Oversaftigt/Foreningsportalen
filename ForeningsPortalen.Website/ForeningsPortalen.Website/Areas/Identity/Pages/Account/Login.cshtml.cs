@@ -2,23 +2,29 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace ForeningsPortalen.Website.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMemberService _memberService;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IMemberService memberService, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _memberService = memberService;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -70,24 +76,37 @@ namespace ForeningsPortalen.Website.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
+                    var member = await _memberService.GetMemberByEmailAsync(Input.Email);
 
-                    
-                    //var claims = await _signInManager.UserManager.GetClaimsAsync(user);
-                    //if (claims.Any())
-                    //{
-                    //    var isAdmin = claims.Any(c => c.Type == "UnionRole" && c.Value == "Administrator");
+                    var claims = await _signInManager.UserManager.GetClaimsAsync(user);
+                    if (!claims.Any())
+                    {
+                        List<Claim> userClaims = new()
+                                {
+                                new Claim("UnionId",member.UnionId.ToString()),
+                                new Claim("UnionRole","Menig")
+                                };
+                        var addClaimResult = await _userManager.AddClaimsAsync(user, userClaims);
+                        if (addClaimResult.Succeeded is false)
+                        {
+                            _logger.LogError($"Unable to add claims to new user");
+                            foreach (var error in addClaimResult.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                        await _signInManager.RefreshSignInAsync(user);
+                    }
+                    var isAdmin = claims.Any(c => c.Type == "UnionRole" && c.Value == "Administrator");
 
-                    //    if (isAdmin)
-                    //    {
-                    //        return RedirectToPage("/Admin/Unions/ChooseUnion");
-                    //    }
-                    //}
-                    //else { 
-                    
+                    if (isAdmin is true)
+                    {
+                        return RedirectToPage("/Admin/Unions/ChooseUnion");
+                    }
+
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
-                    //}
                 }
                 else
                 {
