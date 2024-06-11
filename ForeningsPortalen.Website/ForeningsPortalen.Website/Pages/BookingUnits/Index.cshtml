@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Bookingenheder</h1>
 
 <p>
     @* <a asp-page="Create">Create New</a> *@
@@ -28,9 +28,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.BookingUnits[0].MaxBookingDuration)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingUnits[0].Category)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,6 +36,7 @@
         <tr>
             <td>
                 <input type="hidden" name="itemId" value="@item.Id" />
+                <input type="hidden" name="itemId" value="@item.Category" />
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -54,11 +52,8 @@
                 @Html.DisplayFor(modelItem => item.MaxBookingDuration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
                 @* <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | *@
-                <a asp-page="./Details" asp-route-id="@item.Id">Se ledige datoer de næste 30 dage</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Se ledige bookingperioder for de næste 30 dage</a> |
                 @* <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> *@
             </td>
         </tr>

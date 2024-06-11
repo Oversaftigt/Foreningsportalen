@@ -19,14 +19,14 @@ namespace ForeningsPortalen.Domain.Entities
             FileExtension = extension;
         }
 
-        public Guid DocumentId { get; set; }
-        public Member Member { get; set; }
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
-        public byte[] DocContent { get; set; }
-        public DateOnly Date { get; set; }
-        public Union Union { get; set; }
-        public string FileExtension { get; set; }
+        public Guid DocumentId { get; private set; }
+        public Member Member { get; private set; }
+        public string FileName { get; private set; }
+        public string FilePath { get; private set; }
+        public byte[] DocContent { get; private set; }
+        public DateOnly Date { get; private set; }
+        public Union Union { get; private set; }
+        public string FileExtension { get; private set; }
 
 
         public static Document CreateDocument(Member uploadedBy, string documentName, string filePath)

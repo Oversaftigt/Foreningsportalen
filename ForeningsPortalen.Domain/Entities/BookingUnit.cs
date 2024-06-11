@@ -20,14 +20,14 @@ namespace ForeningsPortalen.Domain.Entities
             Category = category;
         }
 
-        public Guid BookingUnitId { get; set; }
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
-        public double Deposit { get; set; }
-        public double Price { get; set; }
-        public int MaxBookingDuration { get; set; }
-        public Category Category { get; set; }
-        public IEnumerable<Booking> Bookings { get; set; }
+        public Guid BookingUnitId { get; private set; }
+        public string Name { get; private set; }
+        public bool IsActive { get; private set; }
+        public double Deposit { get; private set; }
+        public double Price { get; private set; }
+        public int MaxBookingDuration { get; private set; }
+        public Category Category { get; private set; }
+        public IEnumerable<Booking> Bookings { get; private set; }
 
         public static BookingUnit CreateBookingUnit(string name, bool isActive, double deposit, double price,
                         int maxBookingDuration, Category category, IServiceProvider services)

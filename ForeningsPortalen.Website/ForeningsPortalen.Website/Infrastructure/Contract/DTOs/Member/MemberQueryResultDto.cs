@@ -10,6 +10,7 @@
         public required DateOnly MoveInDate { get; set; }
         public DateOnly? MoveOutDate { get; set; }
         public Guid CurrentAddress { get; set; }
+        public Guid UnionId { get; set; }
         public required byte[] RowVersion { get; set; }
     }
 }

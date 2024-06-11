@@ -14,14 +14,14 @@ namespace ForeningsPortalen.Domain.Entities
             Role = role;
             FromDate = fromDate;
         }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public Guid UserId { get; private set; }
+        public User User { get; private set; }
 
-        public Guid RoleId { get; set; }
-        public Role Role { get; set; }
+        public Guid RoleId { get; private set; }
+        public Role Role { get; private set; }
 
-        public DateOnly FromDate { get; set; }
-        public DateOnly? ToDate { get; set; }
+        public DateOnly FromDate { get; private set; }
+        public DateOnly? ToDate { get; private set; }
 
         public static UserRoleHistory CreateUserRoleHistory(User user, Role role, DateOnly fromDate)
         {
