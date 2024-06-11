@@ -19,6 +19,20 @@ namespace ForeningsPortalen.Api.Controllers
             _bookingUnitQueries = bookingUnitQueries;
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<BookingUnitQueryResultDto> GetBookingUnitById(Guid id)
+        {
+            try
+            {
+                var bookingUnit = _bookingUnitQueries.GetBookingUnitById(id);
+                return Ok(bookingUnit);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpGet("category/{categoryId}/bookingUnit")]
         public ActionResult<IEnumerable<BookingUnitQueryResultDto>> GetBookingUnitsOfCategory(Guid categoryId)
         {

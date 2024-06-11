@@ -31,11 +31,21 @@ namespace ForeningsPortalen.Website.Pages.BookingUnits
         [BindProperty]
         public string BookingDurationType { get; set; }
 
-        public async Task OnGetAsync(Guid id, string bookingUnit)
+        public async Task OnGetAsync(Guid id)
         {
-            //BookingUnit = bookingUnit;
-            BookingUnit = JsonConvert.DeserializeObject<IndexBookingUnitModel>(System.Net.WebUtility.UrlDecode(bookingUnit));
-
+            var bookingUnitDto = await _bookingUnitService.GetBookingUnitById(id);
+            BookingUnit = new IndexBookingUnitModel()
+            {
+                Id = bookingUnitDto.Id,
+                Name = bookingUnitDto.BookingUnitName,
+                Category = bookingUnitDto.CategoryId,
+                IsActive = bookingUnitDto.IsBookingUnitActive,
+                Deposit = bookingUnitDto.AdvancePayment,
+                Price = bookingUnitDto.Fee,
+                MaxBookingDuration = bookingUnitDto.ReservationLimit,
+                Bookings = bookingUnitDto.BookingIds,
+                RowVersion = bookingUnitDto.RowVersion
+            };
             var category = await _categoryService.GetCategoriesById(BookingUnit.Category);
             BookingDurationType = category.ReservationLimitType;
 

@@ -49,7 +49,7 @@ namespace ForeningsPortalen.Domain.Entities
             if (AreBookingUnitsAllTheSameCategory(bookingUnits) is false)
                 throw new InvalidOperationException("Booking units are not all the same category");
 
-            if (IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId), bookingUnits) is true)
+            if (IsBookingLimitReachedOfCategory(bookingDomainService.OtherBookingsFromAddress(user.Address.AddressId), bookingUnits[0]) is true)
                 throw new InvalidOperationException("Max bookings of this category is reached");
 
             if (IsBookingOverlapping(bookingDomainService.OtherBookingsFromUnion(user.Address.Union.UnionId),
@@ -76,20 +76,28 @@ namespace ForeningsPortalen.Domain.Entities
 
         // Check if booking is overlapping with other bookings that have at least one of the same bookingunit
         private static bool IsBookingOverlapping(IEnumerable<Booking> otherBookings, DateTime bookingStart,
-                                                 DateTime bookingEnd, IEnumerable<BookingUnit> bookingUnits)
+                                                 DateTime bookingEnd, IEnumerable<BookingUnit> currentBookingUnits)
         {
             //first get the bookings with overlapping time from the same union
             var bookingsWithOverlappingTime = otherBookings.Where(other =>
                                               (bookingEnd > other.BookingStart && bookingStart < other.BookingEnd));
 
 
-            //secondly if there is any bookings that overlap, check is they have overlapping bookingunits used in them
+            //secondly, gets the bookingunits from the overlapping bookings as a list
             var bookingUnitsInOverlappingBookings = bookingsWithOverlappingTime.SelectMany(booking => booking.BookingUnits);
 
-            return bookingUnitsInOverlappingBookings
-                    .Any(bookingUnit => bookingUnits
-                        .Any(x => x.BookingUnitId == bookingUnit.BookingUnitId));
+            //Checks if any bookingunits from bookingUnitsInOverlappingBookings is the same as any bookingunit in the current booking that is being made
+            foreach (var otherBookingUnit in bookingUnitsInOverlappingBookings)
+            {
+                bool isOverlapping = currentBookingUnits.Any(x => x.BookingUnitId == otherBookingUnit.BookingUnitId);
 
+                if (isOverlapping is true)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static bool AreBookingUnitsAllTheSameCategory(List<BookingUnit> bookingUnits)
@@ -98,10 +106,10 @@ namespace ForeningsPortalen.Domain.Entities
             return bookingUnits.All(bookingUnit => bookingUnit.Category.CategoryId.Equals(categoryGuid));
         }
 
-        private static bool IsBookingLimitReachedOfCategory(IEnumerable<Booking> otherBookingsFromThisAddress, List<BookingUnit> bookingUnits)
+        private static bool IsBookingLimitReachedOfCategory(IEnumerable<Booking> otherBookingsFromThisAddress, BookingUnit bookingUnit)
         {
-            Guid categoryGuid = bookingUnits[0].Category.CategoryId;
-            int maxBookingsOfCategory = bookingUnits[0].Category.MaxBookingsOfThisCategory;
+            Guid categoryGuid = bookingUnit.Category.CategoryId;
+            int maxBookingsOfCategory = bookingUnit.Category.MaxBookingsOfThisCategory;
             int currentNumberOfBookingsOfCategory = otherBookingsFromThisAddress
                                                     .Where(booking => booking.BookingUnits[0].Category.CategoryId.Equals(categoryGuid))
                                                     .Count();

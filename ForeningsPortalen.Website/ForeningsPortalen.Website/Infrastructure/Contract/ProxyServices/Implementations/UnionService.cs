@@ -51,11 +51,5 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             return union ?? throw new Exception("Union not found");
         }
 
-
-
-        //async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
-        //{
-        //    return await _httpClient.GetFromJsonAsync<IEnumerable<BmiQueryResultDto>>($"api/Bmi/{userId}");
-        //}
     }
 }

@@ -41,12 +41,18 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             }
         }
 
+        async Task<BookingUnitQueryResultDto> IBookingUnitService.GetBookingUnitById(Guid id)
+        {
+            try
+            {
+                var response = await _httpclient.GetFromJsonAsync<BookingUnitQueryResultDto>($"{_httpclient.BaseAddress}api/BookingUnit/{id}");
+                return response;
+            } 
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return null;
+            }
+        }
     }
 }
-//var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}api/member/union/{unionId}/member");
-
-//var response = await _httpClient.SendAsync(request);
-//response.EnsureSuccessStatusCode();
-//var addresses = await response.Content.ReadFromJsonAsync<IEnumerable<MemberQueryResultDto>>();
-
-//return addresses;

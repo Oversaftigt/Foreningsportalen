@@ -5,6 +5,8 @@ namespace ForeningsPortalen.Application.Features.BookingUnits.Queries
 {
     public interface IBookingUnitQueries
     {
+        BookingUnitQueryResultDto GetBookingUnitById(Guid id);
+
         /// <summary>
         /// Get all booking units
         /// </summary>

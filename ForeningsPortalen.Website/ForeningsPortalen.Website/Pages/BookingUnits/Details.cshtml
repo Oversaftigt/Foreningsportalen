@@ -1,6 +1,4 @@
 ﻿@page
-@using Newtonsoft.Json
-@using System.Net
 @model ForeningsPortalen.Website.Pages.BookingUnits.DetailsModel
 
 @{
@@ -22,34 +20,27 @@
         <tbody>
             @foreach (var index in Enumerable.Range(0, Model.AvailableDates.Count()))
             {
-                var item = Model.AvailableDates[index];
+                var startTime = Model.AvailableDates[index];
                 var endTime = Model.AvailableDatesEndTime[index];
                 var bookingDurationType = Model.BookingDurationType;
-
-
-                var serializedItem = JsonConvert.SerializeObject(@Model.BookingUnit);
-                var encodedItem = System.Net.WebUtility.UrlEncode(serializedItem);
-                var encodedDate = System.Net.WebUtility.UrlEncode(item.ToString("o")); // o is round-trip format
-                var encodedEndTime = System.Net.WebUtility.UrlEncode(endTime.ToString("o")); // o is round-trip format
-
                 <tr>
                     <td>
                         @* <a asp-page="/Bookings/Create"> *@
                         @if (bookingDurationType == "Hours")
                         {
-                            @item.ToString("dddd, MM/dd/yyyy HH:mm - ") @endTime.ToString("HH:mm")
+                            @startTime.ToString("dddd, dd/MM/yyyy HH:mm - ") @endTime.ToString("HH:mm")
                         }
                         else if (bookingDurationType == "Days")
                         {
-                            @item.ToString("dddd, MM/dd/yyyy - ") @endTime.ToString("dddd, MM/dd/yyyy")
+                            @startTime.ToString("dddd, dd/MM/yyyy - ") @endTime.ToString("dddd, dd/MM/yyyy")
                         }
                         @* </a> *@
                         <details>
                             <summary>
                                 Vis mere
                             </summary>
-                            <a asp-page="/Bookings/Confirmation" asp-route-startTime="@encodedDate" 
-                            asp-route-endTime="@encodedEndTime" asp-route-bookingUnit="@encodedItem"
+                            <a asp-page="/Bookings/Confirmation" asp-route-startTime="@startTime.ToString()" 
+                            asp-route-endTime="@endTime.ToString()" asp-route-id="@Model.BookingUnit.Id"
                             method="get" style="display:inline;">Book</a>
                         </details>
                     </td>

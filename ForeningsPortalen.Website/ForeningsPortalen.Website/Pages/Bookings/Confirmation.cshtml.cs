@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net;
 using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices;
 using ForeningsPortalen.Website.Infrastructure.Contract.DTOs.Booking;
+using ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implementations;
 
 namespace ForeningsPortalen.Website.Pages.Bookings
 {
@@ -19,11 +20,13 @@ namespace ForeningsPortalen.Website.Pages.Bookings
     {
         private readonly IBookingService _bookingService;
         private readonly IMemberService _memberService;
+        private readonly IBookingUnitService _bookingUnitService;
 
-        public ConfirmationModel(IBookingService bookingService, IMemberService memberService)
+        public ConfirmationModel(IBookingService bookingService, IMemberService memberService, IBookingUnitService bookingUnitService)
         {
             _bookingService = bookingService;
             _memberService = memberService;
+            _bookingUnitService = bookingUnitService;
         }
 
         [BindProperty]
@@ -35,20 +38,29 @@ namespace ForeningsPortalen.Website.Pages.Bookings
         [BindProperty]
         public DateTime BookingEndTime { get; set; }
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task OnGetAsync(string bookingUnit, string startTime, string endTime)
+        public async Task OnGetAsync(Guid id, string startTime, string endTime)
         {
             BookingUnit = new();
-            if (bookingUnit != null)
+            var bookingUnitDto = await _bookingUnitService.GetBookingUnitById(id);
+            BookingUnit = new IndexBookingUnitModel()
             {
-                BookingUnit = JsonConvert.DeserializeObject<IndexBookingUnitModel>(System.Net.WebUtility.UrlDecode(bookingUnit));
-            }
+                Id = bookingUnitDto.Id,
+                Name = bookingUnitDto.BookingUnitName,
+                Category = bookingUnitDto.CategoryId,
+                IsActive = bookingUnitDto.IsBookingUnitActive,
+                Deposit = bookingUnitDto.AdvancePayment,
+                Price = bookingUnitDto.Fee,
+                MaxBookingDuration = bookingUnitDto.ReservationLimit,
+                Bookings = bookingUnitDto.BookingIds,
+                RowVersion = bookingUnitDto.RowVersion
+            };
             BookingStartTime = DateTime.Now;
 
-            if (DateTime.TryParse(WebUtility.UrlDecode(startTime), out DateTime parsedStartTime))
+            if (DateTime.TryParse(startTime, out DateTime parsedStartTime))
             {
                 BookingStartTime = parsedStartTime;
             }
-            if (DateTime.TryParse(WebUtility.UrlDecode(endTime), out DateTime parsedEndTime))
+            if (DateTime.TryParse(endTime, out DateTime parsedEndTime))
             {
                 BookingEndTime = parsedEndTime;
             }
