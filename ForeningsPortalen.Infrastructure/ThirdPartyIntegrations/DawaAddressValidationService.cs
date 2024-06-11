@@ -17,16 +17,19 @@ namespace ForeningsPortalen.Infrastructure.ThirdPartyIntegrations
 
         public bool AddressIsValid(string fullAddress)
         {
+            //Uri.EscapeDataString gør en string brugbar til en URI ved at erstatte ting såsom mellemrum
+            //med et hexadecimal (fx mellemrum bliver til %20)
             var request = new HttpRequestMessage(HttpMethod.Get, _baseAddress+$"?betegnelse={Uri.EscapeDataString(fullAddress)}");
             HttpResponseMessage? response = _client.Send(request);
             response.EnsureSuccessStatusCode();
 
             string responseBody = response.Content.ReadAsStringAsync().Result;
 
-            //using jsondocument to get the value of a single property from the full json from the api
+            //jsondocument bruges til at få værdien af en enkelt property fra den fulde json fra apikald
             using JsonDocument jsonDoc = JsonDocument.Parse(responseBody);
             JsonElement root = jsonDoc.RootElement;
 
+            //Der tjekkes på den enkelte property kaldt "kategori", 
             string category = root.GetProperty("kategori").GetString();
 
             if (category is "A" or "B")

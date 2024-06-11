@@ -20,10 +20,10 @@ namespace ForeningsPortalen.Domain.Entities
             return user;
         }
 
-        public Guid UserId { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public ICollection<UserRoleHistory> RoleHistories { get; set; }
+        public Guid UserId { get; private set; }
+        public string Email { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public ICollection<UserRoleHistory> RoleHistories { get; private set; }
 
 
     }

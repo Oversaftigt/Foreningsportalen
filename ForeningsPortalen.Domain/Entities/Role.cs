@@ -10,10 +10,10 @@ namespace ForeningsPortalen.Domain.Entities
         {
             Name = roleName;
         }
-        public Guid RoleId { get; set; }
-        public string Name { get; set; }
-        public bool IsBoardPosition { get; set; }
-        public ICollection<UserRoleHistory> UserHistories { get; set; }
+        public Guid RoleId { get; private set; }
+        public string Name { get; private set; }
+        public bool IsBoardPosition { get; private set; }
+        public ICollection<UserRoleHistory> UserHistories { get; private set; }
 
         public static Role CreateRole(string roleName)
         {

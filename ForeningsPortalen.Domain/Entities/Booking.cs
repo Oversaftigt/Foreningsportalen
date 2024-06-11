@@ -19,14 +19,14 @@ namespace ForeningsPortalen.Domain.Entities
             User = user;
         }
 
-        public Guid BookingId { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime BookingStart { get; set; }
-        public DateTime BookingEnd { get; set; }
+        public Guid BookingId { get; private set; }
+        public DateTime CreationDate { get; private set; }
+        public DateTime BookingStart { get; private set; }
+        public DateTime BookingEnd { get; private set; }
 
         //Fk
-        public List<BookingUnit> BookingUnits { get; set; }
-        public Member User { get; set; }
+        public List<BookingUnit> BookingUnits { get; private set; }
+        public Member User { get; private set; }
 
         public static Booking CreateBooking(DateTime creationDate, DateTime bookingStart,
             DateTime bookingEnd, List<BookingUnit> bookingUnits, Member user, IServiceProvider services)

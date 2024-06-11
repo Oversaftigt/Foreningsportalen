@@ -26,15 +26,15 @@ namespace ForeningsPortalen.Domain.Entities
 
         }
 
-        public Guid AddressId { get; set; }
-        public string StreetName { get; set; }
-        public int StreetNumber { get; set; }
-        public string? Floor { get; set; }
-        public string? Door { get; set; }
-        public string City { get; set; }
-        public int ZipCode { get; set; }
-        public Union Union { get; set; }
-        public IEnumerable<Member> Members { get; set; }
+        public Guid AddressId { get; private set; }
+        public string StreetName { get; private set; }
+        public int StreetNumber { get; private set; }
+        public string? Floor { get; private set; }
+        public string? Door { get; private set; }
+        public string City { get; private set; }
+        public int ZipCode { get; private set; }
+        public Union Union { get; private set; }
+        public IEnumerable<Member> Members { get; private set; }
 
         public static Address Create(string streetName, int streetNumber, string? floor, string? door, string city,
                                      int zipCode, Union union, IServiceProvider services)

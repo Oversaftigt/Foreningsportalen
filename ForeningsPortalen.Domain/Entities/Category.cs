@@ -17,11 +17,11 @@ namespace ForeningsPortalen.Domain.Entities
             Union = union;
         }
 
-        public Guid CategoryId { get; set; }
-        public string Name { get; set; }
-        public BookingDurationType DurationType { get; set; }
-        public int MaxBookingsOfThisCategory { get; set; }
-        public Union Union { get; set; }
+        public Guid CategoryId { get; private set; }
+        public string Name { get; private set; }
+        public BookingDurationType DurationType { get; private set; }
+        public int MaxBookingsOfThisCategory { get; private set; }
+        public Union Union { get; private set; }
 
         public static Category CreateCategory(string name, string durationType,
                                               int maxBookingsOfThisCategory, Union union, IServiceProvider services)
