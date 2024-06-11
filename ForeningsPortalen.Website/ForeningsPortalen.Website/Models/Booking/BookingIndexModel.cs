@@ -19,6 +19,9 @@ namespace ForeningsPortalen.Website.Models.Booking
         [Display(Name = "Sluttidspunkt for booking")]
         public DateTime BookingEnd { get; set; }
 
+        [Required]
+        [Display(Name = "Kategori for booking")]
+        public string Category { get; set; }
         //Fk
         [Required]
         [Display(Name = "Liste over booking enheder")]

@@ -28,18 +28,18 @@
                 <input asp-for="CreateCategoryModel.Name" class="form-control" />
                 <span asp-validation-for="CreateCategoryModel.Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
                 <div class="form-group">
                     <label for="SelectCategoryType">Vælg kategoriens reservations type:</label>
-                    <select id="SelectCategoryType" name="CreateCategoryModel.DurationType" class="form-control">
-                        @foreach (var type in Model.ReservationType)
+                <select id="SelectCategoryType" name="CreateCategoryModel.DurationType" class="form-control">
+                    @foreach (var type in Model.ReservationType)
+                    {
+                        foreach (var kvp in type)
                         {
-                            foreach (var kvp in type)
-                            {
-                                <option value="@kvp.Value">@kvp.Key</option>
-                            }
+                            <option value="@kvp.Value">@kvp.Key</option>
                         }
-                    </select>
+                    }
+                </select>
+            </div>
             <div class="form-group">
                 <label asp-for="CreateCategoryModel.MaxBookingsOfThisCategory" class="control-label"></label>
                 <input asp-for="CreateCategoryModel.MaxBookingsOfThisCategory" class="form-control" />
@@ -48,6 +48,7 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+                
         </form>
     </div>
 </div>

@@ -2,12 +2,12 @@
 {
     public class BookingCreateRequestDto
     {
-        public DateTime CreationDate { get; set; }
-        public DateTime BookingStart { get; set; }
-        public DateTime BookingEnd { get; set; }
+        public DateTime DateOfCreation { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         //Fk
-        public List<Guid> BookingUnits { get; set; }
+        public List<Guid> BookingUnitsID { get; set; }
         public Guid UserId { get; set; }
     }
 }

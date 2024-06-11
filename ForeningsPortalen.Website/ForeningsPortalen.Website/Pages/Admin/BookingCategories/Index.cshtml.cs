@@ -28,13 +28,11 @@ namespace ForeningsPortalen.Website.Pages.Admin.BookingCategories
         
         public async Task OnGetAsync()
         {
-          
-
             var activeUnionId = User.Claims.FirstOrDefault(x => x.Type == "UnionId").Value;
             if (activeUnionId != null)
             {
-                var GuidUnionId = Guid.Parse(activeUnionId);
-                var categories = await _categoryService.GetCategoriesAsync(GuidUnionId);
+                var guidUnionId = Guid.Parse(activeUnionId);
+                var categories = await _categoryService.GetCategoriesAsync(guidUnionId);
 
                 if (categories != null)
                 {

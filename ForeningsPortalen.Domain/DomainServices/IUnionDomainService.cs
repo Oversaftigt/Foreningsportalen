@@ -9,6 +9,10 @@ namespace ForeningsPortalen.Domain.DomainServices
 {
     public interface IUnionDomainService
     {
+        /// <summary>
+        /// Gets a list of all the unions in the database
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<Union> OtherUnions();
     }
 }

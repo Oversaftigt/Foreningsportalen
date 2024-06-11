@@ -11,17 +11,17 @@ namespace ForeningsPortalen.Api.Controllers
     [ApiController]
     public class UnionController : ControllerBase
     {
-        private readonly IUnionQueries _Queries;
-        private readonly IUnionCommands _Commands;
+        private readonly IUnionQueries _unionQueries;
+        private readonly IUnionCommands _unionCommands;
         public UnionController(IUnionQueries query, IUnionCommands commands)
         {
-            _Queries = query;
-            _Commands = commands;
+            _unionQueries = query;
+            _unionCommands = commands;
         }
         [HttpGet("{id}")]
         public ActionResult<UnionQueryResultDto> GetUnion(Guid id)
         {
-            var result = _Queries.GetUnionById(id);
+            var result = _unionQueries.GetUnionById(id);
             if (result == null)
                 return NotFound(result);
 
@@ -31,7 +31,7 @@ namespace ForeningsPortalen.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<UnionQueryResultDto>> GetAllUnions()
         {
-            var result = _Queries.GetAllUnions().ToList();
+            var result = _unionQueries.GetAllUnions().ToList();
             if (!result.Any())
                 return NoContent();
 
@@ -43,7 +43,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _Commands.UpdateUnion(unionCommandUpdateDto);
+                _unionCommands.UpdateUnion(unionCommandUpdateDto);
                 return Ok();
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _Commands.CreateUnion(unionCommandCreateDto);
+                _unionCommands.CreateUnion(unionCommandCreateDto);
                 return Ok();
             }
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace ForeningsPortalen.Api.Controllers
         {
             try
             {
-                _Commands.DeleteUnion(deleteDto);
+                _unionCommands.DeleteUnion(deleteDto);
                 return Ok();
 
             }

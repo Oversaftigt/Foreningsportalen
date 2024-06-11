@@ -30,8 +30,7 @@ namespace ForeningsPortalen.Website.Pages.Members
                 if (members != null)
                 {
                     members?.ToList().ForEach(dto => Members.Add(new IndexMemberModel
-                    { FirstName = dto.FirstName, LastName = dto.LastName, EmailAddress = dto.Email, 
-                      Phone = dto.PhoneNumber, Id = dto.Id, MoveInDate = dto.MoveInDate, MoveOutDate = dto.MoveOutDate}));
+                    { FirstName = dto.FirstName, LastName = dto.LastName, EmailAddress = dto.Email}));
                 }
             }
         }

@@ -1,0 +1,24 @@
+﻿@page
+@model ForeningsPortalen.Website.Pages.Bookings.ConfirmationModel
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>Er du sikker på du vil booke @Model.BookingUnit.Name, @Model.BookingStartTime ?</h1>
+
+<div class="container text-center">
+
+    <div class="form-group">
+        <form method="post">
+            <input type="hidden" asp-for="BookingStartTime" />
+            <input type="hidden" asp-for="BookingEndTime" />
+            <input type="hidden" asp-for="BookingUnit.Id" />
+            <input type="hidden" asp-for="BookingUnit.Name" />
+            <input type="submit" value="Ja, jeg er" class="btn btn-primary" />
+        </form>
+    </div>
+    <p>(Der skulle så have været noget logik som booker)</p>
+
+</div>
+

@@ -1,4 +1,6 @@
 ﻿@page 
+@using Newtonsoft.Json
+@using System.Net
 @model ForeningsPortalen.Website.Pages.BookingUnits.IndexModel
 
 @{
@@ -36,6 +38,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model.BookingUnits) {
+            var serializedItem = JsonConvert.SerializeObject(item);
+            var encodedItem = System.Net.WebUtility.UrlEncode(serializedItem);
         <tr>
             <td>
                 <input type="hidden" name="itemId" value="@item.Id" />
@@ -58,7 +62,7 @@
             </td>
             <td>
                 @* <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> | *@
-                <a asp-page="./Details" asp-route-id="@item.Id" asp-route-bookingUnitName="@item.Name">Se ledige datoer de næste 30 dage</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id" asp-route-bookingUnit="@encodedItem">Se ledige datoer de næste 30 dage</a> |
                 @* <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> *@
             </td>
         </tr>

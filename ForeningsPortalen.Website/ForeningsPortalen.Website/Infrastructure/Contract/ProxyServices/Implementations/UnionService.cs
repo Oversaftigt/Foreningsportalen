@@ -32,6 +32,25 @@ namespace ForeningsPortalen.Website.Infrastructure.Contract.ProxyServices.Implem
             throw new Exception("Creating a union failed");
         }
 
+        async Task IUnionService.PutUnionAsync(UnionUpdateRequestDto unionUpdateRequest)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"{_httpClient.BaseAddress}api/union/{unionUpdateRequest.id}", unionUpdateRequest);
+
+            if (response.IsSuccessStatusCode) return;
+            throw new Exception("Updating union failed");
+        }
+
+        async Task<UnionQueryResultDto> IUnionService.GetUnionByIdAsync(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"{_httpClient.BaseAddress}api/union/{id}");
+
+            response.EnsureSuccessStatusCode();
+
+            var union = await response.Content.ReadFromJsonAsync<UnionQueryResultDto>();
+
+            return union ?? throw new Exception("Union not found");
+        }
+
 
 
         //async Task<IEnumerable<BmiQueryResultDto>?> ILevSundtService.GetAll(string userId)
