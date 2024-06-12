@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ForeningsPortalen.Api/Dockerfile
+    ports:
+      - "8080:8080"
 
   foreningsportalen.website:
     image: ${DOCKER_REGISTRY-}foreningsportalenwebsite
@@ -14,6 +16,8 @@ services:
       dockerfile: ForeningsPortalen.Website/ForeningsPortalen.Website/Dockerfile
     environment:
         ForeningsPortalenBaseUrl: "http://foreningsportalen.api:8080"
+    ports:
+      - "8081:8080"
     depends_on:
         - foreningsportalen.api
 
